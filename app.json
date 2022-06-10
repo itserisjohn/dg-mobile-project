@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Care Collective",
+    "description": "Care Collective Mobile Application",
+    "slug": "nocstat",
+    "privacy": "public",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/app-icon.png",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#5be0e6"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.nocstat",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "",
+        "backgroundColor": "#5be0e6"
+      }
+    },
+    "web": {
+      "build": {
+        "babel": {
+          "include": ["galio-framework"]
+        }
+      }
+    }
+  }
+}
