@@ -54,7 +54,8 @@
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
     "react-number-format": "^4.9.3",
-    "rn-credit-card": "^1.0.4"
+    "rn-credit-card": "^1.0.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "babel-preset-expo": "8.3.0",
