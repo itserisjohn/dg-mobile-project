@@ -1,4 +1,4 @@
-import { Animated, Dimensions, Easing } from "react-native";
+import { Animated, Dimensions, Easing, Image, Platform } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Header, Icon } from "../components";
 import { Images, materialTheme } from "../constants/";
@@ -13,6 +13,7 @@ import React from "react";
 import SettingsScreen from "../screens/Settings";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SignUpCareProviderScreen from "../screens/SignUp/CareProvider";
 import LegalWaiverScreen from "../screens/SignUp/LegalWaiver";
 import ChooseAccountScreen from "../screens/SignUp/ChooseAccount";
@@ -21,11 +22,15 @@ import PaymentInfoScreen from "../screens/SignUp/PaymentInfo";
 import AddCreditCardScreen from "../screens/SignUp/AddCreditCard";
 import CheckList2Screen from "../screens/SignUp/Checklist2";
 import OtherInformationScreen from "../screens/SignUp/OtherInformation";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const { width } = Dimensions.get("screen");
 
+const HomeStack = createStackNavigator();
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 const profile = {
   avatar: Images.Profile,
@@ -84,16 +89,15 @@ function SettingsStack(props) {
   );
 }
 
-function HomeStack(props) {
+function HomeStackScreen(props) {
   return (
-    <Stack.Navigator
-      initialRouteName="HomeScreen"
+    <HomeStack.Navigator
       screenOptions={{
         mode: "card",
         headerShown: "screen",
       }}
     >
-      <Stack.Screen
+      <HomeStack.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
@@ -101,14 +105,72 @@ function HomeStack(props) {
             <Header
               search
               tabs
-              title="Home"
+              title="HomeScreen"
               navigation={navigation}
               scene={scene}
             />
           ),
         }}
       />
-    </Stack.Navigator>
+    </HomeStack.Navigator>
+  );
+}
+
+function TabMenus(props) {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#87c9e4",
+        tabBarInactiveTintColor: "#4B4C4C",
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          marginBottom: 8,
+          marginTop: -8,
+          fontWeight: "700",
+        },
+        tabBarStyle: {
+          height: Platform.OS == "ios" ? 90 : 60,
+          // position: 'absolute',
+          backgroundColor: "#ffffff",
+          // borderRadius: 50,
+          // bottom: 20,
+          // marginHorizontal: 16
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeStackScreen}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <MaterialCommunityIcons
+                name={focused ? "home" : "home-outline"}
+                size={32}
+                color={focused ? "#87c9e4" : "#4B4C4C"}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileStack}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <MaterialCommunityIcons
+                name={focused ? "account-circle" : "account-circle-outline"}
+                size={28}
+                color={focused ? "#87c9e4" : "#4B4C4C"}
+              />
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
@@ -143,30 +205,16 @@ function AppStack(props) {
           fontWeight: "normal",
         },
       }}
-      initialRouteName="Home"
+      initialRouteName="HomeScreen"
     >
       <Drawer.Screen
-        name="Home"
-        component={HomeStack}
+        name="HomeScreen"
+        component={TabMenus}
         options={{
           drawerIcon: ({ focused }) => (
             <Icon
               size={16}
               name="shop"
-              family="GalioExtra"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Profile"
-        component={ProfileStack}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="circle-10"
               family="GalioExtra"
               color={focused ? "white" : materialTheme.COLORS.MUTED}
             />

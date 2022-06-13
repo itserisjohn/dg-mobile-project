@@ -85,12 +85,12 @@ const ChooseAccount = ({ navigation }) => {
               marginTop: hp("1%"),
               backgroundColor: "#ffffff",
               borderColor: "#ffffff",
-              color: "#5CCBE6",
+              color: "#87c9e4",
             }}
             placeholder="Type of Account"
-            placeholderStyle={{ color: "#5CCBE6" }}
-            arrowIconContainerStyle={{ color: "#5CCBE6" }}
-            labelStyle={"#5CCBE6"}
+            placeholderStyle={{ color: "#87c9e4" }}
+            arrowIconContainerStyle={{ color: "#87c9e4" }}
+            labelStyle={"#87c9e4"}
           /> */}
           <SelectDropdown
             data={items}
@@ -110,7 +110,7 @@ const ChooseAccount = ({ navigation }) => {
               return (
                 <FontAwesome
                   name={isOpened ? "chevron-up" : "chevron-down"}
-                  color={"#5CCBE6"}
+                  color={"#87c9e4"}
                   size={14}
                 />
               );
@@ -129,7 +129,7 @@ const ChooseAccount = ({ navigation }) => {
                 style={[
                   styles.textSign,
                   {
-                    color: "#5CCBE6",
+                    color: "#87c9e4",
                     fontFamily: "Poppins_400Regular",
                     paddingVertical,
                   },
@@ -160,7 +160,7 @@ export default ChooseAccount;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
   },
   backBtn: {
     alignItems: "flex-start",
@@ -239,11 +239,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#5CCBE6",
+    borderColor: "#87c9e4",
     marginTop: 3,
   },
   dropdown1BtnTxtStyle: {
-    color: "#5CCBE6",
+    color: "#87c9e4",
     textAlign: "left",
     fontSize: 16,
     fontFamily: "Poppins_400Regular",
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#C5C5C5",
   },
   dropdown1RowTxtStyle: {
-    color: "#5CCBE6",
+    color: "#87c9e4",
     textAlign: "left",
     fontSize: 16,
     fontFamily: "Poppins_400Regular",
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   dropdown2BtnStyle: {
     width: "80%",
     height: 50,
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
     borderRadius: 8,
   },
   dropdown2BtnTxtStyle: {
@@ -279,12 +279,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   dropdown2DropdownStyle: {
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
   },
   dropdown2RowStyle: {
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
     borderBottomColor: "#C5C5C5",
   },
   dropdown2RowTxtStyle: {
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: "#5CCBE6",
+    borderColor: "#87c9e4",
   },
   dropdown3BtnChildStyle: {
     flex: 1,
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   },
   dropdown3BtnImage: { width: 45, height: 45, resizeMode: "cover" },
   dropdown3BtnTxt: {
-    color: "#5CCBE6",
+    color: "#87c9e4",
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 24,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
   dropdown3DropdownStyle: { backgroundColor: "slategray" },
   dropdown3RowStyle: {
     backgroundColor: "slategray",
-    borderBottomColor: "#5CCBE6",
+    borderBottomColor: "#87c9e4",
     height: 50,
   },
   dropdown3RowChildStyle: {
@@ -345,13 +345,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#5CCBE6",
+    borderColor: "#87c9e4",
   },
-  dropdown4BtnTxtStyle: { color: "#5CCBE6", textAlign: "left" },
+  dropdown4BtnTxtStyle: { color: "#87c9e4", textAlign: "left" },
   dropdown4DropdownStyle: { backgroundColor: "#EFEFEF" },
   dropdown4RowStyle: {
     backgroundColor: "#EFEFEF",
     borderBottomColor: "#C5C5C5",
   },
-  dropdown4RowTxtStyle: { color: "#5CCBE6", textAlign: "left" },
+  dropdown4RowTxtStyle: { color: "#87c9e4", textAlign: "left" },
 });

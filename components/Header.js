@@ -21,15 +21,12 @@ const iPhoneX = () =>
   (height === 812 || width === 812 || height === 896 || width === 896);
 
 const ChatButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity
-    style={[styles.button, style]}
-    onPress={() => navigation.navigate("Pro")}
-  >
+  <TouchableOpacity style={[styles.button]}>
     <Icon
       family="GalioExtra"
-      size={hp("4.5%")}
+      size={hp("2.62%")}
       name="chat-33"
-      color={theme.COLORS[isWhite ? "WHITE" : "ICON"]}
+      color="#ffffff"
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -40,14 +37,11 @@ const ChatButton = ({ isWhite, style, navigation }) => (
 );
 
 const ScheduledButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity
-    style={[styles.button, style]}
-    onPress={() => navigation.navigate("Pro")}
-  >
+  <TouchableOpacity style={[styles.button]}>
     <MaterialCommunityIcons
       name="calendar-check"
-      color={theme.COLORS[isWhite ? "WHITE" : "ICON"]}
-      size={hp("4.5%")}
+      color="#ffffff"
+      size={hp("2.62%")}
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -58,14 +52,11 @@ const ScheduledButton = ({ isWhite, style, navigation }) => (
 );
 
 const PendingButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity
-    style={[styles.button, style]}
-    onPress={() => navigation.navigate("Pro")}
-  >
+  <TouchableOpacity style={[styles.button]}>
     <MaterialCommunityIcons
       name="calendar-clock"
-      color={theme.COLORS[isWhite ? "WHITE" : "ICON"]}
-      size={hp("4.5%")}
+      color="#ffffff"
+      size={hp("2.62%")}
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -76,14 +67,11 @@ const PendingButton = ({ isWhite, style, navigation }) => (
 );
 
 const OnDemandButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity
-    style={[styles.button, style]}
-    onPress={() => navigation.navigate("Pro")}
-  >
+  <TouchableOpacity style={[styles.button]}>
     <MaterialCommunityIcons
-      name="alert-decagram-outline"
-      color="#ff0000"
-      size={hp("4.5%")}
+      name="alert-decagram"
+      color={materialTheme.COLORS.LABEL}
+      size={hp("2.62%")}
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -103,14 +91,10 @@ class Header extends React.Component {
     const { white, title, navigation } = this.props;
 
     return [
-      <OnDemandButton key="ondemand" navigation={navigation} isWhite={white} />,
-      <PendingButton key="pending" navigation={navigation} isWhite={white} />,
-      <ScheduledButton
-        key="scheduled"
-        navigation={navigation}
-        isWhite={white}
-      />,
-      <ChatButton key="chat" navigation={navigation} isWhite={white} />,
+      <OnDemandButton key="ondemand" isWhite={white} />,
+      <PendingButton key="pending" isWhite={white} />,
+      <ScheduledButton key="scheduled" isWhite={white} />,
+      <ChatButton key="chat" isWhite={white} />,
     ];
   };
 
@@ -192,8 +176,8 @@ class Header extends React.Component {
       "Profile",
     ].includes(title);
     const headerStyles = [
-      !noShadow ? styles.shadow : null,
-      transparent ? { backgroundColor: "rgba(0,0,0,0)" } : null,
+      !noShadow ? null : null,
+      !transparent ? { backgroundColor: "rgba(0,0,0,0)" } : null,
       { marginTop: Platform.OS === "android" ? -(HeaderHeight / 2.5) : 0 },
     ];
 
@@ -208,8 +192,8 @@ class Header extends React.Component {
           rightStyle={{ alignItems: "flex-end" }}
           leftStyle={{ flex: 0.3, paddingTop: 2 }}
           leftIconName={back ? "chevron-left" : "navicon"}
-          leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
-          leftIconSize={32}
+          leftIconColor="#ffffff"
+          leftIconSize={hp("3.4%")}
           titleStyle={[
             styles.title,
             { color: theme.COLORS[white ? "WHITE" : "ICON"] },
@@ -226,8 +210,14 @@ export default withNavigation(Header);
 
 const styles = StyleSheet.create({
   button: {
-    padding: 12,
+    backgroundColor: "rgba(152, 224, 253, 0.5)",
+    height: hp("4.5%"),
+    width: hp("4.5%"),
+    borderRadius: hp("2.25%"),
+    padding: hp("1%"),
     position: "relative",
+    marginBottom: 8,
+    marginRight: wp("3%"),
   },
   title: {
     width: "100%",
@@ -235,11 +225,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   navbar: {
+    backgroundColor: "#87c9e4",
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 2,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4.5 : theme.SIZES.BASE * 1.5,
     zIndex: 5,
-    paddingRight: 75,
+    paddingRight: hp("8sdf%"),
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
@@ -255,8 +246,8 @@ const styles = StyleSheet.create({
     height: theme.SIZES.BASE * 1.1,
     width: theme.SIZES.BASE * 1.1,
     position: "absolute",
-    top: 8,
-    right: 6,
+    top: 0,
+    right: 0,
     paddingLeft: 1,
   },
   header: {

@@ -61,7 +61,7 @@ const SignUpCareProvider = ({ navigation }) => {
 
   const buttonStyle = {
     width: 100,
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
     padding: wp("1%"),
     borderRadius: 4,
   };
@@ -135,7 +135,7 @@ const SignUpCareProvider = ({ navigation }) => {
       paddingTop: hp("3%"),
       paddingLeft: hp("7%"),
       paddingRight: hp("7%"),
-      backgroundColor: "#5CCBE6",
+      backgroundColor: "#87c9e4",
       height: Platform.OS === "ios" ? hp("65%") : hp("70%"),
     },
     progressContainerPhoto: {
@@ -143,7 +143,7 @@ const SignUpCareProvider = ({ navigation }) => {
       paddingTop: hp("10%"),
       paddingLeft: hp("7%"),
       paddingRight: hp("7%"),
-      backgroundColor: "#5CCBE6",
+      backgroundColor: "#87c9e4",
       height: Platform.OS === "ios" ? hp("65%") : hp("70%"),
     },
     input: {
@@ -202,7 +202,7 @@ const SignUpCareProvider = ({ navigation }) => {
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#5CCBE6"}
+          color={"#87c9e4"}
           style={styles.backBtn}
         />
       </Button>
@@ -213,12 +213,13 @@ const SignUpCareProvider = ({ navigation }) => {
           </Text>
         </View>
         <ProgressSteps
-          progressBarColor="#5CCBE6"
-          activeStepIconBorderColor="#5CCBE6"
-          activeStepNumColor="#5CCBE6"
-          activeLabelColor="#5CCBE6"
-          completedProgressBarColor="#5CCBE6"
-          completedStepIconColor="#5CCBE6"
+          activeStepIconColor="#87c9e4"
+          disabledStepNumColor="transparent"
+          activeStepIconBorderColor="#87c9e4"
+          activeStepNumColor="#87c9e4"
+          activeLabelColor="#87c9e4"
+          completedProgressBarColor="#87c9e4"
+          completedStepIconColor="#87c9e4"
           topOffset={Platform.OS === "ios" ? hp("12%") : hp("8%")}
           marginBottom={Platform.OS === "ios" ? hp("13%") : hp("9%")}
           labelFontSize={hp("1.6%")}

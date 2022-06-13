@@ -21,15 +21,6 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : materialTheme.COLORS.MUTED}
           />
         );
-      case "Profile":
-        return (
-          <Icon
-            size={16}
-            name="circle-10"
-            family="GalioExtra"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
-          />
-        );
       case "Settings":
         return (
           <Icon
@@ -114,11 +105,11 @@ export default DrawerItem;
 
 const styles = StyleSheet.create({
   defaultStyle: {
-    paddingVertical: 16,
+    marginTop: 10,
     paddingHorizontal: 16,
   },
   activeStyle: {
-    backgroundColor: materialTheme.COLORS.ACTIVE,
+    backgroundColor: "#87c9e4",
     borderRadius: 4,
   },
   shadow: {

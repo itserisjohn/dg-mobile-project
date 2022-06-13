@@ -36,7 +36,7 @@ const CheckList = ({ navigation }) => {
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#5CCBE6"}
+          color={"#87c9e4"}
           style={styles.backBtn}
         />
       </Button>
@@ -45,7 +45,7 @@ const CheckList = ({ navigation }) => {
           Account Registration
         </Text>
       </View>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <View
         style={{
           height: hp("70%"),
@@ -58,13 +58,13 @@ const CheckList = ({ navigation }) => {
         <View style={styles.checkboxContainer}>
           <Checkbox
             label=""
-            color="#5CCBE6"
+            color="#87c9e4"
             initialValue={true}
             disabled
             checkboxStyle={{
               width: hp("4%"),
               height: hp("4%"),
-              borderColor: "#5CCBE6",
+              borderColor: "#87c9e4",
             }}
             iconSize={hp("3%")}
           />
@@ -75,13 +75,13 @@ const CheckList = ({ navigation }) => {
         <View style={styles.checkboxContainer}>
           <Checkbox
             label=""
-            color="#5CCBE6"
+            color="#87c9e4"
             initialValue={true}
             disabled
             checkboxStyle={{
               width: hp("4%"),
               height: hp("4%"),
-              borderColor: "#5CCBE6",
+              borderColor: "#87c9e4",
             }}
             iconSize={hp("3%")}
           />
@@ -92,12 +92,12 @@ const CheckList = ({ navigation }) => {
         <View style={styles.checkboxContainer}>
           <Checkbox
             label=""
-            color="#5CCBE6"
+            color="#87c9e4"
             disabled
             checkboxStyle={{
               width: hp("4%"),
               height: hp("4%"),
-              borderColor: "#5CCBE6",
+              borderColor: "#87c9e4",
             }}
             iconSize={hp("3%")}
           />
@@ -108,12 +108,12 @@ const CheckList = ({ navigation }) => {
         <View style={styles.checkboxContainer}>
           <Checkbox
             label=""
-            color="#5CCBE6"
+            color="#87c9e4"
             disabled
             checkboxStyle={{
               width: hp("4%"),
               height: hp("4%"),
-              borderColor: "#5CCBE6",
+              borderColor: "#87c9e4",
             }}
             iconSize={hp("3%")}
           />
@@ -130,7 +130,7 @@ const CheckList = ({ navigation }) => {
               style={[
                 styles.textSign,
                 {
-                  color: "#5CCBE6",
+                  color: "#87c9e4",
                 },
               ]}
             >
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
   },
   backBtn2: {
-    borderColor: "#5CCBE6",
+    borderColor: "#87c9e4",
     width: "100%",
     height: hp("5%"),
     justifyContent: "center",
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   headerText: {
     position: "absolute",
     top: hp("2.5%"),
-    color: "#5CCBE6",
+    color: "#87c9e4",
     fontWeight: "bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
@@ -205,8 +205,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
-    backgroundColor: "#5CCBE6",
-    borderColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
+    borderColor: "#87c9e4",
     borderWidth: 1,
     marginTop: hp("1.8%"),
   },

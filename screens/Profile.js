@@ -127,7 +127,8 @@ export default class Profile extends React.Component {
 const styles = StyleSheet.create({
   profile: {
     // marginTop: Platform.OS === "android" ? -HeaderHeight : 0,
-    marginBottom: -HeaderHeight * 2,
+    marginBottom:
+      Platform.OS === "ios" ? -HeaderHeight * 3.5 : -HeaderHeight * 2.1,
   },
   profileImage: {
     width: "auto",

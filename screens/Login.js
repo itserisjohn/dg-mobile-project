@@ -261,7 +261,7 @@ const SignInScreen = ({ navigation }) => {
     },
     footerImage: {
       position: "absolute",
-      bottom: hp("13.5%"),
+      bottom: hp("43%"),
       width: wp("20%"),
       height: hp("7%"),
     },
@@ -274,7 +274,7 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#eaeeea" barStyle="light-content" />
+      <StatusBar backgroundColor="#eaeeea" barStyle="dark-content" />
       <View style={styles.header}>
         <Image source={Logo} style={styles.logo} resizeMode="contain"></Image>
       </View>
@@ -283,7 +283,7 @@ const SignInScreen = ({ navigation }) => {
         style={[
           styles.footer,
           {
-            backgroundColor: "#5CCBE6",
+            backgroundColor: "#87c9e4",
           },
         ]}
       >
@@ -312,13 +312,13 @@ const SignInScreen = ({ navigation }) => {
             </Animatable.View>
           ) : null}
         </View>
-        {!data.isValidUser && usernameFocused ? (
+        {/* {!data.isValidUser && usernameFocused ? (
           <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>
               Username must be 4 characters long.
             </Text>
           </Animatable.View>
-        ) : null}
+        ) : null} */}
         <View
           style={[
             !passwordFocused ? styles.action : styles.actionFocused,
@@ -356,17 +356,17 @@ const SignInScreen = ({ navigation }) => {
             )}
           </TouchableOpacity>
         </View>
-        {!data.isValidPassword && passwordFocused ? (
+        {/* {!data.isValidPassword && passwordFocused ? (
           <Animatable.View animation="fadeInLeft" duration={500}>
             <Text style={styles.errorMsg}>
               Password must be 8 characters long.
             </Text>
           </Animatable.View>
-        ) : null}
+        ) : null} */}
         <TouchableOpacity>
           <Text
             style={{
-              color: "#5CCBE6",
+              color: "#87c9e4",
               marginTop: hp("2%"),
               textAlign: "right",
               fontSize: hp("1.8%"),
@@ -391,7 +391,7 @@ const SignInScreen = ({ navigation }) => {
               style={[
                 styles.textSign,
                 {
-                  color: "#5CCBE6",
+                  color: "#87c9e4",
                   fontFamily: "Poppins_600SemiBold",
                 },
               ]}

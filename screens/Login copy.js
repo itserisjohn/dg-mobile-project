@@ -139,7 +139,7 @@ const SignInScreen = ({ navigation }) => {
         <View style={!usernameFocused ? styles.action : styles.actionFocused}>
           <FontAwesome
             name="user-o"
-            color={!usernameFocused ? "#4B4C4C" : "#5CCBE6"}
+            color={!usernameFocused ? "#4B4C4C" : "#87c9e4"}
             size={26}
           />
           <TextInput
@@ -177,7 +177,7 @@ const SignInScreen = ({ navigation }) => {
         >
           <Feather
             name="lock"
-            color={!passwordFocused ? "#4B4C4C" : "#5CCBE6"}
+            color={!passwordFocused ? "#4B4C4C" : "#87c9e4"}
             size={26}
             style={{ marginLeft: -2 }}
           />
@@ -211,7 +211,7 @@ const SignInScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text
             style={{
-              color: "#5CCBE6",
+              color: "#87c9e4",
               marginTop: 22,
               textAlign: "right",
               fontSize: 16,
@@ -226,7 +226,7 @@ const SignInScreen = ({ navigation }) => {
             style={[
               styles.signIn,
               {
-                borderColor: "#5CCBE6",
+                borderColor: "#87c9e4",
                 borderWidth: 1,
                 marginTop: 15,
               },
@@ -286,7 +286,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
   },
   header: {
     flex: 1,
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#5CCBE6",
+    borderBottomColor: "#87c9e4",
     paddingBottom: 12,
   },
   actionError: {
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    backgroundColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
   },
   textSign: {
     fontSize: 18,

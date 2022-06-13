@@ -46,7 +46,7 @@ const LegalWaiver = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
 
       <View style={{ height: hp("65%"), padding: hp("5%") }}>
         <Text color="#696c74" style={styles.titleContainer}>
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
-    backgroundColor: "#5CCBE6",
-    borderColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
+    borderColor: "#87c9e4",
     borderWidth: 1,
     marginTop: hp("1.8%"),
   },

@@ -4,12 +4,23 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  Platform,
 } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { useSafeArea } from "react-native-safe-area-context";
 
 import { Icon, Drawer as DrawerCustomItem } from "../components/";
 import { Images, materialTheme } from "../constants/";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import {
+  useFonts,
+  Poppins_200ExtraLight,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 function CustomDrawerContent({
   drawerPosition,
@@ -20,7 +31,17 @@ function CustomDrawerContent({
   ...rest
 }) {
   const insets = useSafeArea();
-  const screens = ["Home", "Profile", "Settings"];
+  const screens = ["Home", "Settings"];
+
+  let [fontsLoaded] = useFonts({
+    Poppins_200ExtraLight,
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
   return (
     <Block
       style={styles.container}
@@ -41,9 +62,12 @@ function CustomDrawerContent({
           <Text size={16} muted style={styles.seller}>
             {profile.type}
           </Text>
-          <Text size={16} color={materialTheme.COLORS.WARNING}>
-            {profile.rating}{" "}
-            <Icon name="shape-star" family="GalioExtra" size={14} />
+          <Text
+            size={16}
+            color="#fcda0c"
+            style={{ fontFamily: "Poppins_500Medium" }}
+          >
+            {profile.rating} <FontAwesome name="star" size={16} />
           </Text>
         </Block>
       </Block>
@@ -91,10 +115,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: "#4B1958",
+    backgroundColor: "#87c9e4",
     paddingHorizontal: 28,
     paddingBottom: theme.SIZES.BASE,
-    paddingTop: theme.SIZES.BASE * 2,
+    paddingTop:
+      Platform.OS === "ios" ? theme.SIZES.BASE * 4 : theme.SIZES.BASE * 2,
     justifyContent: "center",
   },
   footer: {
@@ -120,6 +145,7 @@ const styles = StyleSheet.create({
   },
   seller: {
     marginRight: 16,
+    color: "#ffffff",
   },
 });
 

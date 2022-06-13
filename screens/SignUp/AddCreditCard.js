@@ -44,7 +44,7 @@ const AddCreditCard = ({ navigation }) => {
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#5CCBE6"}
+          color={"#87c9e4"}
           style={styles.backBtn}
         />
       </Button>
@@ -53,13 +53,13 @@ const AddCreditCard = ({ navigation }) => {
           User Account Holder
         </Text>
       </View>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View>
           <View
             style={{
               height: hp("70%"),
-              marginTop: hp("10%"),
+              marginTop: hp("14%"),
               paddingLeft: wp("14%"),
               paddingRight: wp("14%"),
             }}
@@ -97,7 +97,7 @@ const AddCreditCard = ({ navigation }) => {
                 style={[
                   styles.textSign,
                   {
-                    color: "#5CCBE6",
+                    color: "#87c9e4",
                   },
                 ]}
               >
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
   },
   backBtn2: {
-    borderColor: "#5CCBE6",
+    borderColor: "#87c9e4",
     width: "100%",
     height: hp("5%"),
     justifyContent: "center",
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   headerText: {
     position: "absolute",
     top: hp("2.5%"),
-    color: "#5CCBE6",
+    color: "#87c9e4",
     fontWeight: "bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
-    backgroundColor: "#5CCBE6",
-    borderColor: "#5CCBE6",
+    backgroundColor: "#87c9e4",
+    borderColor: "#87c9e4",
     borderWidth: 1,
     marginTop: hp("1.8%"),
   },
