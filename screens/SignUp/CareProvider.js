@@ -246,7 +246,11 @@ const SignUpCareProvider = ({ navigation }) => {
                 placeholder="Username"
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Password
               </Text>
               <TextInput
@@ -254,7 +258,11 @@ const SignUpCareProvider = ({ navigation }) => {
                 placeholder="Password"
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Confirm Password
               </Text>
               <TextInput
@@ -280,7 +288,11 @@ const SignUpCareProvider = ({ navigation }) => {
               duration={400}
               style={styles.progressContainer}
             >
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 First Name
               </Text>
               <TextInput
@@ -288,7 +300,11 @@ const SignUpCareProvider = ({ navigation }) => {
                 placeholder="Your First Name"
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Last Name
               </Text>
               <TextInput
@@ -296,7 +312,11 @@ const SignUpCareProvider = ({ navigation }) => {
                 placeholder="Your Last Name"
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 SSN
               </Text>
               <MaskInput
@@ -310,7 +330,11 @@ const SignUpCareProvider = ({ navigation }) => {
                 mask={ssn}
                 keyboardType="number-pad"
               />
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Date of birth
               </Text>
               <TextInput
@@ -318,7 +342,11 @@ const SignUpCareProvider = ({ navigation }) => {
                 placeholder="DoB"
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Phone Number
               </Text>
               <TextInput
@@ -327,13 +355,17 @@ const SignUpCareProvider = ({ navigation }) => {
                 placeholder="Phone Number"
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Email Address
               </Text>
               <TextInput
                 keyboardType="email-address"
                 style={styles.input}
-                placeholder="Phone Number"
+                placeholder="Email Address"
                 placeholderTextColor="#addddb"
               ></TextInput>
             </View>
@@ -349,35 +381,55 @@ const SignUpCareProvider = ({ navigation }) => {
             scrollable={false}
           >
             <View style={styles.progressContainer}>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Address 1
               </Text>
               <TextInput
                 style={styles.input}
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Address 2
               </Text>
               <TextInput
                 style={styles.input}
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 City
               </Text>
               <TextInput
                 style={styles.input}
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 State
               </Text>
               <TextInput
                 style={styles.input}
                 placeholderTextColor="#addddb"
               ></TextInput>
-              <Text size={hp("1.8%")} color={materialTheme.COLORS.WHITE}>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.WHITE}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Zip
               </Text>
               <TextInput
@@ -425,7 +477,7 @@ const SignUpCareProvider = ({ navigation }) => {
                 size={hp("2.5%")}
                 color={materialTheme.COLORS.WHITE}
                 onPress={takePhoto}
-                style={{ marginTop: 30 }}
+                style={{ marginTop: 30, fontFamily: "Poppins_400Regular" }}
               >
                 Take a Photo
               </Text>

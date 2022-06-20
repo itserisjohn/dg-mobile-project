@@ -182,10 +182,12 @@ const SignInScreen = ({ navigation }) => {
     title1: {
       fontWeight: "600",
       color: "#ffffff",
+      fontFamily: "Poppins_600SemiBold",
     },
     title2: {
       fontWeight: "300",
       color: "#9966ff",
+      fontFamily: "Poppins_300Light",
     },
     footer: {
       backgroundColor: "#fff",

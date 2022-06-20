@@ -22,6 +22,7 @@ import PaymentInfoScreen from "../screens/SignUp/PaymentInfo";
 import AddCreditCardScreen from "../screens/SignUp/AddCreditCard";
 import CheckList2Screen from "../screens/SignUp/Checklist2";
 import OtherInformationScreen from "../screens/SignUp/OtherInformation";
+import CareRecipientInfoScreen from "../screens/SignUp/CareRecipientInfo";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -331,6 +332,13 @@ function SignUpCareProviderStack(props) {
       <Stack.Screen
         name="OtherInformationScreen"
         component={OtherInformationScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="CareRecipientInfoScreen"
+        component={CareRecipientInfoScreen}
         option={{
           headerTransparent: false,
         }}

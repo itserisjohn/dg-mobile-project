@@ -68,7 +68,11 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
+          <Text
+            size={hp("2.5%")}
+            color="#4B4C4C"
+            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
+          >
             Create an Account
           </Text>
         </View>
@@ -85,7 +89,11 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
+          <Text
+            size={hp("2.5%")}
+            color="#4B4C4C"
+            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
+          >
             Payment Info
           </Text>
         </View>
@@ -101,7 +109,11 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
+          <Text
+            size={hp("2.5%")}
+            color="#4B4C4C"
+            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
+          >
             Other Information
           </Text>
         </View>
@@ -117,7 +129,11 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
+          <Text
+            size={hp("2.5%")}
+            color="#4B4C4C"
+            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
+          >
             Service Preference
           </Text>
         </View>
@@ -131,6 +147,7 @@ const CheckList = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#87c9e4",
+                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -146,6 +163,7 @@ const CheckList = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#ffffff",
+                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -196,7 +214,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: hp("2.5%"),
     color: "#87c9e4",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {

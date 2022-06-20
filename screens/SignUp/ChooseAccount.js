@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   dropdown2BtnTxtStyle: {
     color: "#FFF",
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
   },
   dropdown2DropdownStyle: {
     backgroundColor: "#87c9e4",
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
   dropdown2RowTxtStyle: {
     color: "#FFF",
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
   },
 
   dropdown3BtnStyle: {
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
   dropdown3BtnTxt: {
     color: "#87c9e4",
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     fontSize: 24,
     marginHorizontal: 12,
   },
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
   dropdown3RowTxt: {
     color: "#F1F1F1",
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     fontSize: 24,
     marginHorizontal: 12,
   },

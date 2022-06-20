@@ -8,7 +8,7 @@ import {
   View,
   StatusBar,
 } from "react-native";
-import { Block, Text, theme, Icon } from "galio-framework";
+import { Block, theme, Text, Icon } from "galio-framework";
 
 import materialTheme from "../constants/Theme";
 
@@ -25,7 +25,9 @@ export default class Settings extends React.Component {
       case "switch":
         return (
           <Block row middle space="between" style={styles.rows}>
-            <Text size={14}>{item.title}</Text>
+            <Text style={{ fontFamily: "Poppins_400Regular" }} size={14}>
+              {item.title}
+            </Text>
             <Switch
               onValueChange={() => this.toggleSwitch(item.id)}
               ios_backgroundColor={materialTheme.COLORS.SWITCH_OFF}
@@ -47,7 +49,9 @@ export default class Settings extends React.Component {
           <Block style={styles.rows}>
             <TouchableOpacity onPress={() => navigate("Pro")}>
               <Block row middle space="between" style={{ paddingTop: 7 }}>
-                <Text size={14}>{item.title}</Text>
+                <Text style={{ fontFamily: "Poppins_400Regular" }} size={14}>
+                  {item.title}
+                </Text>
                 <Icon
                   name="angle-right"
                   family="font-awesome"
@@ -93,10 +97,9 @@ export default class Settings extends React.Component {
           ListHeaderComponent={
             <Block style={styles.title}>
               <Text
-                bold
                 center
                 size={theme.SIZES.BASE}
-                style={{ paddingBottom: 5 }}
+                style={{ paddingBottom: 5, fontFamily: "Poppins_700Bold" }}
               >
                 Recommended Settings
               </Text>
@@ -108,10 +111,9 @@ export default class Settings extends React.Component {
         />
         <Block style={styles.title}>
           <Text
-            bold
             center
             size={theme.SIZES.BASE}
-            style={{ paddingBottom: 5 }}
+            style={{ paddingBottom: 5, fontFamily: "Poppins_700Bold" }}
           >
             Payment Settings
           </Text>
@@ -126,10 +128,9 @@ export default class Settings extends React.Component {
         />
         <Block style={styles.title}>
           <Text
-            bold
             center
             size={theme.SIZES.BASE}
-            style={{ paddingBottom: 5 }}
+            style={{ paddingBottom: 5, fontFamily: "Poppins_700Bold" }}
           >
             Privacy Settings
           </Text>
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
   title: {
     paddingTop: theme.SIZES.BASE,
     paddingBottom: theme.SIZES.BASE / 2,
+    fontFamily: "Poppins_700Bold",
   },
   rows: {
     height: theme.SIZES.BASE * 2,

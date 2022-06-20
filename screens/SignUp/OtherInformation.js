@@ -63,7 +63,11 @@ const OtherInformation = ({ navigation }) => {
             marginBottom: hp("5%"),
           }}
         >
-          <Text size={hp("2.5%")} color="#4B4C4C">
+          <Text
+            size={hp("2.5%")}
+            color="#4B4C4C"
+            style={{ fontFamily: "Poppins_400Regular" }}
+          >
             Other Information
           </Text>
         </View>
@@ -86,7 +90,11 @@ const OtherInformation = ({ navigation }) => {
             />
           </View>
           <View style={styles.square2}>
-            <Text size={16} color={"#4B4C4C"} style={{ textAlign: "left" }}>
+            <Text
+              size={16}
+              color={"#4B4C4C"}
+              style={{ textAlign: "left", fontFamily: "Poppins_400Regular" }}
+            >
               Do you have any food or medication allergy?
             </Text>
           </View>
@@ -110,7 +118,11 @@ const OtherInformation = ({ navigation }) => {
             />
           </View>
           <View style={styles.square2}>
-            <Text size={16} color={"#4B4C4C"} style={{ textAlign: "left" }}>
+            <Text
+              size={16}
+              color={"#4B4C4C"}
+              style={{ textAlign: "left", fontFamily: "Poppins_400Regular" }}
+            >
               Do you have any pets?
             </Text>
           </View>
@@ -134,7 +146,11 @@ const OtherInformation = ({ navigation }) => {
             />
           </View>
           <View style={styles.square2}>
-            <Text size={16} color={"#4B4C4C"} style={{ textAlign: "left" }}>
+            <Text
+              size={16}
+              color={"#4B4C4C"}
+              style={{ textAlign: "left", fontFamily: "Poppins_400Regular" }}
+            >
               Do you have any advance directive?
             </Text>
           </View>
@@ -143,7 +159,11 @@ const OtherInformation = ({ navigation }) => {
           <View style={styles.square1}></View>
           <View style={styles.square2}></View>
         </View>
-        <View style={{ marginTop: hp("5%") }}>
+        <View
+          style={{
+            marginTop: hp("5%"),
+          }}
+        >
           <TouchableOpacity
             onPress={() => navigation.navigate("CheckList2Screen")}
             style={styles.backBtn2}
@@ -153,6 +173,7 @@ const OtherInformation = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#87c9e4",
+                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -160,7 +181,7 @@ const OtherInformation = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("OtherInformationScreen")}
+            onPress={() => navigation.navigate("CareRecipientInfoScreen")}
             style={styles.nextBtn}
           >
             <Text
@@ -168,6 +189,7 @@ const OtherInformation = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#ffffff",
+                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -218,7 +240,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: hp("2.5%"),
     color: "#87c9e4",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {

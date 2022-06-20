@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   tabTitle: {
     lineHeight: 19,
-    fontWeight: "300",
+    fontFamily: "Poppins_300Light",
   },
   divider: {
     borderRightWidth: 0.3,
