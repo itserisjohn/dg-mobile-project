@@ -115,19 +115,22 @@ const PaymentInfo = ({ navigation }) => {
               style={[
                 styles.textSign,
                 {
+                  fontSize: 16,
                   color: "#ffffff",
                   fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
-              Back
+              Previous
             </Text>
           </TouchableOpacity>
           <Text
             style={{
+              fontSize: 16,
               color: "#87c9e4",
               marginTop: 16,
               textAlign: "center",
+              textDecorationLine: "underline",
               fontFamily: "Poppins_400Regular",
             }}
             onPress={() => navigation.navigate("App")}
@@ -145,7 +148,7 @@ export default PaymentInfo;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f2f4f5",
   },
   titleContainer: {
     textAlign: "center",

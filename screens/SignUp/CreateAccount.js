@@ -26,9 +26,9 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
-const ChooseAccount = ({ navigation }) => {
+const CreateAccount = ({ navigation }) => {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(null);
+  const [value, setValue] = React.useState("");
   const [items, setItems] = React.useState(["As a User", "As a Provider"]);
 
   let paddingVertical = 7;
@@ -45,7 +45,7 @@ const ChooseAccount = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      {/* <Button
+      <Button
         style={styles.backBtn}
         color="transparent"
         onPress={() => navigation.navigate("Login")}
@@ -54,10 +54,10 @@ const ChooseAccount = ({ navigation }) => {
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#ffffff"}
+          color={"#4B4C4C"}
           style={styles.backBtn}
         />
-      </Button> */}
+      </Button>
       <View style={{ height: hp("100%") }}>
         <View style={{ alignItems: "center" }}>
           <Text size={hp("2.5%")} style={styles.headerText}>
@@ -65,37 +65,14 @@ const ChooseAccount = ({ navigation }) => {
           </Text>
         </View>
         <View style={{ padding: hp("8%") }}>
-          <Text style={styles.titleText} size={hp("3.2%")}>
-            Congratulations!
-          </Text>
-          <Text style={styles.descText} size={hp("2.8%")}>
-            Your account has been successfully created.
-          </Text>
-          {/* <Text style={styles.descText2} size={hp("1.9%")}>
+          <Text style={styles.descText2} size={hp("1.9%")}>
             Choose type of account
-          </Text> */}
-          {/* <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            style={{
-              marginTop: hp("1%"),
-              backgroundColor: "#ffffff",
-              borderColor: "#ffffff",
-              color: "#87c9e4",
-            }}
-            placeholder="Type of Account"
-            placeholderStyle={{ color: "#87c9e4" }}
-            arrowIconContainerStyle={{ color: "#87c9e4" }}
-            labelStyle={"#87c9e4"}
-          /> */}
-          {/* <SelectDropdown
+          </Text>
+          <SelectDropdown
             data={items}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
+              setValue(selectedItem);
             }}
             defaultButtonText={"Type of Account"}
             buttonTextAfterSelection={(selectedItem, index) => {
@@ -110,7 +87,7 @@ const ChooseAccount = ({ navigation }) => {
               return (
                 <FontAwesome
                   name={isOpened ? "chevron-up" : "chevron-down"}
-                  color={"#87c9e4"}
+                  color={"#4B4C4C"}
                   size={14}
                 />
               );
@@ -119,18 +96,22 @@ const ChooseAccount = ({ navigation }) => {
             dropdownStyle={styles.dropdown1DropdownStyle}
             rowStyle={styles.dropdown1RowStyle}
             rowTextStyle={styles.dropdown1RowTxtStyle}
-          /> */}
-          <View style={{ alignItems: "center" }}>
+          />
+          <View
+            style={{ alignItems: "center" }}
+            opacity={value === "" ? 0.6 : 1}
+          >
             <TouchableOpacity
-              onPress={() => navigation.navigate("CheckListScreen")}
+              onPress={() => navigation.navigate("LegalWaiverScreen")}
               style={styles.nextBtn}
+              disabled={value === ""}
             >
               <Text
                 style={[
                   styles.textSign,
                   {
                     fontSize: 16,
-                    color: "#87c9e4",
+                    color: "#FFFFFF",
                     fontFamily: "Poppins_400Regular",
                     paddingVertical,
                   },
@@ -139,18 +120,6 @@ const ChooseAccount = ({ navigation }) => {
                 Proceed
               </Text>
             </TouchableOpacity>
-            {/* <Text
-              style={{
-                fontSize: 16,
-                color: "#ffffff",
-                marginTop: 16,
-                fontFamily: "Poppins_400Regular",
-                textDecorationLine: "underline",
-              }}
-              onPress={() => navigation.navigate("App")}
-            >
-              Decide Later
-            </Text> */}
           </View>
         </View>
       </View>
@@ -158,12 +127,12 @@ const ChooseAccount = ({ navigation }) => {
   );
 };
 
-export default ChooseAccount;
+export default CreateAccount;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#f2f4f5",
   },
   backBtn: {
     alignItems: "flex-start",
@@ -176,7 +145,7 @@ const styles = StyleSheet.create({
   headerText: {
     position: "absolute",
     top: hp("2.5%"),
-    color: "#ffffff",
+    color: "#4B4C4C",
     fontFamily: "Poppins_600SemiBold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
@@ -193,8 +162,8 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
   },
   descText2: {
-    marginTop: hp("5%"),
-    color: "#ffffff",
+    marginTop: hp("25%"),
+    color: "#4B4C4C",
     textAlign: "left",
     fontFamily: "Poppins_400Regular",
   },
@@ -204,8 +173,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
-    backgroundColor: "#ffffff",
-    borderColor: "#ffffff",
+    backgroundColor: "#87c9e4",
+    borderColor: "#87c9e4",
     borderWidth: 1,
     marginTop: hp("10%"),
   },
@@ -242,11 +211,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#87c9e4",
+    borderColor: "#4B4C4C",
     marginTop: 3,
   },
   dropdown1BtnTxtStyle: {
-    color: "#87c9e4",
+    color: "#4B4C4C",
     textAlign: "left",
     fontSize: 16,
     fontFamily: "Poppins_400Regular",
@@ -263,7 +232,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#C5C5C5",
   },
   dropdown1RowTxtStyle: {
-    color: "#87c9e4",
+    color: "#4B4C4C",
     textAlign: "left",
     fontSize: 16,
     fontFamily: "Poppins_400Regular",
@@ -273,16 +242,16 @@ const styles = StyleSheet.create({
   dropdown2BtnStyle: {
     width: "80%",
     height: 50,
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#4B4C4C",
     borderRadius: 8,
   },
   dropdown2BtnTxtStyle: {
     color: "#FFF",
     textAlign: "center",
-    fontFamily: "Poppins_700Bold",
+    fontWeight: "bold",
   },
   dropdown2DropdownStyle: {
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#4B4C4C",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
   },
@@ -293,7 +262,7 @@ const styles = StyleSheet.create({
   dropdown2RowTxtStyle: {
     color: "#FFF",
     textAlign: "center",
-    fontFamily: "Poppins_700Bold",
+    fontWeight: "bold",
   },
 
   dropdown3BtnStyle: {
@@ -316,7 +285,7 @@ const styles = StyleSheet.create({
   dropdown3BtnTxt: {
     color: "#87c9e4",
     textAlign: "center",
-    fontFamily: "Poppins_700Bold",
+    fontWeight: "bold",
     fontSize: 24,
     marginHorizontal: 12,
   },
@@ -337,7 +306,7 @@ const styles = StyleSheet.create({
   dropdown3RowTxt: {
     color: "#F1F1F1",
     textAlign: "center",
-    fontFamily: "Poppins_700Bold",
+    fontWeight: "bold",
     fontSize: 24,
     marginHorizontal: 12,
   },

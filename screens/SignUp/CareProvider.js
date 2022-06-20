@@ -35,6 +35,7 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { ScrollView } from "react-native-gesture-handler";
 
 const SignUpCareProvider = ({ navigation }) => {
   const [phone, setPhone] = React.useState("");
@@ -62,7 +63,7 @@ const SignUpCareProvider = ({ navigation }) => {
   const buttonStyle = {
     width: 100,
     backgroundColor: "#87c9e4",
-    padding: wp("1%"),
+    padding: 8,
     borderRadius: 4,
   };
 
@@ -132,28 +133,27 @@ const SignUpCareProvider = ({ navigation }) => {
       color: "#00b9d4",
     },
     progressContainer: {
-      paddingTop: hp("3%"),
-      paddingLeft: hp("7%"),
-      paddingRight: hp("7%"),
-      backgroundColor: "#87c9e4",
-      height: Platform.OS === "ios" ? hp("65%") : hp("70%"),
+      marginBottom: 20,
+      paddingTop: hp("2.5%"),
+      paddingLeft: hp("4%"),
+      paddingRight: hp("4%"),
+      backgroundColor: "#f2f4f5",
+      height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
     },
     progressContainerPhoto: {
+      marginBottom: 20,
       alignItems: "center",
       paddingTop: hp("10%"),
-      paddingLeft: hp("7%"),
-      paddingRight: hp("7%"),
-      backgroundColor: "#87c9e4",
-      height: Platform.OS === "ios" ? hp("65%") : hp("70%"),
+      backgroundColor: "#f2f4f5",
+      height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
     },
     input: {
-      fontSize: hp("1.8%"),
+      fontSize: 14,
       marginTop: hp("1.1%"),
-      marginBottom: hp("1.1%"),
+      marginBottom: hp("2.2%"),
       backgroundColor: "white",
       borderRadius: 4,
-      padding: hp("0.8%"),
-      paddingVertical: paddingVertical,
+      padding: 14,
       fontFamily: "Poppins_400Regular",
     },
     paymentImage: {
@@ -185,7 +185,7 @@ const SignUpCareProvider = ({ navigation }) => {
       fontFamily: "Poppins_600SemiBold",
       position: "absolute",
       top: hp("2%"),
-      color: "#00b9d4",
+      color: "#4B4C4C",
       marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
     },
   });
@@ -196,20 +196,20 @@ const SignUpCareProvider = ({ navigation }) => {
       <Button
         style={styles.backBtn}
         color="transparent"
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("ChecklistEmptyScreen")}
       >
         <Icon
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#87c9e4"}
+          color={"#4B4C4C"}
           style={styles.backBtn}
         />
       </Button>
       <View style={{ height: hp("100%") }}>
         <View style={{ alignItems: "center" }}>
           <Text size={hp("2.5%")} style={styles.headerText}>
-            Create an Account
+            Create a Care Provider Profile
           </Text>
         </View>
         <ProgressSteps
@@ -236,7 +236,7 @@ const SignUpCareProvider = ({ navigation }) => {
             <View style={styles.progressContainer}>
               <Text
                 size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
+                color={materialTheme.COLORS.BLACK}
                 style={{ fontFamily: "Poppins_400Regular" }}
               >
                 Username
@@ -244,11 +244,11 @@ const SignUpCareProvider = ({ navigation }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Username"
-                placeholderTextColor="#addddb"
+                placeholderTextColor="#c2c1c1"
               ></TextInput>
               <Text
                 size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
+                color={materialTheme.COLORS.BLACK}
                 style={{ fontFamily: "Poppins_400Regular" }}
               >
                 Password
@@ -256,11 +256,11 @@ const SignUpCareProvider = ({ navigation }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Password"
-                placeholderTextColor="#addddb"
+                placeholderTextColor="#c2c1c1"
               ></TextInput>
               <Text
                 size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
+                color={materialTheme.COLORS.BLACK}
                 style={{ fontFamily: "Poppins_400Regular" }}
               >
                 Confirm Password
@@ -268,7 +268,7 @@ const SignUpCareProvider = ({ navigation }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Confirm Password"
-                placeholderTextColor="#addddb"
+                placeholderTextColor="#c2c1c1"
               ></TextInput>
             </View>
           </ProgressStep>
@@ -288,86 +288,91 @@ const SignUpCareProvider = ({ navigation }) => {
               duration={400}
               style={styles.progressContainer}
             >
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
+              <ScrollView
+                style={{ height: "100%" }}
+                showsVerticalScrollIndicator={false}
               >
-                First Name
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Your First Name"
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Last Name
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Your Last Name"
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                SSN
-              </Text>
-              <MaskInput
-                value={phone}
-                style={styles.input}
-                onChangeText={(masked, unmasked) => {
-                  setPhone(masked);
-                }}
-                placeholder="###-##-####"
-                placeholderTextColor="#addddb"
-                mask={ssn}
-                keyboardType="number-pad"
-              />
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Date of birth
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholder="DoB"
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Phone Number
-              </Text>
-              <TextInput
-                keyboardType="phone-pad"
-                style={styles.input}
-                placeholder="Phone Number"
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Email Address
-              </Text>
-              <TextInput
-                keyboardType="email-address"
-                style={styles.input}
-                placeholder="Email Address"
-                placeholderTextColor="#addddb"
-              ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  First Name
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Your First Name"
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Last Name
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Your Last Name"
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  SSN
+                </Text>
+                <MaskInput
+                  value={phone}
+                  style={styles.input}
+                  onChangeText={(masked, unmasked) => {
+                    setPhone(masked);
+                  }}
+                  placeholder="xxx-xx-xxxx"
+                  placeholderTextColor="#c2c1c1"
+                  mask={ssn}
+                  keyboardType="number-pad"
+                />
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Date of Birth
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="DoB"
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Phone Number
+                </Text>
+                <TextInput
+                  keyboardType="phone-pad"
+                  style={styles.input}
+                  placeholder="(xxx) xxx-xxxx"
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Email Address
+                </Text>
+                <TextInput
+                  keyboardType="email-address"
+                  style={styles.input}
+                  placeholder="example@email.com"
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+              </ScrollView>
             </View>
           </ProgressStep>
           <ProgressStep
@@ -381,61 +386,66 @@ const SignUpCareProvider = ({ navigation }) => {
             scrollable={false}
           >
             <View style={styles.progressContainer}>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
+              <ScrollView
+                style={{ height: "100%" }}
+                showsVerticalScrollIndicator={false}
               >
-                Address 1
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Address 2
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                City
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                State
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholderTextColor="#addddb"
-              ></TextInput>
-              <Text
-                size={hp("1.8%")}
-                color={materialTheme.COLORS.WHITE}
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Zip
-              </Text>
-              <TextInput
-                style={styles.input}
-                placeholderTextColor="#addddb"
-              ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.WHITE}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Address
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Apt/Unit/Lot #
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  City
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  State
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+                <Text
+                  size={hp("1.8%")}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Postal Code
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholderTextColor="#c2c1c1"
+                ></TextInput>
+              </ScrollView>
             </View>
           </ProgressStep>
           <ProgressStep
@@ -475,7 +485,7 @@ const SignUpCareProvider = ({ navigation }) => {
               )}
               <Text
                 size={hp("2.5%")}
-                color={materialTheme.COLORS.WHITE}
+                color={materialTheme.COLORS.BLACK}
                 onPress={takePhoto}
                 style={{ marginTop: 30, fontFamily: "Poppins_400Regular" }}
               >
@@ -483,7 +493,7 @@ const SignUpCareProvider = ({ navigation }) => {
               </Text>
               {/* <Text
                 size={hp("2%")}
-                color={materialTheme.COLORS.WHITE}
+                color={materialTheme.COLORS.BLACK}
                 onPress={pickImage}
                 style={{ marginTop: 12 }}
               >

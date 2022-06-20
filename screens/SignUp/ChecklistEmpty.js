@@ -17,7 +17,7 @@ import { Checkbox } from "galio-framework";
 import Icon from "../../components/Icon";
 import { HeaderHeight } from "../../constants/utils";
 
-const CheckList = ({ navigation }) => {
+const CheckListEmpty = ({ navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
   const [accepted1, setAccepted1] = React.useState(true);
 
@@ -59,7 +59,6 @@ const CheckList = ({ navigation }) => {
           <Checkbox
             label=""
             color="#87c9e4"
-            initialValue={true}
             disabled
             checkboxStyle={{
               width: hp("4%"),
@@ -68,11 +67,7 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
+          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
             Create an Account
           </Text>
         </View>
@@ -88,11 +83,7 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
+          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
             Payment Information
           </Text>
         </View>
@@ -108,11 +99,7 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
+          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
             Other Information
           </Text>
         </View>
@@ -128,17 +115,13 @@ const CheckList = ({ navigation }) => {
             }}
             iconSize={hp("3%")}
           />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
+          <Text size={hp("2.5%")} color="#4B4C4C" style={{ marginLeft: 15 }}>
             Service Preference
           </Text>
         </View>
         <View style={{ marginTop: hp("5%") }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("ChooseAccountScreen")}
+            onPress={() => navigation.navigate("LegalWaiverScreen")}
             style={styles.backBtn2}
           >
             <Text
@@ -146,7 +129,6 @@ const CheckList = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#87c9e4",
-                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -154,7 +136,7 @@ const CheckList = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("PaymentInfoScreen")}
+            onPress={() => navigation.navigate("SignUpCareProviderScreen")}
             style={styles.nextBtn}
           >
             <Text
@@ -162,7 +144,6 @@ const CheckList = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#ffffff",
-                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -175,7 +156,7 @@ const CheckList = ({ navigation }) => {
   );
 };
 
-export default CheckList;
+export default CheckListEmpty;
 
 const styles = StyleSheet.create({
   container: {
@@ -213,7 +194,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: hp("2.5%"),
     color: "#87c9e4",
-    fontFamily: "Poppins_700Bold",
+    fontWeight: "bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {

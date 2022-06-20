@@ -21,6 +21,11 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import ProfilePhoto from "../assets/images/test-prof-photo.jpg";
 
 function CustomDrawerContent({
   drawerPosition,
@@ -52,8 +57,12 @@ function CustomDrawerContent({
           onPress={() => navigation.navigate("Profile")}
         >
           <Block style={styles.profile}>
-            <Image source={{ uri: profile.avatar }} style={styles.avatar} />
-            <Text h5 color={"white"}>
+            <Image source={ProfilePhoto} style={styles.avatar} />
+            <Text
+              size={wp("5%")}
+              color={"white"}
+              style={{ fontFamily: "Poppins_400Regular" }}
+            >
               {profile.name}
             </Text>
           </Block>
@@ -127,7 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   profile: {
-    marginBottom: theme.SIZES.BASE / 2,
+    // marginBottom: theme.SIZES.BASE / 2,
   },
   avatar: {
     height: 40,

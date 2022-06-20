@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Platform,
   Switch,
+  TextInput,
+  ScrollView,
 } from "react-native";
 import { Button, Text } from "galio-framework";
 import { View, Image } from "react-native";
@@ -21,50 +23,68 @@ import Credit from "../../assets/images/payment/credit.png";
 import PaymentPaypal from "../../assets/images/payment/paypal.png";
 import CashApp from "../../assets/images/payment/cash-app.png";
 import materialTheme from "../../constants/Theme";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import languages from "../../utils/languages.json";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const OtherInformation = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(true);
   const [isEnabled2, setIsEnabled2] = useState(true);
+  const [isEnabled3, setIsEnabled3] = useState(true);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const toggleSwitch2 = () => setIsEnabled2((previousState) => !previousState);
+  const toggleSwitch3 = () => setIsEnabled3((previousState) => !previousState);
+
+  const [selectedItems, setSlectedItems] = useState([]);
+
+  const onSelectedItemsChange = (selected) => {
+    setSlectedItems(selected);
+  };
+
   return (
     <View style={styles.container}>
-      <Button
-        style={styles.backBtn}
-        color="transparent"
-        onPress={() => navigation.navigate("CheckListScreen")}
-      >
-        <Icon
-          size={hp("5%")}
-          name="chevron-left"
-          family="feather"
-          color={"#87c9e4"}
-          style={styles.backBtn}
-        />
-      </Button>
-      <View style={{ alignItems: "center" }}>
-        <Text size={hp("2.5%")} style={styles.headerText}>
-          User Account Holder
-        </Text>
-      </View>
-      <StatusBar barStyle="dark-content" />
       <View
         style={{
-          height: hp("70%"),
-          marginTop: hp("12%"),
-          paddingTop: hp("5%"),
-          paddingLeft: Platform.OS === "android" ? wp("11%") : wp("14%"),
-          paddingRight: Platform.OS === "android" ? wp("11%") : wp("14%"),
+          height: Platform.OS === "ios" ? hp("11%") : hp("8%"),
+        }}
+      >
+        <Button
+          style={styles.backBtn}
+          color="transparent"
+          onPress={() => navigation.navigate("CheckListScreen")}
+        >
+          <Icon
+            size={hp("5%")}
+            name="chevron-left"
+            family="feather"
+            color={"#87c9e4"}
+            style={styles.backBtn}
+          />
+        </Button>
+        <View style={{ alignItems: "center" }}>
+          <Text size={hp("2.5%")} style={styles.headerText}>
+            User Account Holder
+          </Text>
+        </View>
+      </View>
+      <StatusBar barStyle="dark-content" />
+      <ScrollView
+        style={{
+          height: hp("75.5%"),
+          paddingLeft: wp("2%"),
+          paddingRight: wp("6%"),
         }}
       >
         <View
           style={{
-            alignItems: "center",
-            marginBottom: hp("5%"),
+            marginTop: hp("1%"),
+            marginBottom: Platform.OS === "ios" ? hp("5%") : hp("3%"),
+            paddingLeft: wp("6%"),
+            paddingRight: wp("6%"),
           }}
         >
           <Text
-            size={hp("2.5%")}
+            size={22}
             color="#4B4C4C"
             style={{ fontFamily: "Poppins_400Regular" }}
           >
@@ -93,7 +113,11 @@ const OtherInformation = ({ navigation }) => {
             <Text
               size={16}
               color={"#4B4C4C"}
-              style={{ textAlign: "left", fontFamily: "Poppins_400Regular" }}
+              style={{
+                textAlign: "left",
+                paddingTop: Platform.OS === "ios" ? 0 : 10,
+                fontFamily: "Poppins_400Regular",
+              }}
             >
               Do you have any food or medication allergy?
             </Text>
@@ -121,7 +145,11 @@ const OtherInformation = ({ navigation }) => {
             <Text
               size={16}
               color={"#4B4C4C"}
-              style={{ textAlign: "left", fontFamily: "Poppins_400Regular" }}
+              style={{
+                textAlign: "left",
+                paddingTop: Platform.OS === "ios" ? 0 : 10,
+                fontFamily: "Poppins_400Regular",
+              }}
             >
               Do you have any pets?
             </Text>
@@ -141,29 +169,166 @@ const OtherInformation = ({ navigation }) => {
                 false: materialTheme.COLORS.SWITCH_OFF,
                 true: "#87c9e4",
               }}
-              onValueChange={toggleSwitch2}
-              value={isEnabled2}
+              onValueChange={toggleSwitch3}
+              value={isEnabled3}
             />
           </View>
           <View style={styles.square2}>
             <Text
               size={16}
               color={"#4B4C4C"}
-              style={{ textAlign: "left", fontFamily: "Poppins_400Regular" }}
+              style={{
+                textAlign: "left",
+                paddingTop: Platform.OS === "ios" ? 0 : 10,
+                fontFamily: "Poppins_400Regular",
+              }}
             >
               Do you have any advance directive?
             </Text>
           </View>
         </View>
-        <View style={styles.checkboxContainer2}>
-          <View style={styles.square1}></View>
-          <View style={styles.square2}></View>
+        <View
+          style={{
+            paddingLeft: wp("6%"),
+            paddingRight: wp("6%"),
+          }}
+        >
+          <Text size={16} color={"#4B4C4C"} style={{ textAlign: "left" }}>
+            What is your height?
+          </Text>
         </View>
         <View
           style={{
-            marginTop: hp("5%"),
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "flex-start",
+            paddingLeft: wp("6%"),
+            paddingRight: wp("6%"),
           }}
         >
+          <View style={{ flex: 0.8, alignItems: "flex-start" }}>
+            <TextInput
+              keyboardType="numeric"
+              style={{
+                fontSize: 20,
+                width: "90%",
+                paddingTop: 20,
+                borderBottomColor: "#000000",
+                borderBottomWidth: 2,
+                textAlign: "center",
+              }}
+            />
+          </View>
+          <View style={{ flex: 0.2, alignItems: "flex-start" }}>
+            <Text
+              size={20}
+              color={"#4B4C4C"}
+              style={{ textAlign: "left", paddingTop: 22 }}
+            >
+              ft
+            </Text>
+          </View>
+          <View style={{ flex: 0.2, alignItems: "flex-start" }}></View>
+          <View style={{ flex: 0.8, alignItems: "flex-start" }}>
+            <TextInput
+              keyboardType="numeric"
+              style={{
+                fontSize: 20,
+                width: "90%",
+                paddingTop: 20,
+                borderBottomColor: "#000000",
+                borderBottomWidth: 2,
+                textAlign: "center",
+              }}
+            />
+          </View>
+          <View style={{ flex: 1, alignItems: "flex-start" }}>
+            <Text
+              size={20}
+              color={"#4B4C4C"}
+              style={{ textAlign: "left", paddingTop: 22 }}
+            >
+              in
+            </Text>
+          </View>
+        </View>
+        <View
+          marginTop={30}
+          marginBottom={15}
+          style={{
+            paddingLeft: wp("6%"),
+            paddingRight: wp("6%"),
+          }}
+        >
+          <Text size={16} color={"#4B4C4C"} style={{ textAlign: "left" }}>
+            Langauges Spoken:
+          </Text>
+        </View>
+        <View
+          style={{
+            paddingLeft: wp("6%"),
+            paddingRight: wp("6%"),
+          }}
+        >
+          <SectionedMultiSelect
+            items={languages}
+            IconRenderer={MaterialIcons}
+            uniqueKey="id"
+            subKey="children"
+            selectText="Choose languages"
+            searchPlaceholderText="Search languages..."
+            showDropDowns={false}
+            readOnlyHeadings={true}
+            onSelectedItemsChange={onSelectedItemsChange}
+            selectedItems={selectedItems}
+            styles={{
+              container: {
+                backgroundColor: "#ffffff",
+              },
+              subItemText: {
+                fontSize: 17,
+              },
+              modalWrapper: {
+                paddingTop: hp("15%"),
+                paddingBottom: hp("15%"),
+              },
+              selectToggle: {
+                backgroundColor: "#ffffff",
+                borderWidth: 2,
+                borderColor: "#b2b3b6",
+                borderRadius: 8,
+                padding: 10,
+              },
+              chipsWrapper: {
+                marginTop: 10,
+                marginBottom: 10,
+              },
+              chipContainer: {
+                backgroundColor: "#87c9e4",
+                borderRadius: 8,
+                borderColor: "#87c9e4",
+              },
+              chipIcon: {
+                color: "#ffffff",
+              },
+              chipText: {
+                fontSize: 16,
+                color: "#ffffff",
+              },
+              button: { backgroundColor: "#87c9e4" },
+            }}
+          />
+        </View>
+      </ScrollView>
+      <View
+        style={{
+          backgroundColor: "#ffffff",
+          height: hp("16.5%"),
+          paddingLeft: wp("8%"),
+          paddingRight: wp("8%"),
+        }}
+      >
+        <View style={{ marginTop: 5 }}>
           <TouchableOpacity
             onPress={() => navigation.navigate("CheckList2Screen")}
             style={styles.backBtn2}
@@ -177,11 +342,11 @@ const OtherInformation = ({ navigation }) => {
                 },
               ]}
             >
-              Back
+              Previous
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CareRecipientInfoScreen")}
+            onPress={() => navigation.navigate("AddCareRecipientScreen")}
             style={styles.nextBtn}
           >
             <Text
@@ -207,16 +372,7 @@ export default OtherInformation;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
-  },
-  titleContainer: {
-    textAlign: "center",
-    color: "#4B4C4C",
-    fontSize: hp("3%"),
-    marginBottom: hp("2.2%"),
-  },
-  textContainer: {
-    marginBottom: hp("2.2%"),
+    backgroundColor: "#f2f4f5",
   },
   backBtn: {
     alignItems: "flex-start",
@@ -254,48 +410,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: hp("1.8%"),
   },
-  disabledBtn: {
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#9de3f7",
-    borderColor: "#9de3f7",
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
-  },
-  checkboxContainer: {
-    alignItems: "center",
-    marginBottom: hp("4%"),
-  },
   checkboxContainer2: {
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
-  },
-  paymentImage: {
-    maxWidth: hp("25%"),
-    height: hp("10%"),
-  },
-  paymentImage2: {
-    maxWidth: hp("10%"),
-    height: hp("10%"),
-    marginLeft: -hp("1%"),
+    marginBottom: Platform.OS === "ios" ? 35 : 25,
   },
   square1: {
-    flex: 1,
-    height: hp("12%"),
+    flex: Platform.OS === "ios" ? 1 : 0.7,
     alignItems: "center",
   },
   square2: {
-    flex: 2,
-    height: hp("12%"),
+    flex: Platform.OS === "ios" ? 2 : 2.3,
     alignItems: "flex-start",
-  },
-  rows: {
-    height: theme.SIZES.BASE * 2,
-    paddingHorizontal: theme.SIZES.BASE,
-    marginBottom: theme.SIZES.BASE / 2,
   },
 });

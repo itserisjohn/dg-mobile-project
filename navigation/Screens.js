@@ -15,6 +15,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SignUpCareProviderScreen from "../screens/SignUp/CareProvider";
+import CreateAccountScreen from "../screens/SignUp/CreateAccount";
+import ChecklistEmptyScreen from "../screens/SignUp/ChecklistEmpty";
 import LegalWaiverScreen from "../screens/SignUp/LegalWaiver";
 import ChooseAccountScreen from "../screens/SignUp/ChooseAccount";
 import CheckListScreen from "../screens/SignUp/Checklist";
@@ -23,6 +25,7 @@ import AddCreditCardScreen from "../screens/SignUp/AddCreditCard";
 import CheckList2Screen from "../screens/SignUp/Checklist2";
 import OtherInformationScreen from "../screens/SignUp/OtherInformation";
 import CareRecipientInfoScreen from "../screens/SignUp/CareRecipientInfo";
+import AddCareRecipientScreen from "../screens/SignUp/AddCareRecipient";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -274,15 +277,29 @@ export default function LoginStack(props) {
 function SignUpCareProviderStack(props) {
   return (
     <Stack.Navigator
-      initialRouteName="LegalWaiverScreen"
+      initialRouteName="CreateAccountScreen"
       screenOptions={{
         mode: "card",
         headerShown: false,
       }}
     >
       <Stack.Screen
+        name="CreateAccountScreen"
+        component={CreateAccountScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
         name="LegalWaiverScreen"
         component={LegalWaiverScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="ChecklistEmptyScreen"
+        component={ChecklistEmptyScreen}
         option={{
           headerTransparent: false,
         }}
@@ -332,6 +349,13 @@ function SignUpCareProviderStack(props) {
       <Stack.Screen
         name="OtherInformationScreen"
         component={OtherInformationScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddCareRecipientScreen"
+        component={AddCareRecipientScreen}
         option={{
           headerTransparent: false,
         }}

@@ -30,7 +30,7 @@ const CheckList = ({ navigation }) => {
       <Button
         style={styles.backBtn}
         color="transparent"
-        onPress={() => navigation.navigate("App")}
+        onPress={() => navigation.navigate("PaymentInfoScreen")}
       >
         <Icon
           size={hp("5%")}
@@ -94,7 +94,7 @@ const CheckList = ({ navigation }) => {
             color="#4B4C4C"
             style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
           >
-            Payment Info
+            Payment Information
           </Text>
         </View>
         <View style={styles.checkboxContainer}>
@@ -151,7 +151,7 @@ const CheckList = ({ navigation }) => {
                 },
               ]}
             >
-              Back
+              Previous
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -181,7 +181,7 @@ export default CheckList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f2f4f5",
   },
   titleContainer: {
     textAlign: "center",

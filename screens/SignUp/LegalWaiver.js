@@ -87,7 +87,7 @@ const LegalWaiver = ({ navigation }) => {
         />
         <View style={{ marginTop: hp("5%") }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("CreateAccountScreen")}
             style={styles.backBtn}
           >
             <Text
@@ -100,11 +100,11 @@ const LegalWaiver = ({ navigation }) => {
                 },
               ]}
             >
-              Back
+              Previous
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("SignUpCareProviderScreen")}
+            onPress={() => navigation.navigate("ChecklistEmptyScreen")}
             style={accepted ? styles.nextBtn : styles.disabledBtn}
             disabled={!accepted}
           >
@@ -132,7 +132,7 @@ export default LegalWaiver;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f2f4f5",
   },
   titleContainer: {
     fontFamily: "Poppins_500Medium",
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     color: "#4B4C4C",
     fontSize: hp("3%"),
     marginBottom: hp("2.2%"),
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
+    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 6,
   },
   textContainer: {
     marginBottom: hp("2.2%"),
@@ -183,5 +183,6 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     borderColor: "#d1d2d6",
     padding: hp("1%"),
+    backgroundColor: "#ffffff",
   },
 });

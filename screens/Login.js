@@ -263,7 +263,7 @@ const SignInScreen = ({ navigation }) => {
     },
     footerImage: {
       position: "absolute",
-      bottom: hp("43%"),
+      bottom: hp("45%"),
       width: wp("20%"),
       height: hp("7%"),
     },

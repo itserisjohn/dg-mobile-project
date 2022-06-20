@@ -58,7 +58,7 @@ const AddCreditCard = ({ navigation }) => {
         <View>
           <View
             style={{
-              height: hp("70%"),
+              height: hp("65%"),
               marginTop: hp("14%"),
               paddingLeft: wp("14%"),
               paddingRight: wp("14%"),
@@ -89,6 +89,7 @@ const AddCreditCard = ({ navigation }) => {
           </View>
           <View
             style={{
+              height: hp("16.5%"),
               paddingLeft: wp("14%"),
               paddingRight: wp("14%"),
             }}
@@ -106,7 +107,7 @@ const AddCreditCard = ({ navigation }) => {
                   },
                 ]}
               >
-                Back
+                Previous
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -137,7 +138,7 @@ export default AddCreditCard;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f2f4f5",
   },
   titleContainer: {
     textAlign: "center",

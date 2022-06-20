@@ -13,6 +13,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Icon } from "../components";
 import { Images, materialTheme } from "../constants";
 import { HeaderHeight } from "../constants/utils";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import ProfilePhoto from "../assets/images/test-prof-photo.jpg";
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
@@ -22,9 +27,9 @@ export default class Profile extends React.Component {
     return (
       <Block flex style={styles.profile}>
         <StatusBar barStyle="dark-content" />
-        <Block flex>
+        <Block>
           <ImageBackground
-            source={{ uri: Images.Profile }}
+            source={ProfilePhoto}
             style={styles.profileContainer}
             imageStyle={styles.profileImage}
           >
@@ -75,7 +80,7 @@ export default class Profile extends React.Component {
             </Block>
           </ImageBackground>
         </Block>
-        <Block flex style={styles.options}>
+        <Block style={styles.options}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Block row space="between" style={{ padding: theme.SIZES.BASE }}>
               <Block middle>
@@ -160,8 +165,10 @@ export default class Profile extends React.Component {
 const styles = StyleSheet.create({
   profile: {
     // marginTop: Platform.OS === "android" ? -HeaderHeight : 0,
-    marginBottom:
-      Platform.OS === "ios" ? -HeaderHeight * 3.5 : -HeaderHeight * 2.1,
+    // marginBottom:
+    //   Platform.OS === "ios" ? -HeaderHeight * 3.5 : -HeaderHeight * 2.1,
+    height: hp("100%"),
+    flex: 1,
   },
   profileImage: {
     width: "auto",
@@ -169,7 +176,7 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     width: width,
-    height: height / 2.2,
+    height: hp("45%"),
   },
   profileDetails: {
     paddingTop: theme.SIZES.BASE * 4,
@@ -178,7 +185,7 @@ const styles = StyleSheet.create({
   },
   profileTexts: {
     paddingHorizontal: theme.SIZES.BASE * 2,
-    paddingVertical: theme.SIZES.BASE * 2,
+    paddingVertical: wp("6%"),
     zIndex: 2,
   },
   pro: {
@@ -194,10 +201,11 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_400Regular",
   },
   options: {
+    height: hp("55%"),
     position: "relative",
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
-    marginTop: -theme.SIZES.BASE * 6,
+    marginTop: -wp("4%"),
     borderTopLeftRadius: 13,
     borderTopRightRadius: 13,
     backgroundColor: theme.COLORS.WHITE,

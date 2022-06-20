@@ -26,7 +26,7 @@ const ChatButton = ({ isWhite, style, navigation }) => (
       family="GalioExtra"
       size={hp("2.62%")}
       name="chat-33"
-      color="#ffffff"
+      color="#4B4C4C"
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -40,7 +40,7 @@ const ScheduledButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button]}>
     <MaterialCommunityIcons
       name="calendar-check"
-      color="#ffffff"
+      color="#4B4C4C"
       size={hp("2.62%")}
     />
     <Block middle style={styles.notify}>
@@ -55,7 +55,7 @@ const PendingButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button]}>
     <MaterialCommunityIcons
       name="calendar-clock"
-      color="#ffffff"
+      color="#4B4C4C"
       size={hp("2.62%")}
     />
     <Block middle style={styles.notify}>
@@ -192,7 +192,7 @@ class Header extends React.Component {
           rightStyle={{ alignItems: "flex-end" }}
           leftStyle={{ flex: 0.3, paddingTop: 2 }}
           leftIconName={back ? "chevron-left" : "navicon"}
-          leftIconColor="#ffffff"
+          leftIconColor="#4B4C4C"
           leftIconSize={hp("3.4%")}
           titleStyle={[
             styles.title,
@@ -210,7 +210,6 @@ export default withNavigation(Header);
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "rgba(152, 224, 253, 0.5)",
     height: hp("4.5%"),
     width: hp("4.5%"),
     borderRadius: hp("2.25%"),
@@ -225,7 +224,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   navbar: {
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#ffffff",
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 2,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4.5 : theme.SIZES.BASE * 1.5,
@@ -249,6 +248,8 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     paddingLeft: 1,
+    borderWidth: 1,
+    borderColor: "#ffffff",
   },
   header: {
     backgroundColor: theme.COLORS.WHITE,
