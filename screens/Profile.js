@@ -30,7 +30,11 @@ export default class Profile extends React.Component {
           >
             <Block flex style={styles.profileDetails}>
               <Block style={styles.profileTexts}>
-                <Text color="white" size={28} style={{ paddingBottom: 8 }}>
+                <Text
+                  color="white"
+                  size={28}
+                  style={{ paddingBottom: 8, fontFamily: "Poppins_400Regular" }}
+                >
                   Nicole Diaz, LPN
                 </Text>
                 <Block row space="between">
@@ -38,13 +42,21 @@ export default class Profile extends React.Component {
                     <Text color="white" size={16} muted style={styles.seller}>
                       Nurse
                     </Text>
-                    <Text size={16} color={materialTheme.COLORS.WARNING}>
+                    <Text
+                      size={16}
+                      color={materialTheme.COLORS.WARNING}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
                       4.8{" "}
                       <Icon name="shape-star" family="GalioExtra" size={14} />
                     </Text>
                   </Block>
                   <Block>
-                    <Text color={theme.COLORS.MUTED} size={16}>
+                    <Text
+                      color={theme.COLORS.MUTED}
+                      size={16}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
                       <Icon
                         name="map-marker"
                         family="font-awesome"
@@ -67,26 +79,47 @@ export default class Profile extends React.Component {
           <ScrollView showsVerticalScrollIndicator={false}>
             <Block row space="between" style={{ padding: theme.SIZES.BASE }}>
               <Block middle>
-                <Text bold size={12} style={{ marginBottom: 8 }}>
+                <Text
+                  size={12}
+                  style={{ marginBottom: 8, fontFamily: "Poppins_700Bold" }}
+                >
                   36
                 </Text>
-                <Text muted size={12}>
+                <Text
+                  color="#979797"
+                  size={12}
+                  style={{ fontFamily: "Poppins_300Light" }}
+                >
                   Test
                 </Text>
               </Block>
               <Block middle>
-                <Text bold size={12} style={{ marginBottom: 8 }}>
+                <Text
+                  size={12}
+                  style={{ marginBottom: 8, fontFamily: "Poppins_700Bold" }}
+                >
                   5
                 </Text>
-                <Text muted size={12}>
+                <Text
+                  color="#979797"
+                  size={12}
+                  style={{ fontFamily: "Poppins_300Light" }}
+                >
                   Test
                 </Text>
               </Block>
               <Block middle>
-                <Text bold size={12} style={{ marginBottom: 8 }}>
+                <Text
+                  size={12}
+                  style={{ marginBottom: 8, fontFamily: "Poppins_700Bold" }}
+                >
                   2
                 </Text>
-                <Text muted size={12}>
+                <Text
+                  color="#979797"
+                  size={12}
+                  style={{ fontFamily: "Poppins_300Light" }}
+                >
                   Messages
                 </Text>
               </Block>
@@ -158,6 +191,7 @@ const styles = StyleSheet.create({
   },
   seller: {
     marginRight: theme.SIZES.BASE / 2,
+    fontFamily: "Poppins_400Regular",
   },
   options: {
     position: "relative",

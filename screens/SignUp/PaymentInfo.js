@@ -57,7 +57,11 @@ const PaymentInfo = ({ navigation }) => {
             marginBottom: hp("5%"),
           }}
         >
-          <Text size={hp("2.5%")} color="#4B4C4C">
+          <Text
+            size={hp("2.5%")}
+            color="#4B4C4C"
+            style={{ fontFamily: "Poppins_400Regular" }}
+          >
             Payment Information
           </Text>
         </View>
@@ -77,7 +81,11 @@ const PaymentInfo = ({ navigation }) => {
             <Text
               size={22}
               color={"#4B4C4C"}
-              style={{ marginLeft: -hp("2.5%"), marginTop: hp("3.5%") }}
+              style={{
+                marginLeft: -hp("2.5%"),
+                marginTop: hp("3.5%"),
+                fontFamily: "Poppins_400Regular",
+              }}
               onPress={() => navigation.navigate("AddCreditCardScreen")}
             >
               Credit Card
@@ -108,6 +116,7 @@ const PaymentInfo = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#ffffff",
+                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
@@ -115,7 +124,12 @@ const PaymentInfo = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <Text
-            style={{ color: "#87c9e4", marginTop: 16, textAlign: "center" }}
+            style={{
+              color: "#87c9e4",
+              marginTop: 16,
+              textAlign: "center",
+              fontFamily: "Poppins_400Regular",
+            }}
             onPress={() => navigation.navigate("App")}
           >
             Decide Later
@@ -164,7 +178,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: hp("2.5%"),
     color: "#87c9e4",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {

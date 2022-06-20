@@ -70,7 +70,11 @@ const AddCreditCard = ({ navigation }) => {
                 marginBottom: hp("5%"),
               }}
             >
-              <Text size={hp("2.5%")} color="#4B4C4C">
+              <Text
+                size={hp("2.5%")}
+                color="#4B4C4C"
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
                 Add Credit Card
               </Text>
             </View>
@@ -98,6 +102,7 @@ const AddCreditCard = ({ navigation }) => {
                   styles.textSign,
                   {
                     color: "#87c9e4",
+                    fontFamily: "Poppins_400Regular",
                   },
                 ]}
               >
@@ -113,6 +118,7 @@ const AddCreditCard = ({ navigation }) => {
                   styles.textSign,
                   {
                     color: "#ffffff",
+                    fontFamily: "Poppins_400Regular",
                   },
                 ]}
               >
@@ -164,7 +170,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: hp("2.5%"),
     color: "#87c9e4",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {
