@@ -368,7 +368,7 @@ const SignInScreen = ({ navigation }) => {
         <TouchableOpacity>
           <Text
             style={{
-              color: "#87c9e4",
+              color: "#ffffff",
               marginTop: hp("2%"),
               textAlign: "right",
               fontSize: hp("1.8%"),
