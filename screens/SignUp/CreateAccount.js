@@ -71,7 +71,6 @@ const CreateAccount = ({ navigation }) => {
           <SelectDropdown
             data={items}
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
               setValue(selectedItem);
             }}
             defaultButtonText={"Type of Account"}

@@ -76,8 +76,6 @@ const SignUpCareProvider = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
     }
@@ -392,7 +390,7 @@ const SignUpCareProvider = ({ navigation }) => {
               >
                 <Text
                   size={hp("1.8%")}
-                  color={materialTheme.COLORS.WHITE}
+                  color={materialTheme.COLORS.BLACK}
                   style={{ fontFamily: "Poppins_400Regular" }}
                 >
                   Address

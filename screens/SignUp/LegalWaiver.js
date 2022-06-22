@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -25,9 +25,11 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { getLegalWaiver } from "../../services/legalwaiver";
 
 const LegalWaiver = ({ navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
+  const [data, setData] = React.useState({});
 
   let paddingVertical = 7;
 
@@ -44,36 +46,28 @@ const LegalWaiver = ({ navigation }) => {
     setAccepted(!accepted);
   };
 
+  const getLegalWaiverData = async () => {
+    const progressData = getLegalWaiver();
+    const result = await progressData;
+    if (result) {
+      setData(result);
+    }
+  };
+
+  useEffect(() => {
+    getLegalWaiverData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
       <View style={{ height: hp("65%"), padding: hp("5%") }}>
         <Text color="#696c74" style={styles.titleContainer}>
-          Legal Waiver
+          {data.Title}
         </Text>
         <ScrollView style={styles.scrollView}>
           <Text size={hp("2%")} color="#696c74" style={styles.textContainer}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
-            massa vitae tortor condimentum. Quam quisque id diam vel quam
-            elementum pulvinar etiam. Non blandit massa enim nec dui nunc.
-            Habitasse platea dictumst vestibulum rhoncus est pellentesque elit
-            ullamcorper. Sodales ut eu sem integer vitae justo eget magna.
-            Hendrerit gravida rutrum quisque non tellus orci ac. Eget nulla
-          </Text>
-          <Text
-            size={hp("2%")}
-            color="#696c74"
-            style={{ fontFamily: "Poppins_400Regular" }}
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
-            massa vitae tortor condimentum. Quam quisque id diam vel quam
-            elementum pulvinar etiam. Non blandit massa enim nec dui nunc.
-            Habitasse platea dictumst vestibulum rhoncus est pellentesque elit
-            ullamcorper. Sodales ut eu sem integer vitae justo eget magna.
-            Hendrerit gravida rutrum quisque non tellus orci ac. Eget nulla
+            {data.Waiver}
           </Text>
         </ScrollView>
       </View>

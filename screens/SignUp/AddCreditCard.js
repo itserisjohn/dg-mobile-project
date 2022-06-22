@@ -29,9 +29,7 @@ import {
 } from "react-native-credit-card-fullpage-form";
 
 const AddCreditCard = ({ navigation }) => {
-  const onChange = (form) => {
-    console.log(form);
-  };
+  const onChange = (form) => {};
 
   return (
     <View style={styles.container}>
@@ -44,7 +42,7 @@ const AddCreditCard = ({ navigation }) => {
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#87c9e4"}
+          color={"#4B4C4C"}
           style={styles.backBtn}
         />
       </Button>
@@ -170,7 +168,7 @@ const styles = StyleSheet.create({
   headerText: {
     position: "absolute",
     top: hp("2.5%"),
-    color: "#87c9e4",
+    color: "#4B4C4C",
     fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },

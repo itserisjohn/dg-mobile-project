@@ -12,7 +12,11 @@ import ProfileScreen from "../screens/Profile";
 import React from "react";
 import SettingsScreen from "../screens/Settings";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  TransitionPresets,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SignUpCareProviderScreen from "../screens/SignUp/CareProvider";
 import CreateAccountScreen from "../screens/SignUp/CreateAccount";
@@ -24,8 +28,13 @@ import PaymentInfoScreen from "../screens/SignUp/PaymentInfo";
 import AddCreditCardScreen from "../screens/SignUp/AddCreditCard";
 import CheckList2Screen from "../screens/SignUp/Checklist2";
 import OtherInformationScreen from "../screens/SignUp/OtherInformation";
-import CareRecipientInfoScreen from "../screens/SignUp/CareRecipientInfo";
 import AddCareRecipientScreen from "../screens/SignUp/AddCareRecipient";
+import CareRecipientInfoScreen from "../screens/SignUp/CareRecipientInfo";
+import OtherInformationCRScreen from "../screens/SignUp/OtherInformationCR";
+import OtherInformationCR2Screen from "../screens/SignUp/OtherInformationCR2";
+import CheckList3Screen from "../screens/SignUp/Checklist3";
+import ServicePreferenceScreen from "../screens/SignUp/ServicePreference";
+import Checklist4Screen from "../screens/SignUp/Checklist4";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -281,6 +290,7 @@ function SignUpCareProviderStack(props) {
       screenOptions={{
         mode: "card",
         headerShown: false,
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <Stack.Screen
@@ -288,6 +298,7 @@ function SignUpCareProviderStack(props) {
         component={CreateAccountScreen}
         option={{
           headerTransparent: false,
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -295,6 +306,7 @@ function SignUpCareProviderStack(props) {
         component={LegalWaiverScreen}
         option={{
           headerTransparent: false,
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -302,6 +314,7 @@ function SignUpCareProviderStack(props) {
         component={ChecklistEmptyScreen}
         option={{
           headerTransparent: false,
+          animation: "slide_from_right",
         }}
       />
       <Stack.Screen
@@ -363,6 +376,41 @@ function SignUpCareProviderStack(props) {
       <Stack.Screen
         name="CareRecipientInfoScreen"
         component={CareRecipientInfoScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="OtherInformationCRScreen"
+        component={OtherInformationCRScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="OtherInformationCR2Screen"
+        component={OtherInformationCR2Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="CheckList3Screen"
+        component={CheckList3Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="ServicePreferenceScreen"
+        component={ServicePreferenceScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="Checklist4Screen"
+        component={Checklist4Screen}
         option={{
           headerTransparent: false,
         }}

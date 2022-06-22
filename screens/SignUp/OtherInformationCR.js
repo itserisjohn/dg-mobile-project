@@ -51,7 +51,7 @@ const OtherInformation = ({ navigation }) => {
         <Button
           style={styles.backBtn}
           color="transparent"
-          onPress={() => navigation.navigate("CheckList2Screen")}
+          onPress={() => navigation.navigate("CareRecipientInfoScreen")}
         >
           <Icon
             size={hp("5%")}
@@ -81,6 +81,7 @@ const OtherInformation = ({ navigation }) => {
             marginBottom: Platform.OS === "ios" ? hp("5%") : hp("3%"),
             paddingLeft: wp("6%"),
             paddingRight: wp("6%"),
+            alignItems: "center",
           }}
         >
           <Text
@@ -88,7 +89,7 @@ const OtherInformation = ({ navigation }) => {
             color="#4B4C4C"
             style={{ fontFamily: "Poppins_400Regular" }}
           >
-            Other Information
+            Care Recipient Other Information
           </Text>
         </View>
         <View style={styles.checkboxContainer2}>
@@ -330,7 +331,7 @@ const OtherInformation = ({ navigation }) => {
       >
         <View style={{ marginTop: 5 }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CheckList2Screen")}
+            onPress={() => navigation.navigate("CareRecipientInfoScreen")}
             style={styles.backBtn2}
           >
             <Text
@@ -346,7 +347,7 @@ const OtherInformation = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("AddCareRecipientScreen")}
+            onPress={() => navigation.navigate("OtherInformationCR2Screen")}
             style={styles.nextBtn}
           >
             <Text

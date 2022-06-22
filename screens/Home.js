@@ -1,152 +1,144 @@
 import React from "react";
-import { StyleSheet, Dimensions, ScrollView, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  StatusBar,
+  Dimensions,
+  TouchableOpacity,
+  Platform,
+  Switch,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { Button, Block, Text, Input, theme } from "galio-framework";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+import { View, Image } from "react-native";
+import logo from "../assets/images/icon.png";
+import materialTheme from "../constants/Theme";
 import { Icon, Product } from "../components/";
 
 const { width } = Dimensions.get("screen");
 import products from "../constants/products";
+import {
+  useFonts,
+  Poppins_200ExtraLight,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
-export default class Home extends React.Component {
-  renderSearch = () => {
-    const { navigation } = this.props;
-    const iconCamera = (
-      <Icon
-        size={16}
-        color={theme.COLORS.MUTED}
-        name="zoom-in"
-        family="material"
-      />
-    );
+const Home = ({ navigation }) => {
+  let [fontsLoaded] = useFonts({
+    Poppins_200ExtraLight,
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
 
-    return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        iconContent={iconCamera}
-        placeholder="What are you looking for?"
-        onFocus={() => navigation.navigate("Pro")}
-      />
-    );
-  };
-
-  renderTabs = () => {
-    const { navigation } = this.props;
-
-    return (
-      <Block row style={styles.tabs}>
-        <StatusBar barStyle="dark-content" />
-        <Button
-          shadowless
-          style={[styles.tab, styles.divider]}
-          onPress={() => navigation.navigate("Pro")}
-        >
-          <Block row middle>
-            <Icon name="grid" family="feather" style={{ paddingRight: 8 }} />
-            <Text size={16} style={styles.tabTitle}>
-              Test Text
-            </Text>
-          </Block>
-        </Button>
-        <Button
-          shadowless
-          style={styles.tab}
-          onPress={() => navigation.navigate("Pro")}
-        >
-          <Block row middle>
-            <Icon
-              size={16}
-              name="camera-18"
-              family="GalioExtra"
-              style={{ paddingRight: 8 }}
-            />
-            <Text size={16} style={styles.tabTitle}>
-              Test Text
-            </Text>
-          </Block>
-        </Button>
-      </Block>
-    );
-  };
-
-  renderProducts = () => {
-    return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.products}
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      <View
+        style={{
+          marginTop: hp("20%"),
+          alignItems: "center",
+        }}
       >
-        <Block flex>
-          {/* <Product product={products[0]} horizontal />
-          <Block flex row>
-            <Product
-              product={products[1]}
-              style={{ marginRight: theme.SIZES.BASE }}
-            />
-            <Product product={products[2]} />
-          </Block>
-          <Product product={products[3]} horizontal />
-          <Product product={products[4]} full /> */}
-        </Block>
-      </ScrollView>
-    );
-  };
-
-  render() {
-    return (
-      <Block flex center style={styles.home}>
-        {this.renderProducts()}
-      </Block>
-    );
-  }
-}
+        <Image
+          source={logo}
+          style={{
+            width: 200,
+            height: 235,
+            marginRight: 15,
+          }}
+        />
+        <Text
+          size={22}
+          color={materialTheme.COLORS.BLACK}
+          style={{
+            fontFamily: "Poppins_600SemiBold",
+            textAlign: "center",
+            marginTop: 50,
+          }}
+        >
+          Welcome Test User!
+        </Text>
+        <Text
+          size={18}
+          color={materialTheme.COLORS.BLACK}
+          style={{
+            fontFamily: "Poppins_500Medium",
+            textAlign: "center",
+            marginTop: 10,
+          }}
+        >
+          Care Level 1
+        </Text>
+      </View>
+    </View>
+  );
+};
+export default Home;
 
 const styles = StyleSheet.create({
-  home: {
-    width: width,
+  container: {
+    flex: 1,
+    backgroundColor: "#f2f4f5",
   },
-  search: {
-    height: 48,
-    width: width - 32,
-    marginHorizontal: 16,
+  backBtn: {
+    alignItems: "flex-start",
+    position: "absolute",
+    marginLeft: 0,
+    top: 0,
+    borderColor: "transparent",
+    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
+  },
+  backBtn2: {
+    borderColor: "#87c9e4",
+    width: "100%",
+    height: hp("5%"),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
     borderWidth: 1,
-    borderRadius: 3,
+    marginTop: hp("1.8%"),
   },
-  header: {
-    backgroundColor: theme.COLORS.WHITE,
-    shadowColor: theme.COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.2,
-    elevation: 4,
-    zIndex: 2,
+  headerText: {
+    position: "absolute",
+    top: hp("2.5%"),
+    color: "#4B4C4C",
+    fontFamily: "Poppins_700Bold",
+    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
-  tabs: {
-    marginBottom: 24,
-    marginTop: 10,
-    elevation: 4,
+  nextBtn: {
+    width: "100%",
+    height: hp("5%"),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    backgroundColor: "#87c9e4",
+    borderColor: "#87c9e4",
+    borderWidth: 1,
+    marginTop: hp("1.8%"),
   },
-  tab: {
-    backgroundColor: theme.COLORS.TRANSPARENT,
-    width: width * 0.5,
-    borderRadius: 0,
-    borderWidth: 0,
-    height: 24,
-    elevation: 0,
+  checkboxContainer2: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: Platform.OS === "ios" ? 35 : 25,
   },
-  tabTitle: {
-    lineHeight: 19,
-    fontFamily: "Poppins_300Light",
+  square1: {
+    flex: Platform.OS === "ios" ? 1 : 0.7,
+    alignItems: "center",
   },
-  divider: {
-    borderRightWidth: 0.3,
-    borderRightColor: theme.COLORS.MUTED,
-  },
-  products: {
-    width: width - theme.SIZES.BASE * 2,
-    paddingVertical: theme.SIZES.BASE * 2,
+  square2: {
+    flex: Platform.OS === "ios" ? 2 : 2.3,
+    alignItems: "flex-start",
   },
 });

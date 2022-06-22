@@ -26,7 +26,8 @@ import materialTheme from "../../constants/Theme";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import languages from "../../utils/languages.json";
 import { MaterialIcons } from "@expo/vector-icons";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import BlankPhoto from "../../assets/images/blank.jpg";
+import * as ImagePicker from "expo-image-picker";
 
 const OtherInformation = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(true);
@@ -35,11 +36,51 @@ const OtherInformation = ({ navigation }) => {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const toggleSwitch2 = () => setIsEnabled2((previousState) => !previousState);
   const toggleSwitch3 = () => setIsEnabled3((previousState) => !previousState);
+  const [image, setImage] = React.useState(null);
 
   const [selectedItems, setSlectedItems] = useState([]);
 
   const onSelectedItemsChange = (selected) => {
     setSlectedItems(selected);
+  };
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const takePhoto = async () => {
+    if (Platform.OS === "ios") {
+      const { status } = await ImagePicker.getCameraPermissionsAsync();
+      if (status !== "granted") {
+        const { newStatus } = await ImagePicker.requestCameraPermissionsAsync();
+        if (newStatus !== "granted") {
+        } else {
+          return false;
+        }
+      }
+    }
+
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   };
 
   return (
@@ -52,7 +93,7 @@ const OtherInformation = ({ navigation }) => {
         <Button
           style={styles.backBtn}
           color="transparent"
-          onPress={() => navigation.navigate("OtherInformationScreen")}
+          onPress={() => navigation.navigate("OtherInformationCRScreen")}
         >
           <Icon
             size={hp("5%")}
@@ -72,40 +113,65 @@ const OtherInformation = ({ navigation }) => {
       <ScrollView
         style={{
           height: hp("75.5%"),
-          paddingLeft: wp("2%"),
-          paddingRight: wp("6%"),
         }}
       >
         <View
           style={{
-            marginTop: hp("5%"),
+            marginTop: hp("15%"),
             marginBottom: Platform.OS === "ios" ? hp("5%") : hp("3%"),
-            paddingLeft: wp("6%"),
-            paddingRight: wp("6%"),
+            alignItems: "center",
           }}
         >
-          <Text size={22} color="#4B4C4C">
-            Add Care Recipient/s
-          </Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CareRecipientInfoScreen")}
+          {image ? (
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 200,
+                height: 200,
+                borderWidth: 6,
+                borderRadius: 4,
+                borderColor: "#ffffff",
+              }}
+            />
+          ) : (
+            <Image
+              source={BlankPhoto}
+              style={{
+                width: 200,
+                height: 200,
+                borderWidth: 6,
+                borderRadius: 4,
+                borderColor: "#ffffff",
+              }}
+            />
+          )}
+          <View
             style={{
-              width: "100%",
-              height: hp("5%"),
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: hp("1.8%"),
+              marginTop: 60,
+              flexDirection: "row",
+              justifyContent: "space-between",
             }}
           >
             <Text
               size={22}
-              style={{ color: "#87c9e4", textDecorationLine: "underline" }}
+              color={materialTheme.COLORS.BLACK}
+              onPress={takePhoto}
+              style={{
+                fontFamily: "Poppins_400Regular",
+                marginRight: 30,
+              }}
             >
-              Add
+              Take Photo
             </Text>
-          </TouchableOpacity>
+            <Text
+              size={22}
+              color={materialTheme.COLORS.BLACK}
+              onPress={pickImage}
+              style={{ marginLeft: 30 }}
+            >
+              Upload Photo
+            </Text>
+          </View>
         </View>
       </ScrollView>
       <View
@@ -118,7 +184,23 @@ const OtherInformation = ({ navigation }) => {
       >
         <View style={{ marginTop: 5 }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("App")}
+            onPress={() => navigation.navigate("OtherInformationCRScreen")}
+            style={styles.backBtn2}
+          >
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: "#87c9e4",
+                  fontFamily: "Poppins_400Regular",
+                },
+              ]}
+            >
+              Previous
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("CheckList3Screen")}
             style={styles.nextBtn}
           >
             <Text
@@ -126,10 +208,11 @@ const OtherInformation = ({ navigation }) => {
                 styles.textSign,
                 {
                   color: "#ffffff",
+                  fontFamily: "Poppins_400Regular",
                 },
               ]}
             >
-              Skip
+              Submit
             </Text>
           </TouchableOpacity>
         </View>
@@ -167,7 +250,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: hp("2.5%"),
     color: "#4B4C4C",
-    fontWeight: "bold",
+    fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {
