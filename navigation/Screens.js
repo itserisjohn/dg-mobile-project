@@ -28,6 +28,8 @@ import CareRecipientInfoScreen from "../screens/SignUp/CareRecipientInfo";
 import AddCareRecipientScreen from "../screens/SignUp/AddCareRecipient";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import ForgotPasswordScreen from "../screens/ForgotPassword";
+import ForgotUsernameScreen from "../screens/ForgotUsername";
 
 const { width } = Dimensions.get("screen");
 
@@ -255,6 +257,20 @@ export default function LoginStack(props) {
         headerShown: false,
       }}
     >
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotUsername"
+        component={ForgotUsernameScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
       <Stack.Screen
         name="Login"
         component={LoginScreen}

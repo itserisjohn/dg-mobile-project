@@ -367,16 +367,33 @@ const SignInScreen = ({ navigation }) => {
         ) : null} */}
         <TouchableOpacity>
           <Text
+            onPress={() => navigation.navigate("ForgotUsername")}
             style={{
               color: "#ffffff",
-              marginTop: hp("2%"),
+              marginTop: hp("1.8%"),
               textAlign: "right",
               fontSize: hp("1.8%"),
+              fontFamily: "Poppins_300Light",
             }}
           >
-            Forgot username/password?
+            Forgot Username?
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity>
+          <Text
+            onPress={() => navigation.navigate("ForgotPassword")}
+            style={{
+              color: "#ffffff",
+              marginTop: hp("1.5%"),
+              textAlign: "right",
+              fontSize: hp("1.8%"),
+              fontFamily: "Poppins_300Light",
+            }}
+          >
+            Forgot Password?
+          </Text>
+        </TouchableOpacity>
+
         <View style={styles.button}>
           <TouchableOpacity
             onPress={() => navigation.navigate("App")}
