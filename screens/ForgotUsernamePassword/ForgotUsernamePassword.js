@@ -11,11 +11,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Icon } from "../components";
+import { Icon } from "../../components";
 import { Button, Text } from "galio-framework";
 import { View } from "react-native";
 
-const ForgotPassword = ({ navigation }) => {
+const ForgotUsernamePassword = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -36,33 +36,33 @@ const ForgotPassword = ({ navigation }) => {
       <View style={{ height: hp("100%") }}>
         <View style={{ alignItems: "center" }}>
           <Text size={hp("2.5%")} style={styles.headerText}>
-            Forgot Password
+            Forgot Username/Password?
           </Text>
 
           <View style={styles.progressContainer}>
+            <View
+              style={{
+                marginTop: hp("2%"),
+                marginBottom: Platform.OS === "ios" ? hp("5%") : hp("3%"),
+                paddingLeft: wp("6%"),
+                paddingRight: wp("6%"),
+              }}
+            ></View>
             <View>
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    color: "#4B4C4C",
-                    fontFamily: "Poppins_400Regular",
-                  },
-                ]}
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ForgotUsername")}
               >
-                {"Please enter your account email to reset your password:"}
-              </Text>
-              <TextInput
-                style={styles.input}
-                value={email}
-                placeholder={"Your account email"}
-                onChangeText={(text) => setEmail(text)}
-                autoCapitalize={"none"}
-                keyboardType={"email-address"}
-              />
-              <TouchableOpacity onPress={() => doUserPasswordReset()}>
                 <View style={styles.btn}>
-                  <Text style={styles.btnLabel}>{"Reset Password"}</Text>
+                  <Text style={styles.buttonTextStyle}>
+                    Send Username to Email
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ForgotPassword")}
+              >
+                <View style={styles.btn}>
+                  <Text style={styles.buttonTextStyle}>Reset Password</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -97,13 +97,12 @@ const styles = StyleSheet.create({
   progressContainer: {
     marginTop: hp("13%"),
     paddingTop: hp("1%"),
-    paddingLeft: hp("4%"),
-    paddingRight: hp("4%"),
+    paddingLeft: hp("6%"),
+    paddingRight: hp("6%"),
     backgroundColor: "#f2f4f5",
     height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
   },
   btn: {
-    width: "100%",
     height: hp("5%"),
     justifyContent: "center",
     alignItems: "center",
@@ -112,9 +111,12 @@ const styles = StyleSheet.create({
     borderColor: "#87c9e4",
     borderWidth: 1,
     marginTop: hp("1.8%"),
+    paddingLeft: hp("6.5%"),
+    paddingRight: hp("6.5%"),
   },
-  btnLabel: {
+  buttonTextStyle: {
     color: "#ffffff",
+    textAlign: "center",
     fontFamily: "Poppins_400Regular",
   },
   backBtn: {
@@ -127,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ForgotPassword;
+export default ForgotUsernamePassword;

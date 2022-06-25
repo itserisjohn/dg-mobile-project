@@ -28,8 +28,11 @@ import CareRecipientInfoScreen from "../screens/SignUp/CareRecipientInfo";
 import AddCareRecipientScreen from "../screens/SignUp/AddCareRecipient";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import ForgotPasswordScreen from "../screens/ForgotPassword";
-import ForgotUsernameScreen from "../screens/ForgotUsername";
+import ForgotUsernamePasswordScreen from "../screens/ForgotUsernamePassword/ForgotUsernamePassword";
+import ForgotUsernameScreen from "../screens/ForgotUsernamePassword/ForgotUsername";
+import ForgotUsernameCodeScreen from "../screens/ForgotUsernamePassword/ForgotUsernameCode";
+import ForgotPasswordScreen from "../screens/ForgotUsernamePassword/ForgotPassword";
+import ForgotUsernameSentScreen from "../screens/ForgotUsernamePassword/ForgotUsernameSent";
 
 const { width } = Dimensions.get("screen");
 
@@ -258,8 +261,8 @@ export default function LoginStack(props) {
       }}
     >
       <Stack.Screen
-        name="ForgotPassword"
-        component={ForgotPasswordScreen}
+        name="ForgotUsernamePassword"
+        component={ForgotUsernamePasswordScreen}
         option={{
           headerTransparent: true,
         }}
@@ -267,6 +270,28 @@ export default function LoginStack(props) {
       <Stack.Screen
         name="ForgotUsername"
         component={ForgotUsernameScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotUsernameCode"
+        component={ForgotUsernameCodeScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotUsernameSent"
+        component={ForgotUsernameSentScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
         option={{
           headerTransparent: true,
         }}

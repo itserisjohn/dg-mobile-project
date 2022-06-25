@@ -11,7 +11,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Icon } from "../components";
+import { Icon } from "../../components";
 import { Button, Text } from "galio-framework";
 
 const ForgotUsername = ({ navigation }) => {
@@ -21,7 +21,7 @@ const ForgotUsername = ({ navigation }) => {
       <Button
         style={styles.backBtn}
         color="transparent"
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("ForgotUsernamePassword")}
       >
         <Icon
           size={hp("5%")}
@@ -35,7 +35,7 @@ const ForgotUsername = ({ navigation }) => {
       <View style={{ height: hp("100%") }}>
         <View style={{ alignItems: "center" }}>
           <Text size={hp("2.5%")} style={styles.headerText}>
-            Forgot Username
+            Forgot Username?
           </Text>
 
           <View style={styles.progressContainer}>
@@ -56,34 +56,20 @@ const ForgotUsername = ({ navigation }) => {
               </Text>
             </View>
             <View>
-              {/* SMS: text(phoneNumber = null, body = null) */}
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.btn}
-                onPress={() =>
-                  Communications.text(
-                    "0123456789",
-                    "Follow https://aboutreact.com"
-                  )
-                }
+                onPress={() => navigation.navigate("ForgotUsernameCode")}
               >
                 <Text style={styles.buttonTextStyle}>
                   Send code to your mobile
                 </Text>
               </TouchableOpacity>
-              {/* Mail: email(to, cc, bcc, subject, body) */}
+
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.btn}
-                onPress={() =>
-                  Communications.email(
-                    ["aboutreact11@gmail.com", "hello@aboutreact.com"],
-                    null,
-                    null,
-                    "Demo Subject",
-                    "Demo Content for the mail"
-                  )
-                }
+                onPress={() => navigation.navigate("ForgotUsernameCode")}
               >
                 <Text style={styles.buttonTextStyle}>Send code via Email</Text>
               </TouchableOpacity>
@@ -128,6 +114,7 @@ const styles = StyleSheet.create({
   buttonTextStyle: {
     color: "#ffffff",
     textAlign: "center",
+    fontFamily: "Poppins_400Regular",
   },
   progressContainer: {
     marginTop: hp("13%"),
