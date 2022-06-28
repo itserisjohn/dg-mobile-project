@@ -31,8 +31,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import ForgotUsernamePasswordScreen from "../screens/ForgotUsernamePassword/ForgotUsernamePassword";
 import ForgotUsernameScreen from "../screens/ForgotUsernamePassword/ForgotUsername";
 import ForgotUsernameCodeScreen from "../screens/ForgotUsernamePassword/ForgotUsernameCode";
-import ForgotPasswordScreen from "../screens/ForgotUsernamePassword/ForgotPassword";
 import ForgotUsernameSentScreen from "../screens/ForgotUsernamePassword/ForgotUsernameSent";
+import ForgotPasswordScreen from "../screens/ForgotUsernamePassword/ForgotPassword";
+import ForgotPasswordCodeScreen from "../screens/ForgotUsernamePassword/ForgotPasswordCode";
+import ForgotPasswordResetScreen from "../screens/ForgotUsernamePassword/ForgotPasswordReset";
+import ForgotPasswordUpdatedScreen from "../screens/ForgotUsernamePassword/ForgotPasswordUpdated";
 
 const { width } = Dimensions.get("screen");
 
@@ -292,6 +295,27 @@ export default function LoginStack(props) {
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPasswordScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordCode"
+        component={ForgotPasswordCodeScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordReset"
+        component={ForgotPasswordResetScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordUpdated"
+        component={ForgotPasswordUpdatedScreen}
         option={{
           headerTransparent: true,
         }}

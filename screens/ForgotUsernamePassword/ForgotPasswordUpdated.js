@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Communications,
+  TextInput,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -14,14 +15,14 @@ import {
 import { Icon } from "../../components";
 import { Button, Text } from "galio-framework";
 
-const ForgotPassword = ({ navigation }) => {
+const ForgotPasswordReset = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <Button
         style={styles.backBtn}
         color="transparent"
-        onPress={() => navigation.navigate("ForgotUsernamePassword")}
+        onPress={() => navigation.navigate("ForgotPasswordReset")}
       >
         <Icon
           size={hp("5%")}
@@ -37,7 +38,6 @@ const ForgotPassword = ({ navigation }) => {
           <Text size={hp("2.5%")} style={styles.headerText}>
             Forgot Password?
           </Text>
-
           <View style={styles.progressContainer}>
             <View
               style={{
@@ -45,33 +45,44 @@ const ForgotPassword = ({ navigation }) => {
                 marginBottom: Platform.OS === "ios" ? hp("5%") : hp("3%"),
                 paddingLeft: wp("6%"),
                 paddingRight: wp("6%"),
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Text
-                size={22}
-                color="#4B4C4C"
-                style={{ fontFamily: "Poppins_400Regular" }}
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                }}
+                size={hp("2%")}
               >
-                Account Verification
+                Reset Password
+              </Text>
+              <Text
+                style={{
+                  fontFamily: "Poppins_400Regular",
+                }}
+                size={hp("2%")}
+              >
+                Your password has successfully updated!
               </Text>
             </View>
-            <View>
+            <View style={{ alignItems: "center" }}>
               <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.btn}
-                onPress={() => navigation.navigate("ForgotPasswordCode")}
+                onPress={() => navigation.navigate("Login")}
+                style={styles.SubmitBtn}
               >
-                <Text style={styles.buttonTextStyle}>
-                  Send code to your mobile
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      fontSize: 16,
+                      color: "#FFFFFF",
+                      fontFamily: "Poppins_400Regular",
+                    },
+                  ]}
+                >
+                  Login
                 </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={styles.btn}
-                onPress={() => navigation.navigate("ForgotPasswordCode")}
-              >
-                <Text style={styles.buttonTextStyle}>Send code via Email</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -101,7 +112,8 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
   },
-  btn: {
+  SubmitBtn: {
+    width: "50%",
     height: hp("5%"),
     justifyContent: "center",
     alignItems: "center",
@@ -109,12 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#87c9e4",
     borderColor: "#87c9e4",
     borderWidth: 1,
-    marginTop: hp("1.8%"),
-  },
-  buttonTextStyle: {
-    color: "#ffffff",
-    textAlign: "center",
-    fontFamily: "Poppins_400Regular",
+    marginTop: hp("7%"),
   },
   progressContainer: {
     marginTop: hp("13%"),
@@ -124,6 +131,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f4f5",
     height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
   },
+  CodeContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: hp("5%"),
+  },
 });
 
-export default ForgotPassword;
+export default ForgotPasswordReset;
