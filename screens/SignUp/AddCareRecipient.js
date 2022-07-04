@@ -52,7 +52,7 @@ const OtherInformation = ({ navigation }) => {
         <Button
           style={styles.backBtn}
           color="transparent"
-          onPress={() => navigation.navigate("LegalWaiverScreen")}
+          onPress={() => navigation.navigate("CheckListScreen")}
         >
           <Icon
             size={hp("5%")}
