@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import { Button, Text } from "galio-framework";
 import { View, Image } from "react-native";
+import Icon from "../../components/Icon";
 const { height } = Dimensions.get("screen");
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Checkbox } from "galio-framework";
 import { HeaderHeight } from "../../constants/utils";
 import {
   useFonts,
@@ -27,8 +27,6 @@ import {
 } from "@expo-google-fonts/poppins";
 
 const LegalWaiver = ({ navigation }) => {
-  const [accepted, setAccepted] = React.useState(false);
-
   let paddingVertical = 7;
 
   let [fontsLoaded] = useFonts({
@@ -40,88 +38,112 @@ const LegalWaiver = ({ navigation }) => {
     Poppins_700Bold,
   });
 
-  const valueChanged = () => {
-    setAccepted(!accepted);
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
-      <View style={{ height: hp("65%"), padding: hp("5%") }}>
-        <Text color="#696c74" style={styles.titleContainer}>
-          Legal Waiver
-        </Text>
-        <ScrollView style={styles.scrollView}>
-          <Text size={hp("2%")} color="#696c74" style={styles.textContainer}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
-            massa vitae tortor condimentum. Quam quisque id diam vel quam
-            elementum pulvinar etiam. Non blandit massa enim nec dui nunc.
-            Habitasse platea dictumst vestibulum rhoncus est pellentesque elit
-            ullamcorper. Sodales ut eu sem integer vitae justo eget magna.
-            Hendrerit gravida rutrum quisque non tellus orci ac. Eget nulla
-          </Text>
-          <Text
-            size={hp("2%")}
-            color="#696c74"
-            style={{ fontFamily: "Poppins_400Regular" }}
-          >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
-            massa vitae tortor condimentum. Quam quisque id diam vel quam
-            elementum pulvinar etiam. Non blandit massa enim nec dui nunc.
-            Habitasse platea dictumst vestibulum rhoncus est pellentesque elit
-            ullamcorper. Sodales ut eu sem integer vitae justo eget magna.
-            Hendrerit gravida rutrum quisque non tellus orci ac. Eget nulla
-          </Text>
-        </ScrollView>
-      </View>
-      <View style={{ height: hp("35%"), padding: hp("5%") }}>
-        <Checkbox
-          color="#00b9d4"
-          label="I agree to these terms and policies"
-          value={accepted}
-          onChange={valueChanged}
-          labelStyle={{ fontFamily: "Poppins_400Regular" }}
+      <View
+        style={{
+          height: Platform.OS === "ios" ? hp("11%") : hp("8%"),
+        }}
+      >
+        <Icon
+          size={hp("4%")}
+          name="arrow-left"
+          family="feather"
+          color={"#DCDCDC"}
+          style={styles.backBtn}
+          onPress={() => navigation.navigate("CreateAccountScreen")}
         />
-        <View style={{ marginTop: hp("5%") }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CreateAccountScreen")}
-            style={styles.backBtn}
+      </View>
+
+      <View
+        style={{
+          height: hp("55%"),
+          padding: hp("3.5%"),
+          paddingTop: hp("1%"),
+        }}
+      >
+        <Text style={styles.titleContainer}>Terms &</Text>
+        <Text style={styles.titleContainer2}>Conditions</Text>
+        <Text
+          style={[
+            styles.textContainer,
+            {
+              color: "#4B4C4C",
+              fontFamily: "Poppins_400Regular",
+              fontSize: hp("1.6%"),
+            },
+          ]}
+        >
+          Lorem ipsum is the good of days. We are just getting started. We are
+          on the ground floor. Success feeds pride. Pride kills urgency. So
+          nothing falls like success. We always bring our best. Nothing is more
+          fun than serving God with people you love. We are spiritual
+          contributors not spiritual consumers. We give up things we love for
+          things we love move. We are all about the capital C Church.
+        </Text>
+        <Text
+          style={[
+            styles.textContainer,
+            {
+              color: "#4B4C4C",
+              fontFamily: "Poppins_400Regular",
+              fontSize: hp("1.6%"),
+            },
+          ]}
+        >
+          We impress people with our strengths but we connect with people
+          through our weaknesses. We are faith filled, big-thingking,
+          bet-the-farm risk takers. We will never insult God with safe thinking
+          and safe living. People need to be insturcted. We believe the local
+          church is the hope of the world.
+        </Text>
+        <Text
+          style={[
+            styles.textContainer,
+            {
+              color: "#4B4C4C",
+              fontFamily: "Poppins_400Regular",
+              fontSize: hp("1.6%"),
+            },
+          ]}
+        >
+          Trust the process. What you fear the most reveals where you trust God
+          the least. We can do infinitely more together than we can apart. We
+          want to be known for what we are for. not for what we are against. if
+          we live with intergrity, nothing else matters. You don't have to have
+          the faith to finish.
+        </Text>
+      </View>
+
+      <View
+        style={{ marginTop: hp("19%"), height: hp("80%"), padding: hp("3%") }}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AddCareRecipientScreen")}
+          style={styles.nextBtn}
+        >
+          <Text
+            style={[
+              styles.textSign,
+              {
+                color: "#ffffff",
+                fontFamily: "Poppins_700Bold",
+                fontSize: hp("2.8%"),
+              },
+            ]}
           >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  paddingVertical,
-                  color: "#ffffff",
-                  fontFamily: "Poppins_400Regular",
-                },
-              ]}
-            >
-              Previous
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ChecklistEmptyScreen")}
-            style={accepted ? styles.nextBtn : styles.disabledBtn}
-            disabled={!accepted}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  paddingVertical,
-                  color: "#ffffff",
-                  fontFamily: "Poppins_400Regular",
-                },
-              ]}
-            >
-              Next
-            </Text>
-          </TouchableOpacity>
-        </View>
+            Accept
+          </Text>
+          <Text style={styles.iconSign}>
+            <Icon
+              size={hp("2.8%")}
+              name="chevron-right"
+              family="feather"
+              color={"#ffffff"}
+            />
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -135,54 +157,52 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f4f5",
   },
   titleContainer: {
-    fontFamily: "Poppins_500Medium",
-    textAlign: "center",
-    color: "#4B4C4C",
-    fontSize: hp("3%"),
-    marginBottom: hp("2.2%"),
+    height: hp("8%"),
+    fontFamily: "Poppins_600SemiBold",
+    color: "#2596be",
+    fontSize: hp("6%"),
+    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 6,
+    position: "relative",
+  },
+  titleContainer2: {
+    height: hp("12%"),
+    fontFamily: "Poppins_600SemiBold",
+    color: "#2596be",
+    fontSize: hp("6%"),
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 6,
   },
   textContainer: {
-    marginBottom: hp("2.2%"),
+    marginBottom: hp("2%"),
     fontFamily: "Poppins_400Regular",
   },
   backBtn: {
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#a6aab7",
-    borderColor: "#a6aab7",
+    alignItems: "flex-start",
+    position: "absolute",
+    margin: 15,
+    padding: 7,
+    borderRadius: 10,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
     borderWidth: 1,
   },
   nextBtn: {
-    width: "100%",
-    height: hp("5%"),
+    height: hp("10%"),
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#87c9e4",
-    borderColor: "#87c9e4",
+    alignItems: "flex-start",
+    borderRadius: 10,
+    backgroundColor: "rgb(37, 150, 190)",
+    borderColor: "rgb(37, 150, 190)",
     borderWidth: 1,
-    marginTop: hp("1.8%"),
+    marginTop: hp("2%"),
+    padding: hp("2%"),
   },
-  disabledBtn: {
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#9de3f7",
-    borderColor: "#9de3f7",
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: hp("38%"),
   },
-  scrollView: {
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: "#d1d2d6",
-    padding: hp("1%"),
-    backgroundColor: "#ffffff",
+  textSign: {
+    position: "absolute",
+    paddingLeft: hp("4%"),
   },
 });
