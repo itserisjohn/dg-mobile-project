@@ -30,13 +30,13 @@ const CheckList = ({ navigation }) => {
       <Button
         style={styles.backBtn}
         color="transparent"
-        onPress={() => navigation.navigate("App")}
+        onPress={() => navigation.navigate("ChooseAccountScreen")}
       >
         <Icon
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#87c9e4"}
+          color={"#4B4C4C"}
           style={styles.backBtn}
         />
       </Button>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   headerText: {
     position: "absolute",
     top: hp("2.5%"),
-    color: "#87c9e4",
+    color: "#4B4C4C",
     fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },

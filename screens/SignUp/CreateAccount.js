@@ -29,7 +29,7 @@ import {
 const CreateAccount = ({ navigation }) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const [items, setItems] = React.useState(["As a User", "As a Provider"]);
+  const [items, setItems] = React.useState(["As a User", "As a Care Provider"]);
 
   let paddingVertical = 7;
 
@@ -71,7 +71,6 @@ const CreateAccount = ({ navigation }) => {
           <SelectDropdown
             data={items}
             onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
               setValue(selectedItem);
             }}
             defaultButtonText={"Type of Account"}

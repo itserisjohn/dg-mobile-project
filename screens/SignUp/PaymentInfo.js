@@ -32,13 +32,13 @@ const PaymentInfo = ({ navigation }) => {
           size={hp("5%")}
           name="chevron-left"
           family="feather"
-          color={"#87c9e4"}
+          color={"#4B4C4C"}
           style={styles.backBtn}
         />
       </Button>
       <View style={{ alignItems: "center" }}>
         <Text size={hp("2.5%")} style={styles.headerText}>
-          User Account Holder
+          Patient Account Holder
         </Text>
       </View>
       <StatusBar barStyle="dark-content" />
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   headerText: {
     position: "absolute",
     top: hp("2.5%"),
-    color: "#87c9e4",
+    color: "#4B4C4C",
     fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },

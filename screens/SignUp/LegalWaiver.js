@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -25,8 +25,12 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { getLegalWaiver } from "../../services/legalwaiver";
 
 const LegalWaiver = ({ navigation }) => {
+  const [accepted, setAccepted] = React.useState(false);
+  const [data, setData] = React.useState({});
+
   let paddingVertical = 7;
 
   let [fontsLoaded] = useFonts({
@@ -37,6 +41,22 @@ const LegalWaiver = ({ navigation }) => {
     Poppins_600SemiBold,
     Poppins_700Bold,
   });
+
+  const valueChanged = () => {
+    setAccepted(!accepted);
+  };
+
+  const getLegalWaiverData = async () => {
+    const progressData = getLegalWaiver();
+    const result = await progressData;
+    if (result) {
+      setData(result);
+    }
+  };
+
+  useEffect(() => {
+    getLegalWaiverData();
+  }, []);
 
   return (
     <View style={styles.container}>
