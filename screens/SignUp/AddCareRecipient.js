@@ -64,7 +64,7 @@ const OtherInformation = ({ navigation }) => {
         </Button>
         <View style={{ alignItems: "center" }}>
           <Text size={hp("2.5%")} style={styles.headerText}>
-            User Account Holder
+            Patient Account Holder
           </Text>
         </View>
       </View>
@@ -85,7 +85,7 @@ const OtherInformation = ({ navigation }) => {
           }}
         >
           <Text size={22} color="#4B4C4C">
-            Add Care Recipient/s
+            Add Family Member/s
           </Text>
         </View>
         <View>

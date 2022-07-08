@@ -136,7 +136,7 @@ const SignUpCareProvider = ({ navigation }) => {
       </Button>
       <View style={{ alignItems: "center" }}>
         <Text size={hp("2.5%")} style={styles.headerText}>
-          User Account Holder
+          Patient Account Holder
         </Text>
       </View>
       <StatusBar barStyle="dark-content" />
@@ -154,7 +154,7 @@ const SignUpCareProvider = ({ navigation }) => {
             marginTop: hp("9%"),
           }}
         >
-          Care Recipient Information
+          Family Member Information
         </Text>
       </View>
       <View

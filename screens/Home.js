@@ -2,14 +2,9 @@ import React from "react";
 import {
   StyleSheet,
   StatusBar,
-  Dimensions,
-  TouchableOpacity,
   Platform,
-  Switch,
-  TextInput,
-  ScrollView,
 } from "react-native";
-import { Button, Block, Text, Input, theme } from "galio-framework";
+import { Text} from "galio-framework";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -17,10 +12,8 @@ import {
 import { View, Image } from "react-native";
 import logo from "../assets/images/icon.png";
 import materialTheme from "../constants/Theme";
-import { Icon, Product } from "../components/";
+import { HeaderHeight } from "../constants/utils";
 
-const { width } = Dimensions.get("screen");
-import products from "../constants/products";
 import {
   useFonts,
   Poppins_200ExtraLight,

@@ -38,7 +38,7 @@ const PaymentInfo = ({ navigation }) => {
       </Button>
       <View style={{ alignItems: "center" }}>
         <Text size={hp("2.5%")} style={styles.headerText}>
-          User Account Holder
+          Patient Account Holder
         </Text>
       </View>
       <StatusBar barStyle="dark-content" />

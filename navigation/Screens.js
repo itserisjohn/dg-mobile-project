@@ -37,6 +37,14 @@ import ServicePreferenceScreen from "../screens/SignUp/ServicePreference";
 import Checklist4Screen from "../screens/SignUp/Checklist4";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import ForgotUsernamePasswordScreen from "../screens/ForgotUsernamePassword/ForgotUsernamePassword";
+import ForgotUsernameScreen from "../screens/ForgotUsernamePassword/ForgotUsername";
+import ForgotUsernameCodeScreen from "../screens/ForgotUsernamePassword/ForgotUsernameCode";
+import ForgotUsernameSentScreen from "../screens/ForgotUsernamePassword/ForgotUsernameSent";
+import ForgotPasswordScreen from "../screens/ForgotUsernamePassword/ForgotPassword";
+import ForgotPasswordCodeScreen from "../screens/ForgotUsernamePassword/ForgotPasswordCode";
+import ForgotPasswordResetScreen from "../screens/ForgotUsernamePassword/ForgotPasswordReset";
+import ForgotPasswordUpdatedScreen from "../screens/ForgotUsernamePassword/ForgotPasswordUpdated";
 
 const { width } = Dimensions.get("screen");
 
@@ -264,6 +272,63 @@ export default function LoginStack(props) {
         headerShown: false,
       }}
     >
+      <Stack.Screen
+        name="ForgotUsernamePassword"
+        component={ForgotUsernamePasswordScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotUsername"
+        component={ForgotUsernameScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotUsernameCode"
+        component={ForgotUsernameCodeScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotUsernameSent"
+        component={ForgotUsernameSentScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordCode"
+        component={ForgotPasswordCodeScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordReset"
+        component={ForgotPasswordResetScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPasswordUpdated"
+        component={ForgotPasswordUpdatedScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
