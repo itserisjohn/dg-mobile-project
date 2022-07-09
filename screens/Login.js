@@ -10,14 +10,16 @@ import {
   Alert,
   Image,
   Keyboard,
+  ImageBackground,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import * as Animatable from "react-native-animatable";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
-import Logo from "../assets/images/icon2.png";
-import LogoWhite from "../assets/images/icon-white.png";
-import { Text as StyledText } from "galio-framework";
+import Logo from "../assets/images/Login-Logo.png";
+import BGImage from "../assets/images/bg_login.png";
+import LogoGoogle from "../assets/images/Login-Icon_Google.png";
+import LogoFacebook from "../assets/images/Login-Icon_Facebook.png";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -31,6 +33,7 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SignInScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -166,22 +169,21 @@ const SignInScreen = ({ navigation }) => {
 
   const styles = StyleSheet.create({
     container: {
-      height: hp("100%"),
       flex: 1,
-      backgroundColor: "#ffffff",
     },
     header: {
       alignItems: "center",
-      height: hp("100%"),
-      paddingTop: isKeyboardVisible ? hp("0%") : hp("10%"),
+      height: hp("42%"),
+      paddingTop: isKeyboardVisible ? hp("20%") : hp("20%"),
+      // paddingTop: isKeyboardVisible ? hp("0%") : hp("20%"),
     },
     logo: {
-      width: wp("80%"),
-      height: hp("20%"),
+      width: wp("75%"),
+      height: hp("15%"),
     },
     title1: {
       fontWeight: "600",
-      color: "#ffffff",
+      color: "#87c9e4",
       fontFamily: "Poppins_600SemiBold",
     },
     title2: {
@@ -190,7 +192,7 @@ const SignInScreen = ({ navigation }) => {
       fontFamily: "Poppins_300Light",
     },
     footer: {
-      backgroundColor: "#fff",
+      backgroundColor: "#ffffff",
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
       marginTop: isKeyboardVisible ? -hp("80%") : -hp("60%"),
@@ -202,14 +204,18 @@ const SignInScreen = ({ navigation }) => {
       marginTop: hp("1"),
       borderBottomWidth: 1,
       borderBottomColor: "#f2f2f2",
-      paddingBottom: hp("1.5%"),
+      padding: 10,
+      borderRadius: 8,
+      backgroundColor: "#ffffff",
     },
     actionFocused: {
       flexDirection: "row",
       marginTop: hp("1"),
       borderBottomWidth: 1,
       borderBottomColor: "#8C00FF",
-      paddingBottom: hp("1.5%"),
+      padding: 10,
+      borderRadius: 8,
+      backgroundColor: "#ffffff",
     },
     actionError: {
       flexDirection: "row",
@@ -222,7 +228,7 @@ const SignInScreen = ({ navigation }) => {
       flex: 1,
       marginTop: Platform.OS === "ios" ? 0 : -7,
       paddingLeft: 15,
-      color: "#ffffff",
+      color: "#7933f3",
       fontSize: hp("2%"),
       fontFamily: "Poppins_400Regular",
     },
@@ -230,7 +236,7 @@ const SignInScreen = ({ navigation }) => {
       flex: 1,
       marginTop: Platform.OS === "ios" ? 0 : -7,
       paddingLeft: 15,
-      color: "#ffffff",
+      color: "#7933f3",
       fontSize: hp("2%"),
       fontFamily: "Poppins_400Regular",
     },
@@ -252,188 +258,295 @@ const SignInScreen = ({ navigation }) => {
     },
     signIn: {
       width: "100%",
-      height: hp("5%"),
+      height: hp("8%"),
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 10,
-      backgroundColor: "#ffffff",
     },
     textSign: {
-      fontSize: hp("2%"),
+      fontSize: 22,
     },
-    footerImage: {
+    footer: {
       position: "absolute",
-      bottom: hp("45%"),
-      width: wp("20%"),
-      height: hp("7%"),
+      bottom: hp("5%"),
+      alignItems: "center",
+      alignContent: "center",
+      width: wp("100%"),
     },
     footerText: {
       position: "absolute",
       bottom: hp("11%"),
-      color: "#ffffff",
+      color: "#87c9e4",
+    },
+    image: {
+      flex: 1,
+    },
+    checkboxContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    square: {
+      flex: 1,
+      alignItems: "center",
+      marginTop: hp("1.5%"),
+    },
+    square1: {
+      flex: 1,
+      alignItems: "flex-start",
+    },
+    square2: {
+      flex: 1,
+      alignItems: "flex-end",
+    },
+    description: {
+      fontSize: 12,
+      color: "#4B4C4C",
+      fontFamily: "Poppins_400Regular",
+      textAlign: "center",
     },
   });
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#eaeeea" barStyle="dark-content" />
-      <View style={styles.header}>
-        <Image source={Logo} style={styles.logo} resizeMode="contain"></Image>
-      </View>
-      <Animatable.View
-        animation="fadeInUpBig"
-        style={[
-          styles.footer,
-          {
-            backgroundColor: "#87c9e4",
-          },
-        ]}
-      >
-        <View style={!usernameFocused ? styles.action : styles.actionFocused}>
-          <FontAwesome
-            name="user-o"
-            color={!usernameFocused ? "#ffffff" : "#8C00FF"}
-            size={hp("3%")}
-            style={{ marginTop: Platform.OS === "ios" ? 0 : -hp("0.9%") }}
-          />
-          <TextInput
-            placeholder="Username"
-            placeholderTextColor="#dafcfc"
-            style={
-              !usernameFocused ? styles.textInput : styles.textInputFocused
-            }
-            onBlur={() => onFocusUsername(false)}
-            onFocus={() => onFocusUsername(true)}
-            autoCapitalize="none"
-            onChangeText={(val) => textInputChange(val)}
-            onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-          />
-          {data.check_textInputChange ? (
-            <Animatable.View animation="bounceIn">
-              <Feather name="check-circle" color="#ffffff" size={hp("2.5%")} />
-            </Animatable.View>
-          ) : null}
-        </View>
-        {/* {!data.isValidUser && usernameFocused ? (
-          <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>
-              Username must be 4 characters long.
-            </Text>
-          </Animatable.View>
-        ) : null} */}
-        <View
-          style={[
-            !passwordFocused ? styles.action : styles.actionFocused,
-            {
-              marginTop: hp("3%"),
-            },
-          ]}
-        >
-          <Feather
-            name="lock"
-            color={!passwordFocused ? "#ffffff" : "#8C00FF"}
-            size={hp("3%")}
-            style={{
-              marginLeft: -2,
-              marginTop: Platform.OS === "ios" ? 0 : -hp("0.9%"),
-            }}
-          />
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor="#dafcfc"
-            secureTextEntry={data.secureTextEntry ? true : false}
-            style={
-              !passwordFocused ? styles.textInput : styles.textInputFocused
-            }
-            onBlur={() => onFocusPassword(false)}
-            onFocus={() => onFocusPassword(true)}
-            autoCapitalize="none"
-            onChangeText={(val) => handlePasswordChange(val)}
-          />
-          <TouchableOpacity onPress={updateSecureTextEntry}>
-            {data.secureTextEntry ? (
-              <Feather name="eye-off" color="#ffffff" size={hp("2.5%")} />
-            ) : (
-              <Feather name="eye" color="#ffffff" size={hp("2.5%")} />
-            )}
-          </TouchableOpacity>
-        </View>
-        {/* {!data.isValidPassword && passwordFocused ? (
-          <Animatable.View animation="fadeInLeft" duration={500}>
-            <Text style={styles.errorMsg}>
-              Password must be 8 characters long.
-            </Text>
-          </Animatable.View>
-        ) : null} */}
-        <TouchableOpacity>
+      <ImageBackground source={BGImage} resizeMode="cover" style={styles.image}>
+        <View style={styles.header}>
+          <Image source={Logo} style={styles.logo} resizeMode="contain"></Image>
           <Text
-            onPress={() => navigation.navigate("ForgotUsernamePassword")}
             style={{
-              color: "#ffffff",
-              marginTop: hp("1.8%"),
-              textAlign: "right",
-              fontSize: hp("1.8%"),
+              color: "#4c4c4c",
+              textAlign: "center",
+              fontSize: 14,
+              marginTop: -hp("0.5"),
             }}
           >
-            Forgot Username/Password?
+            Bringing Care to you and your loved ones.
           </Text>
-        </TouchableOpacity>
-        <View style={styles.button}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("App")}
-            style={[
-              styles.signIn,
-              {
-                borderColor: "#ffffff",
-                borderWidth: 1,
-                marginTop: hp("1.8%"),
-              },
-            ]}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#87c9e4",
-                  fontFamily: "Poppins_600SemiBold",
-                },
-              ]}
-            >
-              Log In
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("SignUpCareProvider")}
-            style={[
-              styles.signUp,
-              {
-                borderColor: "#ffffff",
-                borderWidth: 1,
-                marginTop: hp("1.8%"),
-              },
-            ]}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  paddingVertical,
-                  color: "#ffffff",
-                  fontFamily: "Poppins_600SemiBold",
-                },
-              ]}
-            >
-              Create an Account
-            </Text>
-          </TouchableOpacity>
         </View>
-      </Animatable.View>
-      <View style={{ alignItems: "center" }}>
-        <Image
-          source={LogoWhite}
-          style={styles.footerImage}
-          resizeMode="contain"
-        ></Image>
+        <Animatable.View
+          animation="fadeInUpBig"
+          style={{ paddingLeft: wp("5%"), paddingRight: wp("5%") }}
+        >
+          <View style={!usernameFocused ? styles.action : styles.actionFocused}>
+            <MaterialCommunityIcons
+              name="at"
+              color="#7933f3"
+              size={hp("3%")}
+              style={{
+                marginLeft: -2,
+                marginTop: Platform.OS === "ios" ? 0 : -hp("0.9%"),
+              }}
+            />
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#c1c1c1"
+              style={
+                !usernameFocused ? styles.textInput : styles.textInputFocused
+              }
+              onBlur={() => onFocusUsername(false)}
+              onFocus={() => onFocusUsername(true)}
+              autoCapitalize="none"
+              onChangeText={(val) => textInputChange(val)}
+              onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+            />
+            {/* {data.check_textInputChange ? (
+              <Animatable.View animation="bounceIn">
+                <Feather
+                  name="check-circle"
+                  color="#87c9e4"
+                  size={hp("2.5%")}
+                />
+              </Animatable.View>
+            ) : null} */}
+          </View>
+          {/* {!data.isValidUser && usernameFocused ? (
+            <Animatable.View animation="fadeInLeft" duration={500}>
+              <Text style={styles.errorMsg}>
+                Username must be 4 characters long.
+              </Text>
+            </Animatable.View>
+          ) : null} */}
+          <View
+            style={[
+              !passwordFocused ? styles.action : styles.actionFocused,
+              {
+                marginTop: hp("3%"),
+              },
+            ]}
+          >
+            <MaterialCommunityIcons
+              name="key"
+              color="#7933f3"
+              size={hp("3%")}
+              style={{
+                marginLeft: -2,
+                marginTop: Platform.OS === "ios" ? 0 : -hp("0.9%"),
+              }}
+            />
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor="#c1c1c1"
+              secureTextEntry={data.secureTextEntry ? true : false}
+              style={
+                !passwordFocused ? styles.textInput : styles.textInputFocused
+              }
+              onBlur={() => onFocusPassword(false)}
+              onFocus={() => onFocusPassword(true)}
+              autoCapitalize="none"
+              onChangeText={(val) => handlePasswordChange(val)}
+            />
+            <TouchableOpacity onPress={updateSecureTextEntry}>
+              {data.secureTextEntry ? (
+                <Feather name="eye-off" color="#7933f3" size={hp("3%")} />
+              ) : (
+                <Feather name="eye" color="#7933f3" size={hp("3%")} />
+              )}
+            </TouchableOpacity>
+          </View>
+          {/* {!data.isValidPassword && passwordFocused ? (
+            <Animatable.View animation="fadeInLeft" duration={500}>
+              <Text style={styles.errorMsg}>
+                Password must be 8 characters long.
+              </Text>
+            </Animatable.View>
+          ) : null} */}
+          <View style={styles.checkboxContainer}>
+            <View style={styles.square1}>
+              <TouchableOpacity>
+                <Text
+                  onPress={() => navigation.navigate("SignUpCareProvider")}
+                  style={{
+                    color: "#ffffff",
+                    marginTop: hp("1.8%"),
+                    textAlign: "right",
+                    fontSize: 14,
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  Create Account
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.square2}>
+              <TouchableOpacity>
+                <Text
+                  onPress={() => navigation.navigate("ForgotUsernamePassword")}
+                  style={{
+                    color: "#4c4c4c",
+                    marginTop: hp("1.8%"),
+                    textAlign: "right",
+                    fontSize: 14,
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  Forgot Password?
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.button}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("App")}
+              style={[
+                styles.signIn,
+                {
+                  backgroundColor: "#782ddb",
+                  borderColor: "#782ddb",
+                  borderWidth: 1,
+                  marginTop: hp("1%"),
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#f9e0ff",
+                    fontFamily: "Poppins_600SemiBold",
+                  },
+                ]}
+              >
+                Log In
+              </Text>
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: "#4c4c4c",
+                fontFamily: "Poppins_400Regular",
+                fontSize: 14,
+                marginTop: hp("4%"),
+              }}
+            >
+              OR login with
+            </Text>
+            <View style={styles.checkboxContainer}>
+              <View style={styles.square}></View>
+              <View style={styles.square}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#fbfdfe",
+                    borderColor: "#57bbcc",
+                    borderWidth: 6,
+                    padding: 11,
+                    borderRadius: 30,
+                    width: 60,
+                    height: 60,
+                  }}
+                >
+                  <Image
+                    source={LogoGoogle}
+                    style={{}}
+                    resizeMode="contain"
+                  ></Image>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.square}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#fbfdfe",
+                    borderColor: "#57bbcc",
+                    borderWidth: 6,
+                    padding: 10,
+                    paddingLeft: 16,
+                    borderRadius: 30,
+                    width: 60,
+                    height: 60,
+                  }}
+                >
+                  <Image
+                    source={LogoFacebook}
+                    style={{}}
+                    resizeMode="contain"
+                  ></Image>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.square}></View>
+            </View>
+          </View>
+        </Animatable.View>
+      </ImageBackground>
+      <View style={styles.footer}>
+        <Text
+          style={{
+            color: "#4c4c4c",
+            fontFamily: "Poppins_400Regular",
+            fontSize: 14,
+            marginTop: hp("4%"),
+            textAlign: "center",
+          }}
+        >
+          By signing up, you agree with our
+        </Text>
+        <Text
+          style={{
+            color: "#f9e0ff",
+            fontFamily: "Poppins_400Regular",
+            fontSize: 14,
+            textAlign: "center",
+          }}
+        >
+          Terms & Conditions
+        </Text>
       </View>
     </View>
   );

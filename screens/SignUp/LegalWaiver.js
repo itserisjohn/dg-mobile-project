@@ -63,93 +63,104 @@ const LegalWaiver = ({ navigation }) => {
       <StatusBar barStyle="dark-content" />
       <View
         style={{
-          height: Platform.OS === "ios" ? hp("11%") : hp("8%"),
+          height: hp("12%"),
         }}
       >
-        <Icon
-          size={hp("4%")}
-          name="arrow-left"
-          family="feather"
-          color={"#DCDCDC"}
+        <TouchableOpacity
           style={styles.backBtn}
           onPress={() => navigation.navigate("CreateAccountScreen")}
-        />
+        >
+          <Icon
+            size={22}
+            name="arrow-left"
+            family="feather"
+            color={"#DCDCDC"}
+          />
+        </TouchableOpacity>
       </View>
-
       <View
         style={{
-          height: hp("55%"),
-          padding: hp("3.5%"),
+          height: hp("73%"),
+          paddingLeft: wp("8%"),
+          paddingRight: wp("8%"),
           paddingTop: hp("1%"),
+          paddingBottom: hp("3"),
         }}
       >
         <Text style={styles.titleContainer}>Terms &</Text>
         <Text style={styles.titleContainer2}>Conditions</Text>
-        <Text
-          style={[
-            styles.textContainer,
-            {
-              color: "#4B4C4C",
-              fontFamily: "Poppins_400Regular",
-              fontSize: hp("1.6%"),
-            },
-          ]}
-        >
-          Lorem ipsum is the good of days. We are just getting started. We are
-          on the ground floor. Success feeds pride. Pride kills urgency. So
-          nothing falls like success. We always bring our best. Nothing is more
-          fun than serving God with people you love. We are spiritual
-          contributors not spiritual consumers. We give up things we love for
-          things we love move. We are all about the capital C Church.
-        </Text>
-        <Text
-          style={[
-            styles.textContainer,
-            {
-              color: "#4B4C4C",
-              fontFamily: "Poppins_400Regular",
-              fontSize: hp("1.6%"),
-            },
-          ]}
-        >
-          We impress people with our strengths but we connect with people
-          through our weaknesses. We are faith filled, big-thingking,
-          bet-the-farm risk takers. We will never insult God with safe thinking
-          and safe living. People need to be insturcted. We believe the local
-          church is the hope of the world.
-        </Text>
-        <Text
-          style={[
-            styles.textContainer,
-            {
-              color: "#4B4C4C",
-              fontFamily: "Poppins_400Regular",
-              fontSize: hp("1.6%"),
-            },
-          ]}
-        >
-          Trust the process. What you fear the most reveals where you trust God
-          the least. We can do infinitely more together than we can apart. We
-          want to be known for what we are for. not for what we are against. if
-          we live with intergrity, nothing else matters. You don't have to have
-          the faith to finish.
-        </Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text
+            style={[
+              styles.textContainer,
+              {
+                color: "#4B4C4C",
+                fontFamily: "Poppins_400Regular",
+                fontSize: 13,
+                marginTop: hp("3%"),
+              },
+            ]}
+          >
+            Lorem ipsum is the good of days. We are just getting started. We are
+            on the ground floor. Success feeds pride. Pride kills urgency. So
+            nothing falls like success. We always bring our best. Nothing is
+            more fun than serving God with people you love. We are spiritual
+            contributors not spiritual consumers. We give up things we love for
+            things we love move. We are all about the capital C Church.
+          </Text>
+          <Text
+            style={[
+              styles.textContainer,
+              {
+                color: "#4B4C4C",
+                fontFamily: "Poppins_400Regular",
+                fontSize: 13,
+              },
+            ]}
+          >
+            We impress people with our strengths but we connect with people
+            through our weaknesses. We are faith filled, big-thingking,
+            bet-the-farm risk takers. We will never insult God with safe
+            thinking and safe living. People need to be insturcted. We believe
+            the local church is the hope of the world.
+          </Text>
+          <Text
+            style={[
+              styles.textContainer,
+              {
+                color: "#4B4C4C",
+                fontFamily: "Poppins_400Regular",
+                fontSize: 13,
+              },
+            ]}
+          >
+            Trust the process. What you fear the most reveals where you trust
+            God the least. We can do infinitely more together than we can apart.
+            We want to be known for what we are for. not for what we are
+            against. if we live with intergrity, nothing else matters. You don't
+            have to have the faith to finish.
+          </Text>
+        </ScrollView>
       </View>
-
       <View
-        style={{ marginTop: hp("19%"), height: hp("80%"), padding: hp("3%") }}
+        style={{
+          height: hp("15%"),
+          alignItems: "center",
+          alignContent: "center",
+          width: wp("100%"),
+        }}
       >
         <TouchableOpacity
-          onPress={() => navigation.navigate("AddCareRecipientScreen")}
+          onPress={() => navigation.navigate("ChecklistEmptyScreen")}
           style={styles.nextBtn}
         >
           <Text
             style={[
               styles.textSign,
               {
-                color: "#ffffff",
+                color: "#d7feff",
                 fontFamily: "Poppins_700Bold",
-                fontSize: hp("2.8%"),
+                fontSize: 26,
               },
             ]}
           >
@@ -157,10 +168,10 @@ const LegalWaiver = ({ navigation }) => {
           </Text>
           <Text style={styles.iconSign}>
             <Icon
-              size={hp("2.8%")}
+              size={30}
               name="chevron-right"
               family="feather"
-              color={"#ffffff"}
+              color={"#d7feff"}
             />
           </Text>
         </TouchableOpacity>
@@ -174,22 +185,20 @@ export default LegalWaiver;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: hp("100%"),
     backgroundColor: "#f2f4f5",
   },
   titleContainer: {
-    height: hp("8%"),
     fontFamily: "Poppins_600SemiBold",
-    color: "#2596be",
-    fontSize: hp("6%"),
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 6,
+    color: "#46b5d0",
+    fontSize: 54,
+    marginTop: 14,
     position: "relative",
   },
   titleContainer2: {
-    height: hp("12%"),
     fontFamily: "Poppins_600SemiBold",
-    color: "#2596be",
-    fontSize: hp("6%"),
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 6,
+    color: "#46b5d0",
+    fontSize: 54,
   },
   textContainer: {
     marginBottom: hp("2%"),
@@ -197,29 +206,28 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     alignItems: "flex-start",
-    position: "absolute",
-    margin: 15,
-    padding: 7,
-    borderRadius: 10,
+    width: 55,
+    height: 53,
+    marginLeft: wp("5%"),
+    padding: 15,
+    borderRadius: 12,
     backgroundColor: "#6B24AA",
     borderColor: "#6B24AA",
-    borderWidth: 1,
+    marginTop: Platform.OS == "ios" ? 55 : 0,
   },
   nextBtn: {
     height: hp("10%"),
     justifyContent: "center",
-    alignItems: "flex-start",
-    borderRadius: 10,
-    backgroundColor: "rgb(37, 150, 190)",
-    borderColor: "rgb(37, 150, 190)",
+    borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
     borderWidth: 1,
-    marginTop: hp("2%"),
-    padding: hp("2%"),
+    width: wp("85%"),
   },
   iconSign: {
     alignItems: "flex-end",
     position: "absolute",
-    paddingLeft: hp("38%"),
+    paddingLeft: wp("72%"),
   },
   textSign: {
     position: "absolute",
