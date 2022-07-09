@@ -34,7 +34,8 @@
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#5be0e6"
-      }
+      },
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "build": {

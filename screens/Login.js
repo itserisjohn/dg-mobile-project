@@ -174,7 +174,7 @@ const SignInScreen = ({ navigation }) => {
     header: {
       alignItems: "center",
       height: hp("42%"),
-      paddingTop: isKeyboardVisible ? hp("20%") : hp("20%"),
+      paddingTop: Platform.OS === "ios" ? hp("20%") : hp("16%"),
       // paddingTop: isKeyboardVisible ? hp("0%") : hp("20%"),
     },
     logo: {
@@ -195,7 +195,7 @@ const SignInScreen = ({ navigation }) => {
       backgroundColor: "#ffffff",
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
-      marginTop: isKeyboardVisible ? -hp("80%") : -hp("60%"),
+      marginTop: -hp("80%"),
       height: hp("100%"),
       padding: hp("5%"),
     },
@@ -226,7 +226,6 @@ const SignInScreen = ({ navigation }) => {
     },
     textInput: {
       flex: 1,
-      marginTop: Platform.OS === "ios" ? 0 : -7,
       paddingLeft: 15,
       color: "#7933f3",
       fontSize: hp("2%"),
@@ -234,7 +233,6 @@ const SignInScreen = ({ navigation }) => {
     },
     textInputFocused: {
       flex: 1,
-      marginTop: Platform.OS === "ios" ? 0 : -7,
       paddingLeft: 15,
       color: "#7933f3",
       fontSize: hp("2%"),
@@ -334,7 +332,6 @@ const SignInScreen = ({ navigation }) => {
               size={hp("3%")}
               style={{
                 marginLeft: -2,
-                marginTop: Platform.OS === "ios" ? 0 : -hp("0.9%"),
               }}
             />
             <TextInput
@@ -380,7 +377,6 @@ const SignInScreen = ({ navigation }) => {
               size={hp("3%")}
               style={{
                 marginLeft: -2,
-                marginTop: Platform.OS === "ios" ? 0 : -hp("0.9%"),
               }}
             />
             <TextInput
