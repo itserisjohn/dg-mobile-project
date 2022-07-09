@@ -16,6 +16,7 @@ import { Icon } from "../../components";
 import { Button, Text } from "galio-framework";
 import Feather from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { HeaderHeight } from "../../constants/utils";
 
 const ForgotPasswordReset = ({ navigation }) => {
   const [data, setData] = React.useState({

@@ -14,6 +14,7 @@ import {
 import { Icon } from "../../components";
 import { Button, Text } from "galio-framework";
 import { View } from "react-native";
+import { HeaderHeight } from "../../constants/utils";
 
 const ForgotUsernamePassword = ({ navigation }) => {
   return (

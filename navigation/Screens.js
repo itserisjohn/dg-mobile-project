@@ -6,6 +6,7 @@ import { Images, materialTheme } from "../constants/";
 import ComponentsScreen from "../screens/Components";
 import CustomDrawerContent from "./Menu";
 import HomeScreen from "../screens/Home";
+import OnboardingScreen from "../screens/OnboardingScreen";
 import LoginScreen from "../screens/Login";
 import ProScreen from "../screens/Pro";
 import ProfileScreen from "../screens/Profile";
@@ -266,7 +267,7 @@ function AppStack(props) {
 export default function LoginStack(props) {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Onboarding"
       screenOptions={{
         mode: "card",
         headerShown: false,
@@ -300,7 +301,6 @@ export default function LoginStack(props) {
           headerTransparent: true,
         }}
       />
-
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPasswordScreen}
@@ -325,6 +325,13 @@ export default function LoginStack(props) {
       <Stack.Screen
         name="ForgotPasswordUpdated"
         component={ForgotPasswordUpdatedScreen}
+        option={{
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
         option={{
           headerTransparent: true,
         }}

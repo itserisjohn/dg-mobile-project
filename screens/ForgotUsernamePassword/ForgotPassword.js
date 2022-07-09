@@ -13,6 +13,7 @@ import {
 } from "react-native-responsive-screen";
 import { Icon } from "../../components";
 import { Button, Text } from "galio-framework";
+import { HeaderHeight } from "../../constants/utils";
 
 const ForgotPassword = ({ navigation }) => {
   return (
