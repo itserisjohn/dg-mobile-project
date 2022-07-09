@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#8432ee",
     paddingHorizontal: 28,
     paddingBottom: theme.SIZES.BASE,
     paddingTop:

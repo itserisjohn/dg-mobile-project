@@ -148,14 +148,13 @@ function TabMenus(props) {
         tabBarInactiveTintColor: "#4B4C4C",
         tabBarShowLabel: true,
         tabBarLabelStyle: {
-          marginBottom: 8,
-          marginTop: -8,
+          marginBottom: -10,
           fontWeight: "700",
         },
         tabBarStyle: {
           height: Platform.OS == "ios" ? 90 : 60,
           // position: 'absolute',
-          backgroundColor: "#ffffff",
+          backgroundColor: "#e5c9ff",
           // borderRadius: 50,
           // bottom: 20,
           // marginHorizontal: 16
@@ -163,30 +162,46 @@ function TabMenus(props) {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name=" "
         component={HomeStackScreen}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
               <MaterialCommunityIcons
                 name={focused ? "home" : "home-outline"}
-                size={32}
-                color={focused ? "#87c9e4" : "#4B4C4C"}
+                size={40}
+                color="#8432ee"
               />
             );
           },
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="  "
+        component={HomeStackScreen}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <MaterialCommunityIcons
+                name={focused ? "calendar" : "calendar-outline"}
+                size={40}
+                color="#8432ee"
+                style={{ marginTop: focused ? 3 : 0 }}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="   "
         component={ProfileStack}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
               <MaterialCommunityIcons
                 name={focused ? "account-circle" : "account-circle-outline"}
-                size={28}
-                color={focused ? "#87c9e4" : "#4B4C4C"}
+                size={40}
+                color="#8432ee"
               />
             );
           },

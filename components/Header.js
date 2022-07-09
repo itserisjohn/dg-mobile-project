@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Platform,
   Dimensions,
+  View,
 } from "react-native";
 import { Button, Block, NavBar, Input, Text, theme } from "galio-framework";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,32 +23,19 @@ const iPhoneX = () =>
 
 const ChatButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button]}>
-    <Icon
-      family="GalioExtra"
-      size={hp("2.62%")}
-      name="chat-33"
-      color="#4B4C4C"
-    />
-    <Block middle style={styles.notify}>
-      <Text color="#ffffff" size={12}>
-        3
-      </Text>
-    </Block>
+    <MaterialCommunityIcons name="bell-outline" color="#8734f7" size={32} />
+    <Block middle style={styles.notify}></Block>
   </TouchableOpacity>
 );
 
 const ScheduledButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button]}>
     <MaterialCommunityIcons
-      name="calendar-check"
-      color="#4B4C4C"
-      size={hp("2.62%")}
+      name="calendar-multiselect"
+      color="#8734f7"
+      size={32}
+      style={{ marginTop: 1 }}
     />
-    <Block middle style={styles.notify}>
-      <Text color="#ffffff" size={12}>
-        5
-      </Text>
-    </Block>
   </TouchableOpacity>
 );
 
@@ -87,15 +75,52 @@ class Header extends React.Component {
     return back ? navigation.goBack() : navigation.openDrawer();
   };
 
-  renderRight = () => {
+  renderLeft = () => {
     const { white, title, navigation } = this.props;
 
     return [
-      <OnDemandButton key="ondemand" isWhite={white} />,
-      <PendingButton key="pending" isWhite={white} />,
       <ScheduledButton key="scheduled" isWhite={white} />,
       <ChatButton key="chat" isWhite={white} />,
     ];
+  };
+
+  renderRight2 = () => {
+    const { white, title, navigation } = this.props;
+
+    return [
+      <ScheduledButton key="scheduled" isWhite={white} />,
+      <ChatButton key="chat" isWhite={white} />,
+    ];
+  };
+
+  renderRight = () => {
+    const { white, title, navigation } = this.props;
+
+    return (
+      <View style={styles.checkboxContainer}>
+        <View style={styles.square1}></View>
+        <View style={styles.square2}>
+          <TouchableOpacity style={[styles.button]}>
+            <MaterialCommunityIcons
+              name="calendar-multiselect"
+              color="#8734f7"
+              size={32}
+              style={{ marginTop: 1 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.square2}>
+          <TouchableOpacity style={[styles.button]}>
+            <MaterialCommunityIcons
+              name="bell-outline"
+              color="#8734f7"
+              size={32}
+            />
+            <Block middle style={styles.notify}></Block>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   };
 
   renderSearch = () => {
@@ -177,7 +202,7 @@ class Header extends React.Component {
     ].includes(title);
     const headerStyles = [
       !noShadow ? null : null,
-      !transparent ? { backgroundColor: "rgba(0,0,0,0)" } : null,
+      { backgroundColor: "#fbfbfb" },
       { marginTop: Platform.OS === "android" ? -(HeaderHeight / 2.5) : 0 },
     ];
 
@@ -187,12 +212,13 @@ class Header extends React.Component {
           back={back}
           title={""}
           style={styles.navbar}
-          transparent={transparent}
           right={this.renderRight()}
-          rightStyle={{ alignItems: "flex-end" }}
-          leftStyle={{ flex: 0.3, paddingTop: 2 }}
+          rightStyle={{
+            alignItems: "flex-end",
+          }}
+          leftStyle={{ paddingTop: 2 }}
           leftIconName={back ? "chevron-left" : "navicon"}
-          leftIconColor="#4B4C4C"
+          leftIconColor="#8734f7"
           leftIconSize={hp("3.4%")}
           titleStyle={[
             styles.title,
@@ -210,13 +236,11 @@ export default withNavigation(Header);
 
 const styles = StyleSheet.create({
   button: {
-    height: hp("4.5%"),
-    width: hp("4.5%"),
-    borderRadius: hp("2.25%"),
-    padding: hp("1%"),
+    height: hp("5%"),
+    width: hp("5%"),
     position: "relative",
-    marginBottom: 8,
-    marginRight: wp("3%"),
+    marginBottom: -2,
+    marginRight: 5,
   },
   title: {
     width: "100%",
@@ -224,12 +248,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   navbar: {
-    backgroundColor: "#ffffff",
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 2,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4.5 : theme.SIZES.BASE * 1.5,
     zIndex: 5,
-    paddingRight: hp("8sdf%"),
+    marginRight: -3,
+    backgroundColor: "#fbfbfb",
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
@@ -240,19 +264,19 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   notify: {
-    backgroundColor: materialTheme.COLORS.LABEL,
+    backgroundColor: "#ae78f9",
     borderRadius: 9,
-    height: theme.SIZES.BASE * 1.1,
-    width: theme.SIZES.BASE * 1.1,
+    height: theme.SIZES.BASE * 0.8,
+    width: theme.SIZES.BASE * 0.8,
     position: "absolute",
     top: 0,
-    right: 0,
+    right: 5,
     paddingLeft: 1,
     borderWidth: 1,
     borderColor: "#ffffff",
   },
   header: {
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: "#fbfbfb",
   },
   divider: {
     borderRightWidth: 0.3,
@@ -281,5 +305,19 @@ const styles = StyleSheet.create({
   tabTitle: {
     lineHeight: 19,
     fontWeight: "300",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: wp("80%"),
+    paddingTop: 15,
+  },
+  square1: {
+    flex: 4,
+    alignItems: "flex-start",
+  },
+  square2: {
+    flex: 1,
+    alignItems: "flex-end",
   },
 });

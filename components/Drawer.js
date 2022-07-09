@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   activeStyle: {
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#8432ee",
     borderRadius: 4,
   },
   shadow: {
