@@ -25,11 +25,15 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const CreateAccount = ({ navigation }) => {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-  const [items, setItems] = React.useState(["As a User", "As a Care Provider"]);
+  const [items, setItems] = React.useState([
+    "Care Customer",
+    "Care Specialist",
+  ]);
 
   let paddingVertical = 7;
 
@@ -45,81 +49,143 @@ const CreateAccount = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <Button
-        style={styles.backBtn}
-        color="transparent"
-        onPress={() => navigation.navigate("Login")}
+      <View
+        style={{
+          height: hp("12%"),
+        }}
       >
-        <Icon
-          size={hp("5%")}
-          name="chevron-left"
-          family="feather"
-          color={"#4B4C4C"}
+        <TouchableOpacity
           style={styles.backBtn}
-        />
-      </Button>
-      <View style={{ height: hp("100%") }}>
-        <View style={{ alignItems: "center" }}>
-          <Text size={hp("2.5%")} style={styles.headerText}>
-            Create an Account
-          </Text>
-        </View>
-        <View style={{ padding: hp("8%") }}>
-          <Text style={styles.descText2} size={hp("1.9%")}>
-            Choose type of account
-          </Text>
-          <SelectDropdown
-            data={items}
-            onSelect={(selectedItem, index) => {
-              setValue(selectedItem);
-            }}
-            defaultButtonText={"Type of Account"}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={styles.dropdown1BtnStyle}
-            buttonTextStyle={styles.dropdown1BtnTxtStyle}
-            renderDropdownIcon={(isOpened) => {
-              return (
-                <FontAwesome
-                  name={isOpened ? "chevron-up" : "chevron-down"}
-                  color={"#4B4C4C"}
-                  size={14}
-                />
-              );
-            }}
-            dropdownIconPosition={"right"}
-            dropdownStyle={styles.dropdown1DropdownStyle}
-            rowStyle={styles.dropdown1RowStyle}
-            rowTextStyle={styles.dropdown1RowTxtStyle}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Icon
+            size={22}
+            name="arrow-left"
+            family="feather"
+            color={"#DCDCDC"}
           />
-          <View
-            style={{ alignItems: "center" }}
-            opacity={value === "" ? 0.6 : 1}
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          height: hp("32%"),
+          paddingLeft: wp("8%"),
+          paddingRight: wp("8%"),
+          paddingTop: hp("1%"),
+        }}
+      >
+        <Text style={styles.titleContainer}>Create</Text>
+        <Text style={styles.titleContainer2}>Account</Text>
+      </View>
+
+      <View
+        style={{
+          height: hp("50%"),
+          alignItems: "center",
+          alignContent: "center",
+
+          width: wp("100%"),
+        
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.navigate("LegalWaiverScreen")}
+          style={styles.nextBtn}
+        >
+          <Text
+            style={[
+              styles.textAccHeart,
+              {
+                color: "#ffffff",
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 22,
+                marginLeft: 20,
+                paddingBottom: 25,
+              },
+            ]}
           >
-            <TouchableOpacity
-              onPress={() => navigation.navigate("LegalWaiverScreen")}
-              style={styles.nextBtn}
-              disabled={value === ""}
+            Care
+          </Text>
+          <Text
+            style={[
+              styles.textAccHeart,
+              {
+                color: "#ffffff",
+                fontFamily: "Poppins_600SemiBold",
+                fontSize: 22,
+                marginLeft: 20,
+                marginTop: 20,
+                paddingTop: 30,
+              },
+            ]}
+          >
+            Customer
+          </Text>
+          <Text style={styles.iconAccHeart}>
+            <MaterialCommunityIcons
+              name="account-heart-outline"
+              color="#782ddb"
+              size={50}
+              style={{
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+            />
+          </Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            height: hp("50%"),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+            paddingTop: hp("2.5%"),
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.navigate("LegalWaiverScreen")}
+            style={styles.nextBtn2}
+          >
+            <Text style={styles.iconDoctor}>
+              <MaterialCommunityIcons
+                name="doctor"
+                color="#782ddb"
+                size={50}
+                style={{
+                  marginLeft: 2,
+                }}
+              />
+            </Text>
+            <Text
+              style={[
+                styles.textDoctor,
+                {
+                  color: "#782ddb",
+                  fontFamily: "Poppins_600SemiBold",
+                  fontSize: 23,
+                  marginLeft: 20,
+                  paddingBottom: 25,
+                },
+              ]}
             >
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    fontSize: 16,
-                    color: "#FFFFFF",
-                    fontFamily: "Poppins_400Regular",
-                    paddingVertical,
-                  },
-                ]}
-              >
-                Proceed
-              </Text>
-            </TouchableOpacity>
-          </View>
+              Care
+            </Text>
+            <Text
+              style={[
+                styles.textDoctor,
+                {
+                  color: "#782ddb",
+                  fontFamily: "Poppins_600SemiBold",
+                  fontSize: 23,
+                  marginLeft: 20,
+                  marginTop: 20,
+                  paddingTop: 30,
+                },
+              ]}
+            >
+              Specialist
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -135,194 +201,87 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     alignItems: "flex-start",
-    position: "absolute",
-    marginLeft: 0,
-    top: 0,
-    borderColor: "transparent",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
+    width: 55,
+    height: 53,
+    marginLeft: wp("5%"),
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    marginTop: Platform.OS == "ios" ? 55 : 0,
   },
-  headerText: {
-    position: "absolute",
-    top: hp("2.5%"),
-    color: "#4B4C4C",
-    fontFamily: "Poppins_600SemiBold",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
-  },
-  titleText: {
-    marginTop: hp("20%"),
-    color: "#ffffff",
-    fontFamily: "Poppins_600SemiBold",
-    textAlign: "center",
-  },
-  descText: {
-    marginTop: hp("3%"),
-    color: "#ffffff",
-    textAlign: "center",
-    fontFamily: "Poppins_400Regular",
-  },
-  descText2: {
-    marginTop: hp("25%"),
-    color: "#4B4C4C",
-    textAlign: "left",
-    fontFamily: "Poppins_400Regular",
-  },
+  
   nextBtn: {
-    width: "50%",
-    height: hp("5%"),
+    height: hp("12%"),
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#87c9e4",
-    borderColor: "#87c9e4",
+    borderRadius: 12,
+    backgroundColor: "#b880f5",
+    borderColor: "#b880f5",
     borderWidth: 1,
-    marginTop: hp("10%"),
-  },
-  // DROPDOWN
-  shadow: {
+    width: wp("85%"),
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 10,
+    
   },
-  header: {
-    flexDirection: "row",
-    width,
-    height: 50,
-    alignItems: "center",
+  nextBtn2: {
+    width: wp("85%"),
+    height: hp("12%"),
     justifyContent: "center",
-    backgroundColor: "#F6F6F6",
-  },
-  headerTitle: { color: "#000", fontWeight: "bold", fontSize: 16 },
-  saveAreaViewContainer: { flex: 1, backgroundColor: "#FFF" },
-  viewContainer: { flex: 1, width: "100%", backgroundColor: "#FFF" },
-  scrollViewContainer: {
-    flexGrow: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: "10%",
-    paddingBottom: "20%",
-  },
-
-  dropdown1BtnStyle: {
-    width: "100%",
-    height: 45,
-    backgroundColor: "#FFF",
-    borderRadius: 8,
+    borderRadius: 12,
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: "#4B4C4C",
-    marginTop: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10, 
   },
-  dropdown1BtnTxtStyle: {
-    color: "#4B4C4C",
-    textAlign: "left",
-    fontSize: 16,
-    fontFamily: "Poppins_400Regular",
-    paddingVertical: 9,
+  
+  titleContainer: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: 54,
+    marginTop: 14,
+    position: "relative",
   },
-  dropdown1DropdownStyle: {
-    backgroundColor: "#EFEFEF",
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    marginTop: -7,
+  titleContainer2: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: 54,
   },
-  dropdown1RowStyle: {
-    backgroundColor: "#EFEFEF",
-    borderBottomColor: "#C5C5C5",
-  },
-  dropdown1RowTxtStyle: {
-    color: "#4B4C4C",
-    textAlign: "left",
-    fontSize: 16,
-    fontFamily: "Poppins_400Regular",
-    paddingVertical: 9,
-  },
-
-  dropdown2BtnStyle: {
-    width: "80%",
-    height: 50,
-    backgroundColor: "#4B4C4C",
+  iconAccHeart: {
+    height: hp("8%"),
+    width: hp("9%"),
+    alignItems: "flex-start",
+    paddingLeft: 7,
+    paddingTop: 5,
+    marginLeft: 10,
+    backgroundColor: "#ffffff",
     borderRadius: 8,
+    marginTop: Platform.OS == "ios" ? 55 : 0,
   },
-  dropdown2BtnTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-    fontWeight: "bold",
+  textAccHeart: {
+    position: "absolute",
+    paddingLeft: hp("10%"),
   },
-  dropdown2DropdownStyle: {
-    backgroundColor: "#4B4C4C",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-  },
-  dropdown2RowStyle: {
-    backgroundColor: "#87c9e4",
-    borderBottomColor: "#C5C5C5",
-  },
-  dropdown2RowTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-
-  dropdown3BtnStyle: {
-    width: "80%",
-    height: 50,
-    backgroundColor: "#FFF",
-    paddingHorizontal: 0,
-    borderWidth: 1,
+  iconDoctor: {
+    height: hp("8%"),
+    width: hp("9%"),
+    alignItems: "flex-start",
+    paddingLeft: 7,
+    paddingTop: 5,
+    marginLeft: 10,
+    backgroundColor: "#ffffff",
     borderRadius: 8,
-    borderColor: "#87c9e4",
+    marginTop: Platform.OS == "ios" ? 55 : 0,
   },
-  dropdown3BtnChildStyle: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 18,
+  textDoctor: {
+    position: "absolute",
+    paddingLeft: hp("10%"),
   },
-  dropdown3BtnImage: { width: 45, height: 45, resizeMode: "cover" },
-  dropdown3BtnTxt: {
-    color: "#87c9e4",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 24,
-    marginHorizontal: 12,
-  },
-  dropdown3DropdownStyle: { backgroundColor: "slategray" },
-  dropdown3RowStyle: {
-    backgroundColor: "slategray",
-    borderBottomColor: "#87c9e4",
-    height: 50,
-  },
-  dropdown3RowChildStyle: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingHorizontal: 18,
-  },
-  dropdownRowImage: { width: 45, height: 45, resizeMode: "cover" },
-  dropdown3RowTxt: {
-    color: "#F1F1F1",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 24,
-    marginHorizontal: 12,
-  },
-
-  dropdown4BtnStyle: {
-    width: "50%",
-    height: 50,
-    backgroundColor: "#FFF",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#87c9e4",
-  },
-  dropdown4BtnTxtStyle: { color: "#87c9e4", textAlign: "left" },
-  dropdown4DropdownStyle: { backgroundColor: "#EFEFEF" },
-  dropdown4RowStyle: {
-    backgroundColor: "#EFEFEF",
-    borderBottomColor: "#C5C5C5",
-  },
-  dropdown4RowTxtStyle: { color: "#87c9e4", textAlign: "left" },
 });
+
