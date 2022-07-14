@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -6,16 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  View,
+  ImageBackground,
 } from "react-native";
-import { Button, Text } from "galio-framework";
-import { View, Image } from "react-native";
+import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
-const { height } = Dimensions.get("screen");
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { HeaderHeight } from "../../constants/utils";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import {
   useFonts,
   Poppins_200ExtraLight,
@@ -26,6 +22,9 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import { getLegalWaiver } from "../../services/legalwaiver";
+const { width, height } = Dimensions.get("window");
+import { windowHeightWithHeader } from "../../utils/utils";
+import BGImage from "../../assets/images/bg_Create-Account.png";
 
 const LegalWaiver = ({ navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
@@ -46,136 +45,143 @@ const LegalWaiver = ({ navigation }) => {
     setAccepted(!accepted);
   };
 
-  const getLegalWaiverData = async () => {
-    const progressData = getLegalWaiver();
-    const result = await progressData;
-    if (result) {
-      setData(result);
-    }
-  };
+  // const getLegalWaiverData = async () => {
+  //   const progressData = getLegalWaiver();
+  //   const result = await progressData;
+  //   if (result) {
+  //     setData(result);
+  //   }
+  // };
 
-  useEffect(() => {
-    getLegalWaiverData();
-  }, []);
+  // useEffect(() => {
+  //   getLegalWaiverData();
+  // }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View
-        style={{
-          height: hp("12%"),
-        }}
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
       >
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.navigate("CreateAccountScreen")}
+        <View
+          style={{
+            height: windowHeightWithHeader(12),
+          }}
         >
-          <Icon
-            size={22}
-            name="arrow-left"
-            family="feather"
-            color={"#DCDCDC"}
-          />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
-          height: hp("73%"),
-          paddingLeft: wp("8%"),
-          paddingRight: wp("8%"),
-          paddingTop: hp("1%"),
-          paddingBottom: hp("3"),
-        }}
-      >
-        <Text style={styles.titleContainer}>Terms &</Text>
-        <Text style={styles.titleContainer2}>Conditions</Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text
-            style={[
-              styles.textContainer,
-              {
-                color: "#4B4C4C",
-                fontFamily: "Poppins_400Regular",
-                fontSize: 13,
-                marginTop: hp("3%"),
-              },
-            ]}
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("CreateAccountScreen")}
           >
-            Lorem ipsum is the good of days. We are just getting started. We are
-            on the ground floor. Success feeds pride. Pride kills urgency. So
-            nothing falls like success. We always bring our best. Nothing is
-            more fun than serving God with people you love. We are spiritual
-            contributors not spiritual consumers. We give up things we love for
-            things we love move. We are all about the capital C Church.
-          </Text>
-          <Text
-            style={[
-              styles.textContainer,
-              {
-                color: "#4B4C4C",
-                fontFamily: "Poppins_400Regular",
-                fontSize: 13,
-              },
-            ]}
-          >
-            We impress people with our strengths but we connect with people
-            through our weaknesses. We are faith filled, big-thingking,
-            bet-the-farm risk takers. We will never insult God with safe
-            thinking and safe living. People need to be insturcted. We believe
-            the local church is the hope of the world.
-          </Text>
-          <Text
-            style={[
-              styles.textContainer,
-              {
-                color: "#4B4C4C",
-                fontFamily: "Poppins_400Regular",
-                fontSize: 13,
-              },
-            ]}
-          >
-            Trust the process. What you fear the most reveals where you trust
-            God the least. We can do infinitely more together than we can apart.
-            We want to be known for what we are for. not for what we are
-            against. if we live with intergrity, nothing else matters. You don't
-            have to have the faith to finish.
-          </Text>
-        </ScrollView>
-      </View>
-      <View
-        style={{
-          height: hp("15%"),
-          alignItems: "center",
-          alignContent: "center",
-          width: wp("100%"),
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ChecklistEmptyScreen")}
-          style={styles.nextBtn}
-        >
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: "#d7feff",
-                fontFamily: "Poppins_700Bold",
-                fontSize: 26,
-              },
-            ]}
-          >
-            Accept
-          </Text>
-          <Text style={styles.iconSign}>
             <Icon
-              size={30}
-              name="chevron-right"
+              size={22}
+              name="arrow-left"
               family="feather"
-              color={"#d7feff"}
+              color={"#DCDCDC"}
             />
-          </Text>
-        </TouchableOpacity>
-      </View>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(78),
+            paddingLeft: wp("8%"),
+            paddingRight: wp("8%"),
+            paddingTop: windowHeightWithHeader(1),
+            paddingBottom: windowHeightWithHeader(3),
+          }}
+        >
+          <Text style={styles.titleContainer}>Terms &</Text>
+          <Text style={styles.titleContainer2}>Conditions</Text>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Text
+              style={[
+                styles.textContainer,
+                {
+                  color: "#4B4C4C",
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 13,
+                  marginTop: windowHeightWithHeader(3),
+                },
+              ]}
+            >
+              Lorem ipsum is the good of days. We are just getting started. We
+              are on the ground floor. Success feeds pride. Pride kills urgency.
+              So nothing falls like success. We always bring our best. Nothing
+              is more fun than serving God with people you love. We are
+              spiritual contributors not spiritual consumers. We give up things
+              we love for things we love move. We are all about the capital C
+              Church.
+            </Text>
+            <Text
+              style={[
+                styles.textContainer,
+                {
+                  color: "#4B4C4C",
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 13,
+                },
+              ]}
+            >
+              We impress people with our strengths but we connect with people
+              through our weaknesses. We are faith filled, big-thingking,
+              bet-the-farm risk takers. We will never insult God with safe
+              thinking and safe living. People need to be insturcted. We believe
+              the local church is the hope of the world.
+            </Text>
+            <Text
+              style={[
+                styles.textContainer,
+                {
+                  color: "#4B4C4C",
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 13,
+                },
+              ]}
+            >
+              Trust the process. What you fear the most reveals where you trust
+              God the least. We can do infinitely more together than we can
+              apart. We want to be known for what we are for. not for what we
+              are against. if we live with intergrity, nothing else matters. You
+              don't have to have the faith to finish.
+            </Text>
+          </ScrollView>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(10),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ChecklistEmptyScreen")}
+            style={styles.nextBtn}
+          >
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: "#d7feff",
+                  fontFamily: "Poppins_700Bold",
+                  fontSize: 26,
+                },
+              ]}
+            >
+              Accept
+            </Text>
+            <Text style={styles.iconSign}>
+              <Icon
+                size={30}
+                name="chevron-right"
+                family="feather"
+                color={"#d7feff"}
+              />
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -184,9 +190,12 @@ export default LegalWaiver;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: hp("100%"),
+    height: height,
+    width: width,
     backgroundColor: "#f2f4f5",
+  },
+  image: {
+    height: height,
   },
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",
@@ -201,7 +210,7 @@ const styles = StyleSheet.create({
     fontSize: 54,
   },
   textContainer: {
-    marginBottom: hp("2%"),
+    marginBottom: windowHeightWithHeader(2),
     fontFamily: "Poppins_400Regular",
   },
   backBtn: {
@@ -216,7 +225,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS == "ios" ? 55 : 0,
   },
   nextBtn: {
-    height: hp("10%"),
+    height: windowHeightWithHeader(10),
     justifyContent: "center",
     borderRadius: 12,
     backgroundColor: "#41c3e0",
@@ -231,6 +240,6 @@ const styles = StyleSheet.create({
   },
   textSign: {
     position: "absolute",
-    paddingLeft: hp("4%"),
+    paddingLeft: windowHeightWithHeader(4),
   },
 });

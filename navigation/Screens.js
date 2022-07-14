@@ -152,7 +152,7 @@ function TabMenus(props) {
           fontWeight: "700",
         },
         tabBarStyle: {
-          height: windowHeight(6),
+          height: windowHeight(9),
           // position: 'absolute',
           backgroundColor: "#e5c9ff",
           // borderRadius: 50,

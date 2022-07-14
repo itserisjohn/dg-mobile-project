@@ -130,7 +130,7 @@ const OnboardingScreen = ({ navigation }) => {
                 <Text
                   style={{
                     fontWeight: "bold",
-                    fontSize: windowHeight(3.8),
+                    fontSize: windowHeight(3.5),
                     color: "#f9e0ff",
                   }}
                 >

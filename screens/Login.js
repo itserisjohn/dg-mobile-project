@@ -51,13 +51,6 @@ const SignInScreen = ({ navigation }) => {
   const [passwordFocused, setPasswordFocused] = React.useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-  let deviceH = Dimensions.get("screen").height;
-  // the value returned does not include the bottom navigation bar, I am not sure why yours does.
-  let windowH = Dimensions.get("window").height;
-  let bottomNavBarH = deviceH - windowH;
-
-  console.log(windowH);
-
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -441,7 +434,7 @@ const SignInScreen = ({ navigation }) => {
                     color: "#4c4c4c",
                     marginTop: windowHeight(1),
                     textAlign: "right",
-                    fontSize: windowHeight(1.5),
+                    fontSize: windowHeight(1.4),
                     fontFamily: "Poppins_400Regular",
                   }}
                 >
