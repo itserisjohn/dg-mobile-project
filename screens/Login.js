@@ -11,6 +11,7 @@ import {
   Image,
   Keyboard,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import * as Animatable from "react-native-animatable";
@@ -34,6 +35,8 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+const { width, height } = Dimensions.get("window");
+import { windowHeight } from "../utils/utils";
 
 const SignInScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -46,8 +49,14 @@ const SignInScreen = ({ navigation }) => {
   });
   const [usernameFocused, setUsernameFocused] = React.useState(false);
   const [passwordFocused, setPasswordFocused] = React.useState(false);
-
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  let deviceH = Dimensions.get("screen").height;
+  // the value returned does not include the bottom navigation bar, I am not sure why yours does.
+  let windowH = Dimensions.get("window").height;
+  let bottomNavBarH = deviceH - windowH;
+
+  console.log(windowH);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -169,17 +178,18 @@ const SignInScreen = ({ navigation }) => {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      height: height,
+      width: width,
     },
     header: {
       alignItems: "center",
-      height: hp("42%"),
-      paddingTop: Platform.OS === "ios" ? hp("20%") : hp("16%"),
+      height: windowHeight(42),
+      paddingTop: windowHeight(21),
       // paddingTop: isKeyboardVisible ? hp("0%") : hp("20%"),
     },
     logo: {
       width: wp("75%"),
-      height: hp("15%"),
+      height: windowHeight(15),
     },
     title1: {
       fontWeight: "600",
@@ -191,26 +201,18 @@ const SignInScreen = ({ navigation }) => {
       color: "#9966ff",
       fontFamily: "Poppins_300Light",
     },
-    footer: {
-      backgroundColor: "#ffffff",
-      borderTopLeftRadius: 30,
-      borderTopRightRadius: 30,
-      marginTop: -hp("80%"),
-      height: hp("100%"),
-      padding: hp("5%"),
-    },
     action: {
       flexDirection: "row",
-      marginTop: hp("1"),
+      marginTop: windowHeight(1),
       borderBottomWidth: 1,
       borderBottomColor: "#f2f2f2",
-      padding: 10,
+      padding: 12,
       borderRadius: 8,
       backgroundColor: "#ffffff",
     },
     actionFocused: {
       flexDirection: "row",
-      marginTop: hp("1"),
+      marginTop: windowHeight(1),
       borderBottomWidth: 1,
       borderBottomColor: "#8C00FF",
       padding: 10,
@@ -219,7 +221,7 @@ const SignInScreen = ({ navigation }) => {
     },
     actionError: {
       flexDirection: "row",
-      marginTop: hp("1"),
+      marginTop: windowHeight(1),
       borderBottomWidth: 1,
       borderBottomColor: "#FF0000",
       paddingBottom: 5,
@@ -228,35 +230,35 @@ const SignInScreen = ({ navigation }) => {
       flex: 1,
       paddingLeft: 15,
       color: "#7933f3",
-      fontSize: hp("2%"),
+      fontSize: windowHeight(2),
       fontFamily: "Poppins_400Regular",
     },
     textInputFocused: {
       flex: 1,
       paddingLeft: 15,
       color: "#7933f3",
-      fontSize: hp("2%"),
+      fontSize: windowHeight(2),
       fontFamily: "Poppins_400Regular",
     },
     errorMsg: {
       color: "#fe4d4d",
-      fontSize: hp("1.7"),
-      marginTop: hp("1%"),
+      fontSize: windowHeight(1.7),
+      marginTop: windowHeight(1),
     },
     button: {
       alignItems: "center",
-      marginTop: hp("2%"),
+      marginTop: windowHeight(2),
     },
     signUp: {
       width: "100%",
-      height: hp("5%"),
+      height: windowHeight(5),
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 10,
     },
     signIn: {
       width: "100%",
-      height: hp("8%"),
+      height: windowHeight(8),
       justifyContent: "center",
       alignItems: "center",
       borderRadius: 10,
@@ -266,18 +268,18 @@ const SignInScreen = ({ navigation }) => {
     },
     footer: {
       position: "absolute",
-      bottom: hp("5%"),
+      bottom: windowHeight(4),
       alignItems: "center",
       alignContent: "center",
       width: wp("100%"),
     },
     footerText: {
       position: "absolute",
-      bottom: hp("11%"),
+      bottom: windowHeight(11),
       color: "#87c9e4",
     },
     image: {
-      flex: 1,
+      height: height,
     },
     checkboxContainer: {
       flexDirection: "row",
@@ -286,7 +288,7 @@ const SignInScreen = ({ navigation }) => {
     square: {
       flex: 1,
       alignItems: "center",
-      marginTop: hp("1.5%"),
+      marginTop: windowHeight(1.5),
     },
     square1: {
       flex: 1,
@@ -307,7 +309,11 @@ const SignInScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#eaeeea" barStyle="dark-content" />
-      <ImageBackground source={BGImage} resizeMode="cover" style={styles.image}>
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
+      >
         <View style={styles.header}>
           <Image source={Logo} style={styles.logo} resizeMode="contain"></Image>
           <Text
@@ -315,7 +321,7 @@ const SignInScreen = ({ navigation }) => {
               color: "#4c4c4c",
               textAlign: "center",
               fontSize: 14,
-              marginTop: -hp("0.5"),
+              marginTop: -windowHeight(0.5),
             }}
           >
             Bringing Care to you and your loved ones.
@@ -329,7 +335,7 @@ const SignInScreen = ({ navigation }) => {
             <MaterialCommunityIcons
               name="at"
               color="#7933f3"
-              size={hp("3%")}
+              size={windowHeight(3)}
               style={{
                 marginLeft: -2,
               }}
@@ -367,14 +373,14 @@ const SignInScreen = ({ navigation }) => {
             style={[
               !passwordFocused ? styles.action : styles.actionFocused,
               {
-                marginTop: hp("3%"),
+                marginTop: windowHeight(1.5),
               },
             ]}
           >
             <MaterialCommunityIcons
               name="key"
               color="#7933f3"
-              size={hp("3%")}
+              size={windowHeight(3)}
               style={{
                 marginLeft: -2,
               }}
@@ -393,9 +399,13 @@ const SignInScreen = ({ navigation }) => {
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
-                <Feather name="eye-off" color="#7933f3" size={hp("3%")} />
+                <Feather
+                  name="eye-off"
+                  color="#7933f3"
+                  size={windowHeight(3)}
+                />
               ) : (
-                <Feather name="eye" color="#7933f3" size={hp("3%")} />
+                <Feather name="eye" color="#7933f3" size={windowHeight(3)} />
               )}
             </TouchableOpacity>
           </View>
@@ -413,9 +423,9 @@ const SignInScreen = ({ navigation }) => {
                   onPress={() => navigation.navigate("SignUpCareProvider")}
                   style={{
                     color: "#ffffff",
-                    marginTop: hp("1.8%"),
+                    marginTop: windowHeight(1),
                     textAlign: "right",
-                    fontSize: 14,
+                    fontSize: windowHeight(1.5),
                     fontFamily: "Poppins_400Regular",
                   }}
                 >
@@ -429,9 +439,9 @@ const SignInScreen = ({ navigation }) => {
                   onPress={() => navigation.navigate("ForgotUsernamePassword")}
                   style={{
                     color: "#4c4c4c",
-                    marginTop: hp("1.8%"),
+                    marginTop: windowHeight(1),
                     textAlign: "right",
-                    fontSize: 14,
+                    fontSize: windowHeight(1.5),
                     fontFamily: "Poppins_400Regular",
                   }}
                 >
@@ -449,7 +459,7 @@ const SignInScreen = ({ navigation }) => {
                   backgroundColor: "#782ddb",
                   borderColor: "#782ddb",
                   borderWidth: 1,
-                  marginTop: hp("1%"),
+                  marginTop: windowHeight(0.2),
                 },
               ]}
             >
@@ -469,8 +479,8 @@ const SignInScreen = ({ navigation }) => {
               style={{
                 color: "#4c4c4c",
                 fontFamily: "Poppins_400Regular",
-                fontSize: 14,
-                marginTop: hp("4%"),
+                fontSize: windowHeight(1.5),
+                marginTop: windowHeight(3),
               }}
             >
               OR login with
@@ -485,8 +495,6 @@ const SignInScreen = ({ navigation }) => {
                     borderWidth: 6,
                     padding: 11,
                     borderRadius: 30,
-                    width: 60,
-                    height: 60,
                   }}
                 >
                   <Image
@@ -526,8 +534,8 @@ const SignInScreen = ({ navigation }) => {
           style={{
             color: "#4c4c4c",
             fontFamily: "Poppins_400Regular",
-            fontSize: 14,
-            marginTop: hp("4%"),
+            fontSize: windowHeight(1.5),
+            marginTop: windowHeight(4),
             textAlign: "center",
           }}
         >
@@ -537,7 +545,7 @@ const SignInScreen = ({ navigation }) => {
           style={{
             color: "#f9e0ff",
             fontFamily: "Poppins_400Regular",
-            fontSize: 14,
+            fontSize: windowHeight(1.5),
             textAlign: "center",
           }}
         >
