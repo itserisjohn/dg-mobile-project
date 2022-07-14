@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -16,6 +17,8 @@ import logo from "../assets/images/icon.png";
 import materialTheme from "../constants/Theme";
 import { HeaderHeight } from "../constants/utils";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+const { width, height } = Dimensions.get("window");
+import { windowHeight } from "../utils/utils";
 
 import {
   useFonts,
@@ -43,7 +46,7 @@ const Home = ({ navigation }) => {
       <StatusBar barStyle="dark-content" />
       <View
         style={{
-          height: hp("8%"),
+          height: windowHeight(8),
           alignItems: "center",
           paddingLeft: wp("5%"),
           paddingRight: wp("5"),
@@ -69,7 +72,7 @@ const Home = ({ navigation }) => {
       <ScrollView style={{ paddingLeft: wp("5%"), paddingRight: wp("5") }}>
         <View
           style={{
-            height: hp("10%"),
+            height: windowHeight(10),
             alignItems: "center",
           }}
         >
@@ -80,7 +83,7 @@ const Home = ({ navigation }) => {
                 backgroundColor: "#c175ff",
                 borderColor: "#c175ff",
                 borderWidth: 1,
-                marginTop: hp("1%"),
+                marginTop: windowHeight(1),
               },
             ]}
           >
@@ -97,7 +100,7 @@ const Home = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ height: hp("5%") }}>
+        <View style={{ height: windowHeight(5) }}>
           <View style={styles.checkboxContainer}>
             <View style={styles.squareLeft}>
               <TouchableOpacity>
@@ -105,7 +108,7 @@ const Home = ({ navigation }) => {
                   onPress={() => navigation.navigate("SignUpCareProvider")}
                   style={{
                     color: "#4c4c4c",
-                    marginTop: hp("1.8%"),
+                    marginTop: windowHeight(1.8),
                     textAlign: "right",
                     fontSize: 18,
                     fontFamily: "Poppins_600SemiBold",
@@ -121,7 +124,7 @@ const Home = ({ navigation }) => {
                   onPress={() => navigation.navigate("ForgotUsernamePassword")}
                   style={{
                     color: "#b880f5",
-                    marginTop: hp("2.2%"),
+                    marginTop: windowHeight(2.2),
                     textAlign: "right",
                     fontSize: 12,
                     fontFamily: "Poppins_400Regular",
@@ -134,7 +137,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={{ height: hp("27%") }}>
+        <View style={{ height: windowHeight(27) }}>
           <View style={[styles.servicesContainer]}>
             <View style={styles.service}>
               <TouchableOpacity
@@ -324,7 +327,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={{ height: hp("6%") }}>
+        <View style={{ height: windowHeight(6) }}>
           <View style={styles.checkboxContainer}>
             <View style={styles.squareLeft}>
               <TouchableOpacity>
@@ -332,7 +335,7 @@ const Home = ({ navigation }) => {
                   onPress={() => navigation.navigate("SignUpCareProvider")}
                   style={{
                     color: "#4c4c4c",
-                    marginTop: hp("1.8%"),
+                    marginTop: windowHeight(1.8),
                     textAlign: "right",
                     fontSize: 18,
                     fontFamily: "Poppins_600SemiBold",
@@ -348,7 +351,7 @@ const Home = ({ navigation }) => {
                   onPress={() => navigation.navigate("ForgotUsernamePassword")}
                   style={{
                     color: "#b880f5",
-                    marginTop: hp("2.2%"),
+                    marginTop: windowHeight(2.2),
                     textAlign: "right",
                     fontSize: 12,
                     fontFamily: "Poppins_400Regular",
@@ -363,7 +366,7 @@ const Home = ({ navigation }) => {
         </View>
         <View
           style={{
-            height: hp("9%"),
+            height: windowHeight(9),
             alignItems: "center",
           }}
         >
@@ -374,14 +377,14 @@ const Home = ({ navigation }) => {
                 backgroundColor: "#ffffff",
                 borderColor: "#ffffff",
                 borderWidth: 1,
-                marginTop: hp("1%"),
+                marginTop: windowHeight(1),
               },
             ]}
           ></TouchableOpacity>
         </View>
         <View
           style={{
-            height: hp("9%"),
+            height: windowHeight(9),
             alignItems: "center",
           }}
         >
@@ -392,7 +395,7 @@ const Home = ({ navigation }) => {
                 backgroundColor: "#ffffff",
                 borderColor: "#ffffff",
                 borderWidth: 1,
-                marginTop: hp("1%"),
+                marginTop: windowHeight(1),
               },
             ]}
           ></TouchableOpacity>
@@ -405,12 +408,13 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
+    width: width,
     backgroundColor: "#fbfbfb",
   },
   search: {
     flexDirection: "row",
-    marginTop: hp("1"),
+    marginTop: windowHeight(1),
     borderBottomWidth: 1,
     borderBottomColor: "#f2f2f2",
     padding: 10,
@@ -457,30 +461,30 @@ const styles = StyleSheet.create({
   backBtn2: {
     borderColor: "#87c9e4",
     width: "100%",
-    height: hp("5%"),
+    height: windowHeight(5),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     borderWidth: 1,
-    marginTop: hp("1.8%"),
+    marginTop: windowHeight(1.8),
   },
   headerText: {
     position: "absolute",
-    top: hp("2.5%"),
+    top: windowHeight(2.5),
     color: "#4B4C4C",
     fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {
     width: "100%",
-    height: hp("5%"),
+    height: windowHeight(5),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     backgroundColor: "#87c9e4",
     borderColor: "#87c9e4",
     borderWidth: 1,
-    marginTop: hp("1.8%"),
+    marginTop: windowHeight(1.8),
   },
   checkboxContainer: {
     flexDirection: "row",
