@@ -10,7 +10,7 @@
     "icon": "./assets/images/app-icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
-      "resizeMode": "stretch",
+      "resizeMode": "cover",
       "backgroundColor": "#5be0e6"
     },
     "plugins": [
