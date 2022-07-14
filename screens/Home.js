@@ -46,7 +46,7 @@ const Home = ({ navigation }) => {
       <StatusBar barStyle="dark-content" />
       <View
         style={{
-          height: windowHeight(8),
+          height: windowHeight(9),
           alignItems: "center",
           paddingLeft: wp("5%"),
           paddingRight: wp("5"),
@@ -69,7 +69,7 @@ const Home = ({ navigation }) => {
           />
         </View>
       </View>
-      <ScrollView style={{ paddingLeft: wp("5%"), paddingRight: wp("5") }}>
+      <View style={{ paddingLeft: wp("5%"), paddingRight: wp("5") }}>
         <View
           style={{
             height: windowHeight(10),
@@ -83,7 +83,7 @@ const Home = ({ navigation }) => {
                 backgroundColor: "#c175ff",
                 borderColor: "#c175ff",
                 borderWidth: 1,
-                marginTop: windowHeight(1),
+                marginTop: windowHeight(1.5),
               },
             ]}
           >
@@ -110,7 +110,7 @@ const Home = ({ navigation }) => {
                     color: "#4c4c4c",
                     marginTop: windowHeight(1.8),
                     textAlign: "right",
-                    fontSize: 18,
+                    fontSize: windowHeight(2),
                     fontFamily: "Poppins_600SemiBold",
                   }}
                 >
@@ -126,7 +126,7 @@ const Home = ({ navigation }) => {
                     color: "#b880f5",
                     marginTop: windowHeight(2.2),
                     textAlign: "right",
-                    fontSize: 12,
+                    fontSize: windowHeight(1.4),
                     fontFamily: "Poppins_400Regular",
                     marginRight: 10,
                   }}
@@ -137,29 +137,32 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={{ height: windowHeight(27) }}>
+        <View style={{ height: windowHeight(28), marginTop: windowHeight(1) }}>
           <View style={[styles.servicesContainer]}>
-            <View style={styles.service}>
+            <View style={styles.serviceLeft}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 1</Text>
             </View>
             <View style={styles.service}>
@@ -167,22 +170,25 @@ const Home = ({ navigation }) => {
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human-wheelchair"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 2</Text>
             </View>
             <View style={styles.service}>
@@ -190,70 +196,79 @@ const Home = ({ navigation }) => {
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="bed"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 3</Text>
             </View>
-            <View style={styles.service}>
+            <View style={styles.serviceRight}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="hand-heart"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 4</Text>
             </View>
           </View>
           <View style={styles.servicesContainer}>
-            <View style={styles.service}>
+            <View style={styles.serviceLeft}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 5</Text>
             </View>
             <View style={styles.service}>
@@ -261,22 +276,25 @@ const Home = ({ navigation }) => {
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human-wheelchair"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 6</Text>
             </View>
             <View style={styles.service}>
@@ -284,45 +302,51 @@ const Home = ({ navigation }) => {
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="bed"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 7</Text>
             </View>
-            <View style={styles.service}>
+            <View style={styles.serviceRight}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
-                  width: 70,
-                  height: 60,
-                  padding: 12,
-                  paddingLeft: 14,
+                  width: "100%",
+                  height: windowHeight(8.5),
+                  paddingTop: windowHeight(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="hand-heart"
                   color="#ffffff"
-                  size={36}
+                  size={windowHeight(5.5)}
                   style={{
-                    marginLeft: 2,
+                    textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
-              <Text style={[styles.description, { marginTop: 10 }]}>Care</Text>
+              <Text
+                style={[styles.description, { marginTop: windowHeight(1) }]}
+              >
+                Care
+              </Text>
               <Text style={styles.description}>Service 8</Text>
             </View>
           </View>
@@ -337,7 +361,7 @@ const Home = ({ navigation }) => {
                     color: "#4c4c4c",
                     marginTop: windowHeight(1.8),
                     textAlign: "right",
-                    fontSize: 18,
+                    fontSize: windowHeight(2),
                     fontFamily: "Poppins_600SemiBold",
                   }}
                 >
@@ -353,7 +377,7 @@ const Home = ({ navigation }) => {
                     color: "#b880f5",
                     marginTop: windowHeight(2.2),
                     textAlign: "right",
-                    fontSize: 12,
+                    fontSize: windowHeight(1.4),
                     fontFamily: "Poppins_400Regular",
                     marginRight: 10,
                   }}
@@ -364,9 +388,19 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
+      </View>
+      <ScrollView
+        contentContainerStyle={[
+          {
+            paddingLeft: wp(5),
+            paddingRight: wp(5),
+            height: windowHeight(30),
+          },
+        ]}
+      >
         <View
           style={{
-            height: windowHeight(9),
+            height: windowHeight(10),
             alignItems: "center",
           }}
         >
@@ -378,13 +412,14 @@ const Home = ({ navigation }) => {
                 borderColor: "#ffffff",
                 borderWidth: 1,
                 marginTop: windowHeight(1),
+                width: wp(90),
               },
             ]}
           ></TouchableOpacity>
         </View>
         <View
           style={{
-            height: windowHeight(9),
+            height: windowHeight(10),
             alignItems: "center",
           }}
         >
@@ -395,7 +430,8 @@ const Home = ({ navigation }) => {
                 backgroundColor: "#ffffff",
                 borderColor: "#ffffff",
                 borderWidth: 1,
-                marginTop: windowHeight(1),
+                marginTop: windowHeight(2.5),
+                width: wp(90),
               },
             ]}
           ></TouchableOpacity>
@@ -414,17 +450,18 @@ const styles = StyleSheet.create({
   },
   search: {
     flexDirection: "row",
-    marginTop: windowHeight(1),
+    marginTop: windowHeight(2),
+    marginBottom: windowHeight(1),
     borderBottomWidth: 1,
     borderBottomColor: "#f2f2f2",
-    padding: 10,
+    padding: windowHeight(1),
     borderRadius: 30,
     backgroundColor: "#ffffff",
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
-    elevation: 5,
+    elevation: 15,
   },
   searchInput: {
     textAlign: "center",
@@ -436,11 +473,11 @@ const styles = StyleSheet.create({
   },
   bookBtn: {
     width: "100%",
-    height: 65,
+    height: windowHeight(9),
     justifyContent: "flex-start",
     alignItems: "flex-start",
     borderRadius: 10,
-    padding: 16,
+    padding: windowHeight(1.8),
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
@@ -448,7 +485,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   bookText: {
-    fontSize: 22,
+    fontSize: windowHeight(2.8),
   },
   backBtn: {
     alignItems: "flex-start",
@@ -497,7 +534,7 @@ const styles = StyleSheet.create({
     marginBottom: Platform.OS === "ios" ? 35 : 25,
   },
   squareLeft: {
-    flex: 1,
+    flex: 2,
     alignItems: "flex-start",
   },
   squareRight: {
@@ -517,12 +554,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  serviceLeft: {
+    flex: 1,
+    alignItems: "center",
+    marginRight: wp(2),
+  },
+  serviceRight: {
+    flex: 1,
+    alignItems: "center",
+    marginLeft: wp(2),
+  },
   service: {
     flex: 1,
     alignItems: "center",
+    marginLeft: wp(2),
+    marginRight: wp(2),
   },
   description: {
-    fontSize: 12,
+    fontSize: windowHeight(1.2),
     color: "#4c4c4c",
     fontFamily: "Poppins_400Regular",
     textAlign: "center",

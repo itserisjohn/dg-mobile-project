@@ -16,8 +16,8 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
 const { width, height } = Dimensions.get("window");
+import { windowHeight } from "../utils/utils";
 
 const COLORS = { primary: "#282534", white: "#fff" };
 
@@ -51,12 +51,12 @@ const Slide = ({ item }) => {
       <Image
         source={item?.image}
         style={{
-          height: "55%",
+          height: windowHeight(40),
           width,
           resizeMode: "contain",
         }}
       />
-      <View style={{ marginTop: 45, width: wp("70%") }}>
+      <View style={{ marginTop: windowHeight(1), width: wp("70%") }}>
         <Text style={styles.title}>{item?.title}</Text>
         <Text style={styles.subtitle}>{item?.subtitle}</Text>
       </View>
@@ -93,9 +93,9 @@ const OnboardingScreen = ({ navigation }) => {
     return (
       <View
         style={{
-          height: hp("20%"),
+          height: windowHeight(20),
           justifyContent: "space-between",
-          paddingHorizontal: 20,
+          paddingHorizontal: windowHeight(2),
         }}
       >
         {/* Indicator container */}
@@ -103,7 +103,7 @@ const OnboardingScreen = ({ navigation }) => {
           style={{
             flexDirection: "row",
             justifyContent: "center",
-            marginTop: 20,
+            marginTop: windowHeight(2),
           }}
         >
           {/* Render indicator */}
@@ -120,15 +120,19 @@ const OnboardingScreen = ({ navigation }) => {
           ))}
         </View>
         {/* Render buttons */}
-        <View style={{ marginBottom: 30, alignItems: "center" }}>
+        <View style={{ marginBottom: windowHeight(3), alignItems: "center" }}>
           {currentSlideIndex == slides.length - 1 ? (
-            <View style={{ height: 70 }}>
+            <View style={{ height: windowHeight(10) }}>
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => navigation.replace("Login")}
               >
                 <Text
-                  style={{ fontWeight: "bold", fontSize: 22, color: "#f9e0ff" }}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: windowHeight(3.8),
+                    color: "#f9e0ff",
+                  }}
                 >
                   Let's Get Started
                 </Text>
@@ -145,13 +149,17 @@ const OnboardingScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar />
-      <ImageBackground source={BGImage} resizeMode="cover" style={styles.image}>
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
+      >
         <FlatList
           ref={ref}
           onMomentumScrollEnd={updateCurrentSlideIndex}
           contentContainerStyle={{
-            height: hp("80%"),
-            paddingTop: hp("12%"),
+            height: windowHeight(80),
+            paddingTop: windowHeight(12),
           }}
           showsHorizontalScrollIndicator={false}
           horizontal
@@ -168,15 +176,15 @@ const OnboardingScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   subtitle: {
     color: "#4c4c4c",
-    fontSize: 15.9,
-    marginTop: 15,
+    fontSize: windowHeight(1.8),
+    marginTop: windowHeight(1.5),
     lineHeight: 23,
   },
   title: {
     color: COLORS.white,
-    fontSize: 22,
+    fontSize: windowHeight(3),
     fontWeight: "bold",
-    marginTop: 20,
+    marginTop: windowHeight(2),
     textAlign: "center",
   },
   image: {
@@ -185,15 +193,15 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   indicator: {
-    height: 15,
-    width: 15,
+    height: windowHeight(1.5),
+    width: windowHeight(1.5),
     backgroundColor: "#b1e6f3",
     marginHorizontal: 12,
     borderRadius: 30,
   },
   btn: {
     flex: 1,
-    height: 50,
+    height: windowHeight(5),
     width: wp("70%"),
     borderRadius: 12,
     backgroundColor: "#782ddb",

@@ -2,7 +2,7 @@ import { Animated, Dimensions, Easing, Image, Platform } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import { Header, Icon } from "../components";
 import { Images, materialTheme } from "../constants/";
-
+import { windowHeight } from "../utils/utils";
 import ComponentsScreen from "../screens/Components";
 import CustomDrawerContent from "./Menu";
 import HomeScreen from "../screens/Home";
@@ -152,7 +152,7 @@ function TabMenus(props) {
           fontWeight: "700",
         },
         tabBarStyle: {
-          height: Platform.OS == "ios" ? 90 : 60,
+          height: windowHeight(6),
           // position: 'absolute',
           backgroundColor: "#e5c9ff",
           // borderRadius: 50,
@@ -169,7 +169,7 @@ function TabMenus(props) {
             return (
               <MaterialCommunityIcons
                 name={focused ? "home" : "home-outline"}
-                size={40}
+                size={windowHeight(4)}
                 color="#8432ee"
               />
             );
@@ -184,7 +184,7 @@ function TabMenus(props) {
             return (
               <MaterialCommunityIcons
                 name={focused ? "calendar" : "calendar-outline"}
-                size={40}
+                size={windowHeight(4)}
                 color="#8432ee"
                 style={{ marginTop: focused ? 3 : 0 }}
               />
@@ -200,7 +200,7 @@ function TabMenus(props) {
             return (
               <MaterialCommunityIcons
                 name={focused ? "account-circle" : "account-circle-outline"}
-                size={40}
+                size={windowHeight(4)}
                 color="#8432ee"
               />
             );

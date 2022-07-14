@@ -20,6 +20,7 @@ const { height, width } = Dimensions.get("window");
 const iPhoneX = () =>
   Platform.OS === "ios" &&
   (height === 812 || width === 812 || height === 896 || width === 896);
+import { windowHeight } from "../utils/utils";
 
 const ChatButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity style={[styles.button]}>
@@ -44,7 +45,7 @@ const PendingButton = ({ isWhite, style, navigation }) => (
     <MaterialCommunityIcons
       name="calendar-clock"
       color="#4B4C4C"
-      size={hp("2.62%")}
+      size={windowHeight(2.62)}
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -59,7 +60,7 @@ const OnDemandButton = ({ isWhite, style, navigation }) => (
     <MaterialCommunityIcons
       name="alert-decagram"
       color={materialTheme.COLORS.LABEL}
-      size={hp("2.62%")}
+      size={windowHeight(2.62)}
     />
     <Block middle style={styles.notify}>
       <Text color="#ffffff" size={12}>
@@ -104,7 +105,7 @@ class Header extends React.Component {
             <MaterialCommunityIcons
               name="calendar-multiselect"
               color="#8734f7"
-              size={32}
+              size={windowHeight(3.4)}
               style={{ marginTop: 1 }}
             />
           </TouchableOpacity>
@@ -114,7 +115,7 @@ class Header extends React.Component {
             <MaterialCommunityIcons
               name="bell-outline"
               color="#8734f7"
-              size={32}
+              size={windowHeight(3.4)}
             />
             <Block middle style={styles.notify}></Block>
           </TouchableOpacity>
@@ -219,7 +220,7 @@ class Header extends React.Component {
           leftStyle={{ paddingTop: 2 }}
           leftIconName={back ? "chevron-left" : "navicon"}
           leftIconColor="#8734f7"
-          leftIconSize={hp("3.4%")}
+          leftIconSize={windowHeight(3.4)}
           titleStyle={[
             styles.title,
             { color: theme.COLORS[white ? "WHITE" : "ICON"] },
@@ -236,8 +237,8 @@ export default withNavigation(Header);
 
 const styles = StyleSheet.create({
   button: {
-    height: hp("5%"),
-    width: hp("5%"),
+    height: windowHeight(5),
+    width: windowHeight(5),
     position: "relative",
     marginBottom: -2,
     marginRight: 5,
