@@ -7,18 +7,16 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  Image,
+  View,
 } from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { View, Image } from "react-native";
-import logo from "../assets/images/icon.png";
-import materialTheme from "../constants/Theme";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { HeaderHeight } from "../constants/utils";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const { width, height } = Dimensions.get("window");
-import { windowHeight } from "../utils/utils";
+import { windowHeightWithHeader } from "../utils/utils";
+import girlImage from "../assets/images/img_Avatar01.png";
+import boyImage from "../assets/images/img_Avatar03.png";
 
 import {
   useFonts,
@@ -46,7 +44,7 @@ const Home = ({ navigation }) => {
       <StatusBar barStyle="dark-content" />
       <View
         style={{
-          height: windowHeight(9),
+          height: windowHeightWithHeader(9),
           alignItems: "center",
           paddingLeft: wp("5%"),
           paddingRight: wp("5"),
@@ -72,7 +70,7 @@ const Home = ({ navigation }) => {
       <View style={{ paddingLeft: wp("5%"), paddingRight: wp("5") }}>
         <View
           style={{
-            height: windowHeight(10),
+            height: windowHeightWithHeader(10),
             alignItems: "center",
           }}
         >
@@ -83,7 +81,7 @@ const Home = ({ navigation }) => {
                 backgroundColor: "#c175ff",
                 borderColor: "#c175ff",
                 borderWidth: 1,
-                marginTop: windowHeight(1.5),
+                marginTop: windowHeightWithHeader(1.5),
               },
             ]}
           >
@@ -100,17 +98,16 @@ const Home = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ height: windowHeight(5) }}>
+        <View style={{ height: windowHeightWithHeader(5) }}>
           <View style={styles.checkboxContainer}>
             <View style={styles.squareLeft}>
               <TouchableOpacity>
                 <Text
-                  onPress={() => navigation.navigate("SignUpCareProvider")}
                   style={{
                     color: "#4c4c4c",
-                    marginTop: windowHeight(1.8),
+                    marginTop: windowHeightWithHeader(1.8),
                     textAlign: "right",
-                    fontSize: windowHeight(2),
+                    fontSize: windowHeightWithHeader(2),
                     fontFamily: "Poppins_600SemiBold",
                   }}
                 >
@@ -121,12 +118,11 @@ const Home = ({ navigation }) => {
             <View style={styles.squareRight}>
               <TouchableOpacity>
                 <Text
-                  onPress={() => navigation.navigate("ForgotUsernamePassword")}
                   style={{
                     color: "#b880f5",
-                    marginTop: windowHeight(2.2),
+                    marginTop: windowHeightWithHeader(2.2),
                     textAlign: "right",
-                    fontSize: windowHeight(1.4),
+                    fontSize: windowHeightWithHeader(1.4),
                     fontFamily: "Poppins_400Regular",
                     marginRight: 10,
                   }}
@@ -137,7 +133,12 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={{ height: windowHeight(28), marginTop: windowHeight(1) }}>
+        <View
+          style={{
+            height: windowHeightWithHeader(28),
+            marginTop: windowHeightWithHeader(1),
+          }}
+        >
           <View style={[styles.servicesContainer]}>
             <View style={styles.serviceLeft}>
               <TouchableOpacity
@@ -145,21 +146,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -171,21 +175,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human-wheelchair"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -197,21 +204,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="bed"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -223,21 +233,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="hand-heart"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -251,21 +264,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -277,21 +293,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="human-wheelchair"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -303,21 +322,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="bed"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -329,21 +351,24 @@ const Home = ({ navigation }) => {
                   backgroundColor: "#e4caff",
                   borderRadius: 12,
                   width: "100%",
-                  height: windowHeight(8.5),
-                  paddingTop: windowHeight(1.3),
+                  height: windowHeightWithHeader(8.5),
+                  paddingTop: windowHeightWithHeader(1.3),
                 }}
               >
                 <MaterialCommunityIcons
                   name="hand-heart"
                   color="#ffffff"
-                  size={windowHeight(5.5)}
+                  size={windowHeightWithHeader(5.5)}
                   style={{
                     textAlign: "center",
                   }}
                 />
               </TouchableOpacity>
               <Text
-                style={[styles.description, { marginTop: windowHeight(1) }]}
+                style={[
+                  styles.description,
+                  { marginTop: windowHeightWithHeader(1) },
+                ]}
               >
                 Care
               </Text>
@@ -351,17 +376,16 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View style={{ height: windowHeight(6) }}>
+        <View style={{ height: windowHeightWithHeader(6) }}>
           <View style={styles.checkboxContainer}>
             <View style={styles.squareLeft}>
               <TouchableOpacity>
                 <Text
-                  onPress={() => navigation.navigate("SignUpCareProvider")}
                   style={{
                     color: "#4c4c4c",
-                    marginTop: windowHeight(1.8),
+                    marginTop: windowHeightWithHeader(1.8),
                     textAlign: "right",
-                    fontSize: windowHeight(2),
+                    fontSize: windowHeightWithHeader(2),
                     fontFamily: "Poppins_600SemiBold",
                   }}
                 >
@@ -372,12 +396,11 @@ const Home = ({ navigation }) => {
             <View style={styles.squareRight}>
               <TouchableOpacity>
                 <Text
-                  onPress={() => navigation.navigate("ForgotUsernamePassword")}
                   style={{
                     color: "#b880f5",
-                    marginTop: windowHeight(2.2),
+                    marginTop: windowHeightWithHeader(2.2),
                     textAlign: "right",
-                    fontSize: windowHeight(1.4),
+                    fontSize: windowHeightWithHeader(1.4),
                     fontFamily: "Poppins_400Regular",
                     marginRight: 10,
                   }}
@@ -394,47 +417,179 @@ const Home = ({ navigation }) => {
           {
             paddingLeft: wp(5),
             paddingRight: wp(5),
-            height: windowHeight(30),
+            height: windowHeightWithHeader(30),
           },
         ]}
       >
         <View
           style={{
-            height: windowHeight(10),
+            height: windowHeightWithHeader(10),
             alignItems: "center",
           }}
         >
           <TouchableOpacity
             style={[
-              styles.bookBtn,
+              styles.listBtn,
               {
                 backgroundColor: "#ffffff",
                 borderColor: "#ffffff",
                 borderWidth: 1,
-                marginTop: windowHeight(1),
+                marginTop: windowHeightWithHeader(1),
                 width: wp(90),
               },
             ]}
-          ></TouchableOpacity>
+          >
+            <View style={styles.checkboxContainer}>
+              <View style={{ flex: 0.5 }}>
+                <Image
+                  source={girlImage}
+                  style={{}}
+                  resizeMode="contain"
+                ></Image>
+              </View>
+              <View style={styles.squareLeft}>
+                <Text
+                  style={{
+                    marginLeft: wp(4),
+                    color: "#4c4c4c",
+                    textAlign: "left",
+                    fontSize: windowHeightWithHeader(1.6),
+                    fontFamily: "Poppins_600SemiBold",
+                  }}
+                >
+                  Jessie Clarcson
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: wp(4),
+                    color: "#4c4c4c",
+                    textAlign: "right",
+                    fontSize: windowHeightWithHeader(1.5),
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  01 July, 10:00-12:00
+                </Text>
+              </View>
+              <View style={styles.squareRight}>
+                <Text
+                  style={{
+                    color: "#b880f5",
+                    textAlign: "right",
+                    fontSize: windowHeightWithHeader(1.4),
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="heart-outline"
+                    color="#b880f5"
+                    size={windowHeightWithHeader(1.6)}
+                  />{" "}
+                  4.7
+                </Text>
+                <Text
+                  style={{
+                    color: "#b880f5",
+                    textAlign: "right",
+                    fontSize: windowHeightWithHeader(1.4),
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="map-marker"
+                    color="#b880f5"
+                    size={windowHeightWithHeader(1.6)}
+                  />{" "}
+                  1.4km
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
         <View
           style={{
-            height: windowHeight(10),
+            height: windowHeightWithHeader(10),
             alignItems: "center",
           }}
         >
           <TouchableOpacity
             style={[
-              styles.bookBtn,
+              styles.listBtn,
               {
                 backgroundColor: "#ffffff",
                 borderColor: "#ffffff",
                 borderWidth: 1,
-                marginTop: windowHeight(2.5),
+                marginTop: windowHeightWithHeader(2.5),
                 width: wp(90),
               },
             ]}
-          ></TouchableOpacity>
+          >
+            <View style={styles.checkboxContainer}>
+              <View style={{ flex: 0.5 }}>
+                <Image
+                  source={boyImage}
+                  style={{}}
+                  resizeMode="contain"
+                ></Image>
+              </View>
+              <View style={styles.squareLeft}>
+                <Text
+                  style={{
+                    marginLeft: wp(4),
+                    color: "#4c4c4c",
+                    textAlign: "left",
+                    fontSize: windowHeightWithHeader(1.6),
+                    fontFamily: "Poppins_600SemiBold",
+                  }}
+                >
+                  Jessie Clarcson
+                </Text>
+                <Text
+                  style={{
+                    marginLeft: wp(4),
+                    color: "#4c4c4c",
+                    textAlign: "right",
+                    fontSize: windowHeightWithHeader(1.5),
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  01 July, 10:00-12:00
+                </Text>
+              </View>
+              <View style={styles.squareRight}>
+                <Text
+                  style={{
+                    color: "#b880f5",
+                    textAlign: "right",
+                    fontSize: windowHeightWithHeader(1.4),
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="heart-outline"
+                    color="#b880f5"
+                    size={windowHeightWithHeader(1.6)}
+                  />{" "}
+                  4.7
+                </Text>
+                <Text
+                  style={{
+                    color: "#b880f5",
+                    textAlign: "right",
+                    fontSize: windowHeightWithHeader(1.4),
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="map-marker"
+                    color="#b880f5"
+                    size={windowHeightWithHeader(1.6)}
+                  />{" "}
+                  1.4km
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -450,11 +605,11 @@ const styles = StyleSheet.create({
   },
   search: {
     flexDirection: "row",
-    marginTop: windowHeight(2),
-    marginBottom: windowHeight(1),
+    marginTop: windowHeightWithHeader(2),
+    marginBottom: windowHeightWithHeader(1),
     borderBottomWidth: 1,
     borderBottomColor: "#f2f2f2",
-    padding: windowHeight(1),
+    padding: windowHeightWithHeader(1),
     borderRadius: 30,
     backgroundColor: "#ffffff",
     shadowColor: "#000000",
@@ -473,11 +628,11 @@ const styles = StyleSheet.create({
   },
   bookBtn: {
     width: "100%",
-    height: windowHeight(9),
+    height: windowHeightWithHeader(9),
     justifyContent: "flex-start",
     alignItems: "flex-start",
     borderRadius: 10,
-    padding: windowHeight(1.8),
+    padding: windowHeightWithHeader(2.5),
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
@@ -485,7 +640,20 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   bookText: {
-    fontSize: windowHeight(2.8),
+    fontSize: windowHeightWithHeader(2.8),
+  },
+  listBtn: {
+    width: "100%",
+    height: windowHeightWithHeader(9),
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    borderRadius: 10,
+    padding: windowHeightWithHeader(1.4),
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
   },
   backBtn: {
     alignItems: "flex-start",
@@ -498,30 +666,30 @@ const styles = StyleSheet.create({
   backBtn2: {
     borderColor: "#87c9e4",
     width: "100%",
-    height: windowHeight(5),
+    height: windowHeightWithHeader(5),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     borderWidth: 1,
-    marginTop: windowHeight(1.8),
+    marginTop: windowHeightWithHeader(1.8),
   },
   headerText: {
     position: "absolute",
-    top: windowHeight(2.5),
+    top: windowHeightWithHeader(2.5),
     color: "#4B4C4C",
     fontFamily: "Poppins_700Bold",
     marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
   },
   nextBtn: {
     width: "100%",
-    height: windowHeight(5),
+    height: windowHeightWithHeader(5),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
     backgroundColor: "#87c9e4",
     borderColor: "#87c9e4",
     borderWidth: 1,
-    marginTop: windowHeight(1.8),
+    marginTop: windowHeightWithHeader(1.8),
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -571,7 +739,7 @@ const styles = StyleSheet.create({
     marginRight: wp(2),
   },
   description: {
-    fontSize: windowHeight(1.2),
+    fontSize: windowHeightWithHeader(1.2),
     color: "#4c4c4c",
     fontFamily: "Poppins_400Regular",
     textAlign: "center",
