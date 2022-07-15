@@ -45,113 +45,97 @@ const ChooseAccount = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      {/* <Button
-        style={styles.backBtn}
-        color="transparent"
-        onPress={() => navigation.navigate("Login")}
+      <View
+        style={{
+          height: hp("12%"),
+        }}
       >
-        <Icon
-          size={hp("5%")}
-          name="chevron-left"
-          family="feather"
-          color={"#ffffff"}
+        <TouchableOpacity
           style={styles.backBtn}
-        />
-      </Button> */}
-      <View style={{ height: hp("100%") }}>
-        <View style={{ alignItems: "center" }}>
-          <Text size={hp("2.5%")} style={styles.headerText}>
-            Create an Account
-          </Text>
+          onPress={() => navigation.navigate("SignUpCareProviderScreen")}
+        >
+          <Icon
+            size={22}
+            name="arrow-left"
+            family="feather"
+            color={"#DCDCDC"}
+          />
+        </TouchableOpacity>
+        <View
+          style={{
+            height: hp("15%"),
+            paddingLeft: wp("8%"),
+            paddingRight: wp("8%"),
+            paddingTop: hp("1%"),
+          }}
+        >
+          <Text style={styles.titleContainer}>Success!</Text>
         </View>
-        <View style={{ padding: hp("8%") }}>
-          <Text style={styles.titleText} size={hp("3.2%")}>
+
+        <View
+          View
+          style={{
+            height: hp("30%"),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
+          <Icon size={200} name="heart" family="foundation" color={"#6B24AA"} />
+        </View>
+        <View
+          View
+          style={{
+            height: hp("32%"),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
+          <Text style={styles.descText} size={hp("2%")}>
             Congratulations!
           </Text>
-          <Text style={styles.descText} size={hp("2.8%")}>
+          <Text style={styles.descText2} size={hp("2%")}>
             Your account has been successfully created.
           </Text>
-          {/* <Text style={styles.descText2} size={hp("1.9%")}>
-            Choose type of account
-          </Text> */}
-          {/* <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
-            style={{
-              marginTop: hp("1%"),
-              backgroundColor: "#ffffff",
-              borderColor: "#ffffff",
-              color: "#87c9e4",
-            }}
-            placeholder="Type of Account"
-            placeholderStyle={{ color: "#87c9e4" }}
-            arrowIconContainerStyle={{ color: "#87c9e4" }}
-            labelStyle={"#87c9e4"}
-          /> */}
-          {/* <SelectDropdown
-            data={items}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
-            defaultButtonText={"Type of Account"}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            buttonStyle={styles.dropdown1BtnStyle}
-            buttonTextStyle={styles.dropdown1BtnTxtStyle}
-            renderDropdownIcon={(isOpened) => {
-              return (
-                <FontAwesome
-                  name={isOpened ? "chevron-up" : "chevron-down"}
-                  color={"#87c9e4"}
-                  size={14}
-                />
-              );
-            }}
-            dropdownIconPosition={"right"}
-            dropdownStyle={styles.dropdown1DropdownStyle}
-            rowStyle={styles.dropdown1RowStyle}
-            rowTextStyle={styles.dropdown1RowTxtStyle}
-          /> */}
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("CheckListScreen")}
-              style={styles.nextBtn}
+          <Text style={styles.descText3} size={hp("2%")}>
+            Proceed to get fully verified.
+          </Text>
+        </View>
+
+        <View
+          style={{
+            height: hp("15%"),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.navigate("CheckListScreen")}
+            style={styles.nextBtn}
+          >
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  color: "#d7feff",
+                  fontFamily: "Poppins_700Bold",
+                  fontSize: 26,
+                },
+              ]}
             >
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    fontSize: 16,
-                    color: "#87c9e4",
-                    fontFamily: "Poppins_400Regular",
-                    paddingVertical,
-                  },
-                ]}
-              >
-                Proceed
-              </Text>
-            </TouchableOpacity>
-            {/* <Text
-              style={{
-                fontSize: 16,
-                color: "#ffffff",
-                marginTop: 16,
-                fontFamily: "Poppins_400Regular",
-                textDecorationLine: "underline",
-              }}
-              onPress={() => navigation.navigate("App")}
-            >
-              Decide Later
-            </Text> */}
-          </View>
+              Proceed
+            </Text>
+            <Text style={styles.iconSign}>
+              <Icon
+                size={30}
+                name="chevron-right"
+                family="feather"
+                color={"#d7feff"}
+              />
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -163,51 +147,49 @@ export default ChooseAccount;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#87c9e4",
+    backgroundColor: "#f2f4f5",
   },
   backBtn: {
     alignItems: "flex-start",
-    position: "absolute",
-    marginLeft: 0,
-    top: 0,
-    borderColor: "transparent",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
-  },
-  headerText: {
-    position: "absolute",
-    top: hp("2.5%"),
-    color: "#ffffff",
-    fontFamily: "Poppins_600SemiBold",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
-  },
-  titleText: {
-    marginTop: hp("20%"),
-    color: "#ffffff",
-    fontFamily: "Poppins_600SemiBold",
-    textAlign: "center",
+    width: 55,
+    height: 53,
+    marginLeft: wp("5%"),
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    marginTop: Platform.OS == "ios" ? 55 : 22,
   },
   descText: {
-    marginTop: hp("3%"),
-    color: "#ffffff",
-    textAlign: "center",
-    fontFamily: "Poppins_400Regular",
-  },
-  descText2: {
-    marginTop: hp("5%"),
-    color: "#ffffff",
+    marginTop: hp("2.5%"),
+    color: "#4B4C4C",
     textAlign: "left",
     fontFamily: "Poppins_400Regular",
+    paddingRight: hp("25%"),
+  },
+  descText2: {
+    marginTop: hp("2.5%"),
+    color: "#4B4C4C",
+    textAlign: "left",
+    fontFamily: "Poppins_400Regular",
+    paddingLeft: hp("3.5%"),
+    paddingRight: hp("22%"),
+  },
+  descText3: {
+    marginTop: hp("2.5%"),
+    color: "#4B4C4C",
+    textAlign: "left",
+    fontFamily: "Poppins_400Regular",
+    paddingRight: hp("14.5%"),
   },
   nextBtn: {
-    width: "50%",
-    height: hp("5%"),
+    height: hp("10%"),
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#ffffff",
-    borderColor: "#ffffff",
+    borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
     borderWidth: 1,
-    marginTop: hp("10%"),
+    width: wp("85%"),
   },
   // DROPDOWN
   shadow: {
@@ -217,144 +199,26 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 10,
   },
-  header: {
-    flexDirection: "row",
-    width,
-    height: 50,
+
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: wp("72%"),
+  },
+  textSign: {
+    position: "absolute",
+    paddingLeft: hp("4%"),
+  },
+  iconContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#F6F6F6",
+    paddingLeft: 10,
   },
-  headerTitle: { color: "#000", fontWeight: "bold", fontSize: 16 },
-  saveAreaViewContainer: { flex: 1, backgroundColor: "#FFF" },
-  viewContainer: { flex: 1, width: "100%", backgroundColor: "#FFF" },
-  scrollViewContainer: {
-    flexGrow: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: "10%",
-    paddingBottom: "20%",
+  titleContainer: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: 54,
+    marginTop: 14,
+    position: "relative",
   },
-
-  dropdown1BtnStyle: {
-    width: "100%",
-    height: 45,
-    backgroundColor: "#FFF",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#87c9e4",
-    marginTop: 3,
-  },
-  dropdown1BtnTxtStyle: {
-    color: "#87c9e4",
-    textAlign: "left",
-    fontSize: 16,
-    fontFamily: "Poppins_400Regular",
-    paddingVertical: 9,
-  },
-  dropdown1DropdownStyle: {
-    backgroundColor: "#EFEFEF",
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    marginTop: -7,
-  },
-  dropdown1RowStyle: {
-    backgroundColor: "#EFEFEF",
-    borderBottomColor: "#C5C5C5",
-  },
-  dropdown1RowTxtStyle: {
-    color: "#87c9e4",
-    textAlign: "left",
-    fontSize: 16,
-    fontFamily: "Poppins_400Regular",
-    paddingVertical: 9,
-  },
-
-  dropdown2BtnStyle: {
-    width: "80%",
-    height: 50,
-    backgroundColor: "#87c9e4",
-    borderRadius: 8,
-  },
-  dropdown2BtnTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-    fontFamily: "Poppins_700Bold",
-  },
-  dropdown2DropdownStyle: {
-    backgroundColor: "#87c9e4",
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
-  },
-  dropdown2RowStyle: {
-    backgroundColor: "#87c9e4",
-    borderBottomColor: "#C5C5C5",
-  },
-  dropdown2RowTxtStyle: {
-    color: "#FFF",
-    textAlign: "center",
-    fontFamily: "Poppins_700Bold",
-  },
-
-  dropdown3BtnStyle: {
-    width: "80%",
-    height: 50,
-    backgroundColor: "#FFF",
-    paddingHorizontal: 0,
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: "#87c9e4",
-  },
-  dropdown3BtnChildStyle: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 18,
-  },
-  dropdown3BtnImage: { width: 45, height: 45, resizeMode: "cover" },
-  dropdown3BtnTxt: {
-    color: "#87c9e4",
-    textAlign: "center",
-    fontFamily: "Poppins_700Bold",
-    fontSize: 24,
-    marginHorizontal: 12,
-  },
-  dropdown3DropdownStyle: { backgroundColor: "slategray" },
-  dropdown3RowStyle: {
-    backgroundColor: "slategray",
-    borderBottomColor: "#87c9e4",
-    height: 50,
-  },
-  dropdown3RowChildStyle: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingHorizontal: 18,
-  },
-  dropdownRowImage: { width: 45, height: 45, resizeMode: "cover" },
-  dropdown3RowTxt: {
-    color: "#F1F1F1",
-    textAlign: "center",
-    fontFamily: "Poppins_700Bold",
-    fontSize: 24,
-    marginHorizontal: 12,
-  },
-
-  dropdown4BtnStyle: {
-    width: "50%",
-    height: 50,
-    backgroundColor: "#FFF",
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#87c9e4",
-  },
-  dropdown4BtnTxtStyle: { color: "#87c9e4", textAlign: "left" },
-  dropdown4DropdownStyle: { backgroundColor: "#EFEFEF" },
-  dropdown4RowStyle: {
-    backgroundColor: "#EFEFEF",
-    borderBottomColor: "#C5C5C5",
-  },
-  dropdown4RowTxtStyle: { color: "#87c9e4", textAlign: "left" },
 });

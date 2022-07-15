@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "#6B24AA",
     borderColor: "#6B24AA",
-    marginTop: Platform.OS == "ios" ? 55 : 0,
+    marginTop: Platform.OS == "ios" ? 55 : 22,
   },
   nextBtn: {
     height: hp("10%"),
