@@ -4,6 +4,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import { Button, Text } from "galio-framework";
 import { View } from "react-native";
@@ -14,7 +15,7 @@ import {
 } from "react-native-responsive-screen";
 import SelectDropdown from "react-native-select-dropdown";
 import { HeaderHeight } from "../../constants/utils";
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
   useFonts,
@@ -25,6 +26,8 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import BGImage from "../../assets/images/bg_Create-Account.png";
+import { windowHeightWithHeader } from "../../utils/utils";
 
 const ChooseAccount = ({ navigation }) => {
   const [open, setOpen] = React.useState(false);
@@ -45,67 +48,83 @@ const ChooseAccount = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <View
-        style={{
-          height: hp("12%"),
-        }}
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
       >
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => navigation.navigate("SignUpCareProviderScreen")}
-        >
-          <Icon
-            size={22}
-            name="arrow-left"
-            family="feather"
-            color={"#DCDCDC"}
-          />
-        </TouchableOpacity>
         <View
           style={{
-            height: hp("15%"),
-            paddingLeft: wp("8%"),
-            paddingRight: wp("8%"),
-            paddingTop: hp("1%"),
+            height: windowHeightWithHeader(10),
           }}
         >
-          <Text style={styles.titleContainer}>Success!</Text>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("CareProvider4Screen")}
+          >
+            <Icon
+              size={22}
+              name="arrow-left"
+              family="feather"
+              color={"#DCDCDC"}
+            />
+          </TouchableOpacity>
         </View>
-
         <View
-          View
           style={{
-            height: hp("30%"),
-            alignItems: "center",
-            alignContent: "center",
-            width: wp("100%"),
+            height: windowHeightWithHeader(78),
+            paddingBottom: windowHeightWithHeader(3),
           }}
         >
-          <Icon size={200} name="heart" family="foundation" color={"#6B24AA"} />
+          <View
+            style={{
+              marginTop: windowHeightWithHeader(2),
+              height: windowHeightWithHeader(9),
+              paddingLeft: wp(8),
+              paddingRight: wp(8),
+            }}
+          >
+            <Text style={styles.titleContainer}>Success!</Text>
+          </View>
+          <View
+            View
+            style={{
+              height: windowHeightWithHeader(25),
+              alignItems: "center",
+              alignContent: "center",
+              width: wp(100),
+              paddingLeft: wp(7),
+            }}
+          >
+            <Icon
+              size={200}
+              name="heart"
+              family="foundation"
+              color={"#6B24AA"}
+            />
+          </View>
+          <View
+            View
+            style={{
+              height: windowHeightWithHeader(32),
+              paddingLeft: wp(8),
+              width: wp(100),
+            }}
+          >
+            <Text style={styles.descText} size={windowHeightWithHeader(2)}>
+              Congratulations!
+            </Text>
+            <Text style={styles.descText2} size={windowHeightWithHeader(2)}>
+              Your account has been successfully created.
+            </Text>
+            <Text style={styles.descText3} size={windowHeightWithHeader(2)}>
+              Proceed to get fully verified.
+            </Text>
+          </View>
         </View>
         <View
-          View
           style={{
-            height: hp("32%"),
-            alignItems: "center",
-            alignContent: "center",
-            width: wp("100%"),
-          }}
-        >
-          <Text style={styles.descText} size={hp("2%")}>
-            Congratulations!
-          </Text>
-          <Text style={styles.descText2} size={hp("2%")}>
-            Your account has been successfully created.
-          </Text>
-          <Text style={styles.descText3} size={hp("2%")}>
-            Proceed to get fully verified.
-          </Text>
-        </View>
-
-        <View
-          style={{
-            height: hp("15%"),
+            height: windowHeightWithHeader(10),
             alignItems: "center",
             alignContent: "center",
             width: wp("100%"),
@@ -137,7 +156,7 @@ const ChooseAccount = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -146,50 +165,53 @@ export default ChooseAccount;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
+    width: width,
     backgroundColor: "#f2f4f5",
+  },
+  image: {
+    height: height,
   },
   backBtn: {
     alignItems: "flex-start",
     width: 55,
     height: 53,
-    marginLeft: wp("5%"),
+    marginLeft: wp(5),
     padding: 15,
     borderRadius: 12,
     backgroundColor: "#6B24AA",
     borderColor: "#6B24AA",
-    marginTop: Platform.OS == "ios" ? 55 : 22,
+    marginTop: Platform.OS == "ios" ? 44 : 22,
   },
   descText: {
-    marginTop: hp("2.5%"),
+    marginTop: windowHeightWithHeader(2.5),
     color: "#4B4C4C",
     textAlign: "left",
     fontFamily: "Poppins_400Regular",
-    paddingRight: hp("25%"),
+    paddingRight: windowHeightWithHeader(25),
   },
   descText2: {
-    marginTop: hp("2.5%"),
+    marginTop: windowHeightWithHeader(2.5),
     color: "#4B4C4C",
     textAlign: "left",
     fontFamily: "Poppins_400Regular",
-    paddingLeft: hp("3.5%"),
-    paddingRight: hp("22%"),
+    paddingRight: windowHeightWithHeader(15),
   },
   descText3: {
-    marginTop: hp("2.5%"),
+    marginTop: windowHeightWithHeader(2.5),
     color: "#4B4C4C",
     textAlign: "left",
     fontFamily: "Poppins_400Regular",
-    paddingRight: hp("14.5%"),
+    paddingRight: windowHeightWithHeader(14.5),
   },
   nextBtn: {
-    height: hp("10%"),
+    height: windowHeightWithHeader(10),
     justifyContent: "center",
     borderRadius: 12,
     backgroundColor: "#41c3e0",
     borderColor: "#41c3e0",
     borderWidth: 1,
-    width: wp("85%"),
+    width: wp(85),
   },
   // DROPDOWN
   shadow: {
@@ -203,11 +225,11 @@ const styles = StyleSheet.create({
   iconSign: {
     alignItems: "flex-end",
     position: "absolute",
-    paddingLeft: wp("72%"),
+    paddingLeft: wp(72),
   },
   textSign: {
     position: "absolute",
-    paddingLeft: hp("4%"),
+    paddingLeft: windowHeightWithHeader(4),
   },
   iconContainer: {
     alignItems: "center",
@@ -217,8 +239,8 @@ const styles = StyleSheet.create({
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",
     color: "#46b5d0",
-    fontSize: 54,
-    marginTop: 14,
+    fontSize: windowHeightWithHeader(6),
+    marginTop: windowHeightWithHeader(1.2),
     position: "relative",
   },
 });

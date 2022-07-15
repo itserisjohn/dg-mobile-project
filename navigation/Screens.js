@@ -19,7 +19,10 @@ import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import SignUpCareProviderScreen from "../screens/SignUp/CareProvider";
+import CareProvider1Screen from "../screens/SignUp/CareProvider1";
+import CareProvider2Screen from "../screens/SignUp/CareProvider2";
+import CareProvider3Screen from "../screens/SignUp/CareProvider3";
+import CareProvider4Screen from "../screens/SignUp/CareProvider4";
 import CreateAccountScreen from "../screens/SignUp/CreateAccount";
 import ChecklistEmptyScreen from "../screens/SignUp/ChecklistEmpty";
 import LegalWaiverScreen from "../screens/SignUp/LegalWaiver";
@@ -405,8 +408,29 @@ function SignUpCareProviderStack(props) {
         }}
       />
       <Stack.Screen
-        name="SignUpCareProviderScreen"
-        component={SignUpCareProviderScreen}
+        name="CareProvider1Screen"
+        component={CareProvider1Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="CareProvider2Screen"
+        component={CareProvider2Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="CareProvider3Screen"
+        component={CareProvider3Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="CareProvider4Screen"
+        component={CareProvider4Screen}
         option={{
           headerTransparent: false,
         }}

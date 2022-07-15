@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "#6B24AA",
     borderColor: "#6B24AA",
-    marginTop: Platform.OS == "ios" ? 55 : 22,
+    marginTop: Platform.OS == "ios" ? 44 : 22,
   },
   nextBtn: {
     height: windowHeightWithHeader(12),
@@ -223,13 +223,9 @@ const styles = StyleSheet.create({
     height: windowHeightWithHeader(12),
     justifyContent: "center",
     borderRadius: 12,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
     borderColor: "rgba(255, 255, 255, 0.1)",
     borderWidth: 1,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 1,
-    shadowRadius: 100,
     elevation: 5,
   },
   titleContainer: {

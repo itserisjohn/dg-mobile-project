@@ -4,14 +4,17 @@ import {
   StatusBar,
   Dimensions,
   TouchableOpacity,
-  ScrollView,
   Platform,
   View,
   ImageBackground,
+  TextInput,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import {
   useFonts,
   Poppins_200ExtraLight,
@@ -21,16 +24,14 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { getLegalWaiver } from "../../services/legalwaiver";
 const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
+import materialTheme from "../../constants/Theme";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const LegalWaiver = ({ navigation }) => {
-  const [accepted, setAccepted] = React.useState(false);
+const CareProvider4 = ({ navigation }) => {
   const [data, setData] = React.useState({});
-
-  let paddingVertical = 7;
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -40,22 +41,6 @@ const LegalWaiver = ({ navigation }) => {
     Poppins_600SemiBold,
     Poppins_700Bold,
   });
-
-  const valueChanged = () => {
-    setAccepted(!accepted);
-  };
-
-  // const getLegalWaiverData = async () => {
-  //   const progressData = getLegalWaiver();
-  //   const result = await progressData;
-  //   if (result) {
-  //     setData(result);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getLegalWaiverData();
-  // }, []);
 
   return (
     <View style={styles.container}>
@@ -67,12 +52,12 @@ const LegalWaiver = ({ navigation }) => {
       >
         <View
           style={{
-            height: windowHeightWithHeader(12),
+            height: windowHeightWithHeader(10),
           }}
         >
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.navigate("CreateAccountScreen")}
+            onPress={() => navigation.navigate("CareProvider3Screen")}
           >
             <Icon
               size={22}
@@ -91,61 +76,74 @@ const LegalWaiver = ({ navigation }) => {
             paddingBottom: windowHeightWithHeader(3),
           }}
         >
-          <Text style={styles.titleContainer}>Terms &</Text>
-          <Text style={styles.titleContainer2}>Conditions</Text>
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.titleContainer}>Profile</Text>
+          <Text style={styles.titleContainer2}>Photo</Text>
+          <View style={styles.progressContainer}>
             <Text
+              size={hp("1.6%")}
+              color={materialTheme.COLORS.BLACK}
+              style={{ fontFamily: "Poppins_400Regular" }}
+            >
+              Please make sure your pgoto clearly shows your face
+            </Text>
+            <MaterialCommunityIcons
+              name="camera-plus"
+              color="#46b5d0"
+              size={windowHeightWithHeader(12)}
+              style={{
+                marginTop: windowHeightWithHeader(5),
+                textAlign: "center",
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("App")}
               style={[
-                styles.textContainer,
+                styles.signIn,
                 {
-                  color: "#4B4C4C",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 13,
-                  marginTop: windowHeightWithHeader(3),
+                  backgroundColor: "#782ddb",
+                  borderColor: "#782ddb",
+                  borderWidth: 1,
+                  marginTop: windowHeightWithHeader(7),
                 },
               ]}
             >
-              Lorem ipsum is the good of days. We are just getting started. We
-              are on the ground floor. Success feeds pride. Pride kills urgency.
-              So nothing falls like success. We always bring our best. Nothing
-              is more fun than serving God with people you love. We are
-              spiritual contributors not spiritual consumers. We give up things
-              we love for things we love move. We are all about the capital C
-              Church.
-            </Text>
-            <Text
+              <Text
+                style={[
+                  styles.textPhoto,
+                  {
+                    color: "#f9e0ff",
+                    fontFamily: "Poppins_600SemiBold",
+                  },
+                ]}
+              >
+                Take Photo
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("App")}
               style={[
-                styles.textContainer,
+                styles.signIn,
                 {
-                  color: "#4B4C4C",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 13,
+                  backgroundColor: "#782ddb",
+                  borderColor: "#782ddb",
+                  borderWidth: 1,
+                  marginTop: windowHeightWithHeader(2),
                 },
               ]}
             >
-              We impress people with our strengths but we connect with people
-              through our weaknesses. We are faith filled, big-thingking,
-              bet-the-farm risk takers. We will never insult God with safe
-              thinking and safe living. People need to be insturcted. We believe
-              the local church is the hope of the world.
-            </Text>
-            <Text
-              style={[
-                styles.textContainer,
-                {
-                  color: "#4B4C4C",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 13,
-                },
-              ]}
-            >
-              Trust the process. What you fear the most reveals where you trust
-              God the least. We can do infinitely more together than we can
-              apart. We want to be known for what we are for. not for what we
-              are against. if we live with intergrity, nothing else matters. You
-              don't have to have the faith to finish.
-            </Text>
-          </ScrollView>
+              <Text
+                style={[
+                  styles.textPhoto,
+                  {
+                    color: "#f9e0ff",
+                    fontFamily: "Poppins_600SemiBold",
+                  },
+                ]}
+              >
+                Choose from camera roll
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View
           style={{
@@ -156,7 +154,7 @@ const LegalWaiver = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CareProvider1Screen")}
+            onPress={() => navigation.navigate("ChooseAccountScreen")}
             style={styles.nextBtn}
           >
             <Text
@@ -169,7 +167,7 @@ const LegalWaiver = ({ navigation }) => {
                 },
               ]}
             >
-              Accept
+              Next
             </Text>
             <Text style={styles.iconSign}>
               <Icon
@@ -186,7 +184,7 @@ const LegalWaiver = ({ navigation }) => {
   );
 };
 
-export default LegalWaiver;
+export default CareProvider4;
 
 const styles = StyleSheet.create({
   container: {
@@ -200,14 +198,30 @@ const styles = StyleSheet.create({
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",
     color: "#46b5d0",
-    fontSize: 54,
-    marginTop: 14,
+    fontSize: windowHeightWithHeader(6),
+    marginTop: windowHeightWithHeader(1.2),
     position: "relative",
   },
   titleContainer2: {
     fontFamily: "Poppins_600SemiBold",
     color: "#46b5d0",
-    fontSize: 54,
+    fontSize: windowHeightWithHeader(6),
+  },
+  progressContainer: {
+    marginBottom: 20,
+    paddingTop: hp("2.5%"),
+    height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
+  },
+  input: {
+    fontSize: 14,
+    marginTop: hp("1.1%"),
+    marginBottom: hp("2.2%"),
+    backgroundColor: "white",
+    borderRadius: 4,
+    padding: 14,
+    fontFamily: "Poppins_400Regular",
+    borderColor: materialTheme.COLORS.BLACK,
+    borderWidth: 0.5,
   },
   textContainer: {
     marginBottom: windowHeightWithHeader(2),
@@ -232,6 +246,16 @@ const styles = StyleSheet.create({
     borderColor: "#41c3e0",
     borderWidth: 1,
     width: wp("85%"),
+  },
+  signIn: {
+    width: "100%",
+    height: windowHeightWithHeader(5),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  textPhoto: {
+    fontSize: windowHeightWithHeader(2),
   },
   iconSign: {
     alignItems: "flex-end",
