@@ -29,9 +29,50 @@ import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import * as ImagePicker from "expo-image-picker";
 
 const CareProvider4 = ({ navigation }) => {
   const [data, setData] = React.useState({});
+  const [image, setImage] = React.useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const takePhoto = async () => {
+    if (Platform.OS === "ios") {
+      const { status } = await ImagePicker.getCameraPermissionsAsync();
+      if (status !== "granted") {
+        const { newStatus } = await ImagePicker.requestCameraPermissionsAsync();
+        if (newStatus !== "granted") {
+        } else {
+          return false;
+        }
+      }
+    }
+
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -96,7 +137,7 @@ const CareProvider4 = ({ navigation }) => {
               }}
             />
             <TouchableOpacity
-              onPress={() => navigation.navigate("App")}
+              onPress={takePhoto}
               style={[
                 styles.signIn,
                 {
@@ -120,7 +161,7 @@ const CareProvider4 = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate("App")}
+              onPress={pickImage}
               style={[
                 styles.signIn,
                 {

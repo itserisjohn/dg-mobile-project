@@ -59,7 +59,8 @@
     "react-native-web": "0.17.1",
     "react-number-format": "^4.9.3",
     "regenerator-runtime": "^0.13.9",
-    "rn-credit-card": "^1.0.4"
+    "rn-credit-card": "^1.0.4",
+    "expo-navigation-bar": "~1.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.18.5",
