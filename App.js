@@ -6,7 +6,6 @@ import { Block, GalioProvider } from "galio-framework";
 import { Images, products, materialTheme } from "./constants/";
 import { NavigationContainer } from "@react-navigation/native";
 import Screens from "./navigation/Screens";
-import * as NavigationBar from "expo-navigation-bar";
 
 import { useFonts, Poppins_400Regular } from "@expo-google-fonts/poppins";
 
@@ -32,8 +31,6 @@ function cacheImages(images) {
 
 export default function App() {
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
-
-  NavigationBar.setVisibilityAsync("hidden");
 
   let [fontsLoaded, error] = useFonts({
     Poppins_400Regular,

@@ -7,7 +7,7 @@ import {
   Platform,
   View,
   ImageBackground,
-  TextInput,
+  Image,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -127,15 +127,43 @@ const CareProvider4 = ({ navigation }) => {
             >
               Please make sure your pgoto clearly shows your face
             </Text>
-            <MaterialCommunityIcons
-              name="camera-plus"
-              color="#46b5d0"
-              size={windowHeightWithHeader(12)}
-              style={{
-                marginTop: windowHeightWithHeader(5),
-                textAlign: "center",
-              }}
-            />
+            {image ? (
+              <View
+                style={{
+                  height: windowHeightWithHeader(15),
+                  marginTop: windowHeightWithHeader(5),
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={{ uri: image }}
+                  style={{
+                    width: windowHeightWithHeader(18),
+                    height: windowHeightWithHeader(18),
+                    borderWidth: 6,
+                    borderRadius: 4,
+                    borderColor: "#ffffff",
+                  }}
+                />
+              </View>
+            ) : (
+              <View
+                style={{
+                  height: windowHeightWithHeader(15),
+                  marginTop: windowHeightWithHeader(5),
+                  alignItems: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="camera-plus"
+                  color="#46b5d0"
+                  size={windowHeightWithHeader(12)}
+                  style={{
+                    textAlign: "center",
+                  }}
+                />
+              </View>
+            )}
             <TouchableOpacity
               onPress={takePhoto}
               style={[
