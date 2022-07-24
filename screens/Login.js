@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  Platform,
   StyleSheet,
   StatusBar,
   Alert,
@@ -12,6 +11,7 @@ import {
   Keyboard,
   ImageBackground,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import * as Animatable from "react-native-animatable";
@@ -36,20 +36,27 @@ import {
 } from "@expo-google-fonts/poppins";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 const { width, height } = Dimensions.get("window");
-import { windowHeight } from "../utils/utils";
+import { windowHeight, windowHeightFull } from "../utils/utils";
+import { userService } from "../services/auth";
+import {
+  ALERT_TYPE,
+  Dialog,
+  Root,
+  Toast,
+} from "react-native-alert-notification";
 
 const SignInScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
-    username: "",
-    password: "",
-    check_textInputChange: false,
-    secureTextEntry: true,
-    isValidUser: true,
-    isValidPassword: true,
+    Username: "",
+    Password: "",
   });
+  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   const [usernameFocused, setUsernameFocused] = React.useState(false);
   const [passwordFocused, setPasswordFocused] = React.useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -117,24 +124,21 @@ const SignInScreen = ({ navigation }) => {
   };
 
   const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
+    setSecureTextEntry(!secureTextEntry);
   };
 
   const handleValidUser = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        isValidUser: false,
-      });
-    }
+    // if (val.trim().length >= 4) {
+    //   setData({
+    //     ...data,
+    //     isValidUser: true,
+    //   });
+    // } else {
+    //   setData({
+    //     ...data,
+    //     isValidUser: false,
+    //   });
+    // }
   };
 
   const loginHandle = (userName, password) => {
@@ -157,6 +161,68 @@ const SignInScreen = ({ navigation }) => {
     }
   };
 
+  function onSubmit() {
+    setLoading(true);
+    const payload = { Username: username, Password: password };
+    setData(payload);
+    // setLoading(true);
+    // return userService
+    //   .login(username, password)
+    //   .then(() => {
+    //     // get return url from query parameters or default to '/'
+    //     navigation.navigate("App");
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     // notification["error"]({
+    //     //   message: "Login Failed",
+    //     //   description:
+    //     //     "Your username or password was incorrect. Please try again.",
+    //     // });
+    //     console.log("fail");
+    //     setLoading(false);
+    //   });
+  }
+
+  async function saveAccount() {
+    setLoading(true);
+    try {
+      const user = await userService.login({
+        Username: username,
+        Password: password,
+      });
+      if (user) {
+        setLoading(false);
+        navigation.navigate("App");
+      } else {
+        setLoading(false);
+        Dialog.show({
+          type: ALERT_TYPE.DANGER,
+          title: "Login Failed",
+          textBody:
+            "Your username or password was incorrect. Please try again.",
+          button: "close",
+        });
+      }
+    } catch (err) {
+      setLoading(false);
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Login Failed",
+        textBody: "Your username or password was incorrect. Please try again.",
+        button: "close",
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (data) {
+      if (data.Username && data.Password) {
+        saveAccount();
+      }
+    }
+  }, [data]);
+
   const onFocusUsername = (focus) => {
     setUsernameFocused(focus);
   };
@@ -176,13 +242,13 @@ const SignInScreen = ({ navigation }) => {
     },
     header: {
       alignItems: "center",
-      height: windowHeight(42),
-      paddingTop: windowHeight(21),
+      height: windowHeightFull(42),
+      paddingTop: windowHeightFull(21),
       // paddingTop: isKeyboardVisible ? hp("0%") : hp("20%"),
     },
     logo: {
       width: wp("75%"),
-      height: windowHeight(15),
+      height: windowHeightFull(15),
     },
     title1: {
       fontWeight: "600",
@@ -199,7 +265,7 @@ const SignInScreen = ({ navigation }) => {
       marginTop: windowHeight(1),
       borderBottomWidth: 1,
       borderBottomColor: "#f2f2f2",
-      padding: 12,
+      padding: 10,
       borderRadius: 8,
       backgroundColor: "#ffffff",
     },
@@ -235,8 +301,8 @@ const SignInScreen = ({ navigation }) => {
     },
     errorMsg: {
       color: "#fe4d4d",
-      fontSize: windowHeight(1.7),
-      marginTop: windowHeight(1),
+      fontSize: windowHeightFull(1.7),
+      marginTop: windowHeightFull(1),
     },
     button: {
       alignItems: "center",
@@ -261,7 +327,7 @@ const SignInScreen = ({ navigation }) => {
     },
     footer: {
       position: "absolute",
-      bottom: windowHeight(4),
+      bottom: windowHeight(5),
       alignItems: "center",
       alignContent: "center",
       width: wp("100%"),
@@ -300,52 +366,59 @@ const SignInScreen = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="#eaeeea" barStyle="dark-content" />
-      <ImageBackground
-        source={BGImage}
-        resizeMode="stretch"
-        style={styles.image}
-      >
-        <View style={styles.header}>
-          <Image source={Logo} style={styles.logo} resizeMode="contain"></Image>
-          <Text
-            style={{
-              color: "#4c4c4c",
-              textAlign: "center",
-              fontSize: 14,
-              marginTop: -windowHeight(0.5),
-            }}
-          >
-            Bringing Care to you and your loved ones.
-          </Text>
-        </View>
-        <Animatable.View
-          animation="fadeInUpBig"
-          style={{ paddingLeft: wp("5%"), paddingRight: wp("5%") }}
+    <Root>
+      <View style={styles.container}>
+        <StatusBar backgroundColor="#eaeeea" barStyle="dark-content" />
+        <ImageBackground
+          source={BGImage}
+          resizeMode="stretch"
+          style={styles.image}
         >
-          <View style={!usernameFocused ? styles.action : styles.actionFocused}>
-            <MaterialCommunityIcons
-              name="at"
-              color="#7933f3"
-              size={windowHeight(3)}
+          <View style={styles.header}>
+            <Image
+              source={Logo}
+              style={styles.logo}
+              resizeMode="contain"
+            ></Image>
+            <Text
               style={{
-                marginLeft: -2,
+                color: "#4c4c4c",
+                textAlign: "center",
+                fontSize: 14,
+                marginTop: -windowHeightFull(0.5),
               }}
-            />
-            <TextInput
-              placeholder="Email"
-              placeholderTextColor="#c1c1c1"
-              style={
-                !usernameFocused ? styles.textInput : styles.textInputFocused
-              }
-              onBlur={() => onFocusUsername(false)}
-              onFocus={() => onFocusUsername(true)}
-              autoCapitalize="none"
-              onChangeText={(val) => textInputChange(val)}
-              onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
-            />
-            {/* {data.check_textInputChange ? (
+            >
+              Bringing Care to you and your loved ones.
+            </Text>
+          </View>
+          <Animatable.View
+            animation="fadeInUpBig"
+            style={{ paddingLeft: wp("5%"), paddingRight: wp("5%") }}
+          >
+            <View
+              style={!usernameFocused ? styles.action : styles.actionFocused}
+            >
+              <MaterialCommunityIcons
+                name="at"
+                color="#7933f3"
+                size={windowHeight(3)}
+                style={{
+                  marginLeft: -2,
+                }}
+              />
+              <TextInput
+                placeholder="Email"
+                placeholderTextColor="#c1c1c1"
+                style={
+                  !usernameFocused ? styles.textInput : styles.textInputFocused
+                }
+                onBlur={() => onFocusUsername(false)}
+                onFocus={() => onFocusUsername(true)}
+                autoCapitalize="none"
+                onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+                onChangeText={(e) => setUsername(e)}
+              />
+              {/* {data.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
                 <Feather
                   name="check-circle"
@@ -354,198 +427,204 @@ const SignInScreen = ({ navigation }) => {
                 />
               </Animatable.View>
             ) : null} */}
-          </View>
-          {/* {!data.isValidUser && usernameFocused ? (
+            </View>
+            {/* {!data.isValidUser && usernameFocused ? (
             <Animatable.View animation="fadeInLeft" duration={500}>
               <Text style={styles.errorMsg}>
                 Username must be 4 characters long.
               </Text>
             </Animatable.View>
           ) : null} */}
-          <View
-            style={[
-              !passwordFocused ? styles.action : styles.actionFocused,
-              {
-                marginTop: windowHeight(1.5),
-              },
-            ]}
-          >
-            <MaterialCommunityIcons
-              name="key"
-              color="#7933f3"
-              size={windowHeight(3)}
-              style={{
-                marginLeft: -2,
-              }}
-            />
-            <TextInput
-              placeholder="Password"
-              placeholderTextColor="#c1c1c1"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={
-                !passwordFocused ? styles.textInput : styles.textInputFocused
-              }
-              onBlur={() => onFocusPassword(false)}
-              onFocus={() => onFocusPassword(true)}
-              autoCapitalize="none"
-              onChangeText={(val) => handlePasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather
-                  name="eye-off"
-                  color="#7933f3"
-                  size={windowHeight(3)}
-                />
-              ) : (
-                <Feather name="eye" color="#7933f3" size={windowHeight(3)} />
-              )}
-            </TouchableOpacity>
-          </View>
-          {/* {!data.isValidPassword && passwordFocused ? (
+            <View
+              style={[
+                !passwordFocused ? styles.action : styles.actionFocused,
+                {
+                  marginTop: windowHeight(1.5),
+                },
+              ]}
+            >
+              <MaterialCommunityIcons
+                name="key"
+                color="#7933f3"
+                size={windowHeight(3)}
+                style={{
+                  marginLeft: -2,
+                }}
+              />
+              <TextInput
+                placeholder="Password"
+                placeholderTextColor="#c1c1c1"
+                secureTextEntry={secureTextEntry ? true : false}
+                style={
+                  !passwordFocused ? styles.textInput : styles.textInputFocused
+                }
+                onBlur={() => onFocusPassword(false)}
+                onFocus={() => onFocusPassword(true)}
+                autoCapitalize="none"
+                onChangeText={(e) => setPassword(e)}
+              />
+              <TouchableOpacity onPress={updateSecureTextEntry}>
+                {secureTextEntry ? (
+                  <Feather
+                    name="eye-off"
+                    color="#7933f3"
+                    size={windowHeight(3)}
+                  />
+                ) : (
+                  <Feather name="eye" color="#7933f3" size={windowHeight(3)} />
+                )}
+              </TouchableOpacity>
+            </View>
+            {/* {!data.isValidPassword && passwordFocused ? (
             <Animatable.View animation="fadeInLeft" duration={500}>
               <Text style={styles.errorMsg}>
                 Password must be 8 characters long.
               </Text>
             </Animatable.View>
           ) : null} */}
-          <View style={styles.checkboxContainer}>
-            <View style={styles.square1}>
-              <TouchableOpacity>
-                <Text
-                  onPress={() => navigation.navigate("SignUpCareProvider")}
-                  style={{
-                    color: "#ffffff",
-                    marginTop: windowHeight(1),
-                    textAlign: "right",
-                    fontSize: windowHeight(1.5),
-                    fontFamily: "Poppins_400Regular",
-                  }}
-                >
-                  Create Account
-                </Text>
-              </TouchableOpacity>
+            <View style={styles.checkboxContainer}>
+              <View style={styles.square1}>
+                <TouchableOpacity>
+                  <Text
+                    onPress={() => navigation.navigate("SignUpCareProvider")}
+                    style={{
+                      color: "#ffffff",
+                      marginTop: windowHeight(1),
+                      textAlign: "right",
+                      fontSize: windowHeight(1.5),
+                      fontFamily: "Poppins_400Regular",
+                    }}
+                  >
+                    Create Account
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.square2}>
+                <TouchableOpacity>
+                  <Text
+                    onPress={() =>
+                      navigation.navigate("ForgotUsernamePassword")
+                    }
+                    style={{
+                      color: "#4c4c4c",
+                      marginTop: windowHeight(1),
+                      textAlign: "right",
+                      fontSize: windowHeight(1.4),
+                      fontFamily: "Poppins_400Regular",
+                    }}
+                  >
+                    Forgot Password?
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.square2}>
-              <TouchableOpacity>
-                <Text
-                  onPress={() => navigation.navigate("ForgotUsernamePassword")}
-                  style={{
-                    color: "#4c4c4c",
-                    marginTop: windowHeight(1),
-                    textAlign: "right",
-                    fontSize: windowHeight(1.4),
-                    fontFamily: "Poppins_400Regular",
-                  }}
-                >
-                  Forgot Password?
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View style={styles.button}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("App")}
-              style={[
-                styles.signIn,
-                {
-                  backgroundColor: "#782ddb",
-                  borderColor: "#782ddb",
-                  borderWidth: 1,
-                  marginTop: windowHeight(0.2),
-                },
-              ]}
-            >
-              <Text
+            <View style={styles.button}>
+              <TouchableOpacity
+                onPress={() => onSubmit()}
                 style={[
-                  styles.textSign,
+                  styles.signIn,
                   {
-                    color: "#f9e0ff",
-                    fontFamily: "Poppins_600SemiBold",
+                    backgroundColor: "#782ddb",
+                    borderColor: "#782ddb",
+                    borderWidth: 1,
+                    marginTop: windowHeight(0.2),
                   },
                 ]}
               >
-                Log In
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      color: "#f9e0ff",
+                      fontFamily: "Poppins_600SemiBold",
+                    },
+                  ]}
+                >
+                  Log In{"  "}
+                  {loading ? (
+                    <ActivityIndicator size="small" color="#ffffff" />
+                  ) : null}
+                </Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  color: "#4c4c4c",
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: windowHeight(1.5),
+                  marginTop: windowHeight(3),
+                }}
+              >
+                OR login with
               </Text>
-            </TouchableOpacity>
-            <Text
-              style={{
-                color: "#4c4c4c",
-                fontFamily: "Poppins_400Regular",
-                fontSize: windowHeight(1.5),
-                marginTop: windowHeight(3),
-              }}
-            >
-              OR login with
-            </Text>
-            <View style={styles.checkboxContainer}>
-              <View style={styles.square}></View>
-              <View style={styles.square}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "#fbfdfe",
-                    borderColor: "#57bbcc",
-                    borderWidth: 6,
-                    padding: 11,
-                    borderRadius: 30,
-                  }}
-                >
-                  <Image
-                    source={LogoGoogle}
-                    style={{}}
-                    resizeMode="contain"
-                  ></Image>
-                </TouchableOpacity>
+              <View style={styles.checkboxContainer}>
+                <View style={styles.square}></View>
+                <View style={styles.square}>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#fbfdfe",
+                      borderColor: "#57bbcc",
+                      borderWidth: 6,
+                      padding: 11,
+                      borderRadius: 30,
+                    }}
+                  >
+                    <Image
+                      source={LogoGoogle}
+                      style={{}}
+                      resizeMode="contain"
+                    ></Image>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.square}>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#fbfdfe",
+                      borderColor: "#57bbcc",
+                      borderWidth: 6,
+                      padding: 10,
+                      paddingLeft: 16,
+                      borderRadius: 30,
+                      width: 60,
+                      height: 60,
+                    }}
+                  >
+                    <Image
+                      source={LogoFacebook}
+                      style={{}}
+                      resizeMode="contain"
+                    ></Image>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.square}></View>
               </View>
-              <View style={styles.square}>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "#fbfdfe",
-                    borderColor: "#57bbcc",
-                    borderWidth: 6,
-                    padding: 10,
-                    paddingLeft: 16,
-                    borderRadius: 30,
-                    width: 60,
-                    height: 60,
-                  }}
-                >
-                  <Image
-                    source={LogoFacebook}
-                    style={{}}
-                    resizeMode="contain"
-                  ></Image>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.square}></View>
             </View>
-          </View>
-        </Animatable.View>
-      </ImageBackground>
-      <View style={styles.footer}>
-        <Text
-          style={{
-            color: "#4c4c4c",
-            fontFamily: "Poppins_400Regular",
-            fontSize: windowHeight(1.5),
-            marginTop: windowHeight(4),
-            textAlign: "center",
-          }}
-        >
-          By signing up, you agree with our
-        </Text>
-        <Text
-          style={{
-            color: "#f9e0ff",
-            fontFamily: "Poppins_400Regular",
-            fontSize: windowHeight(1.5),
-            textAlign: "center",
-          }}
-        >
-          Terms & Conditions
-        </Text>
+          </Animatable.View>
+        </ImageBackground>
+        <View style={styles.footer}>
+          <Text
+            style={{
+              color: "#4c4c4c",
+              fontFamily: "Poppins_400Regular",
+              fontSize: windowHeight(1.5),
+              marginTop: windowHeight(4),
+              textAlign: "center",
+            }}
+          >
+            By signing up, you agree with our
+          </Text>
+          <Text
+            style={{
+              color: "#f9e0ff",
+              fontFamily: "Poppins_400Regular",
+              fontSize: windowHeight(1.5),
+              textAlign: "center",
+            }}
+          >
+            Terms & Conditions
+          </Text>
+        </View>
       </View>
-    </View>
+    </Root>
   );
 };
 

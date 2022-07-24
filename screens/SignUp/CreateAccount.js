@@ -79,7 +79,11 @@ const CreateAccount = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("LegalWaiverScreen")}
+            onPress={() =>
+              navigation.navigate("LegalWaiverScreen", {
+                legalWaiver: "account",
+              })
+            }
             style={styles.nextBtn}
           >
             <View style={styles.iconAccHeart}>
@@ -133,7 +137,11 @@ const CreateAccount = ({ navigation }) => {
             }}
           >
             <TouchableOpacity
-              onPress={() => navigation.navigate("LegalWaiverScreen")}
+              onPress={() =>
+                navigation.navigate("LegalWaiverScreen", {
+                  legalWaiver: "provider",
+                })
+              }
               style={styles.nextBtn2}
             >
               <View style={styles.iconDoctor}>
@@ -223,10 +231,9 @@ const styles = StyleSheet.create({
     height: windowHeightWithHeader(12),
     justifyContent: "center",
     borderRadius: 12,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgba(220, 220, 220, 0.3)",
     borderColor: "rgba(255, 255, 255, 0.1)",
     borderWidth: 1,
-    elevation: 5,
   },
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",

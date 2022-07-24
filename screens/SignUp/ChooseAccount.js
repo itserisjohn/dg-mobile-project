@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ImageBackground,
+  Image,
 } from "react-native";
 import { Button, Text } from "galio-framework";
 import { View } from "react-native";
@@ -27,6 +28,7 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import BGImage from "../../assets/images/bg_Create-Account.png";
+import SuccessImage from "../../assets/images/img_success-check.png";
 import { windowHeightWithHeader } from "../../utils/utils";
 
 const ChooseAccount = ({ navigation }) => {
@@ -60,7 +62,7 @@ const ChooseAccount = ({ navigation }) => {
         >
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.navigate("CareProvider4Screen")}
+            onPress={() => navigation.navigate("Login")}
           >
             <Icon
               size={22}
@@ -96,12 +98,7 @@ const ChooseAccount = ({ navigation }) => {
               paddingLeft: wp(7),
             }}
           >
-            <Icon
-              size={200}
-              name="heart"
-              family="foundation"
-              color={"#6B24AA"}
-            />
+            <Image source={SuccessImage}></Image>
           </View>
           <View
             View
@@ -221,7 +218,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 10,
   },
-
   iconSign: {
     alignItems: "flex-end",
     position: "absolute",

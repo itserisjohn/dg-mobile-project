@@ -8,6 +8,7 @@ import {
   Platform,
   View,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -21,13 +22,17 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { getLegalWaiver } from "../../services/legalwaiver";
+import {
+  getLegalWaiver,
+  getLegalWaiverProvider,
+} from "../../services/legalwaiver";
 const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 
-const LegalWaiver = ({ navigation }) => {
+const LegalWaiver = ({ route, navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState({});
 
   let paddingVertical = 7;
@@ -45,17 +50,35 @@ const LegalWaiver = ({ navigation }) => {
     setAccepted(!accepted);
   };
 
-  // const getLegalWaiverData = async () => {
-  //   const progressData = getLegalWaiver();
-  //   const result = await progressData;
-  //   if (result) {
-  //     setData(result);
-  //   }
-  // };
+  const getLegalWaiverData = async () => {
+    setIsLoading(true);
+    const progressData = getLegalWaiver();
+    const result = await progressData;
+    if (result) {
+      setData(result);
+      setIsLoading(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   getLegalWaiverData();
-  // }, []);
+  const getLegalWaiverProviderData = async () => {
+    setIsLoading(true);
+    const progressData = getLegalWaiverProvider();
+    const result = await progressData;
+    if (result) {
+      setData(result);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (route) {
+      if (route.params.legalWaiver === "account") {
+        getLegalWaiverData();
+      } else {
+        getLegalWaiverProviderData();
+      }
+    }
+  }, [route]);
 
   return (
     <View style={styles.container}>
@@ -67,7 +90,7 @@ const LegalWaiver = ({ navigation }) => {
       >
         <View
           style={{
-            height: windowHeightWithHeader(12),
+            height: windowHeightWithHeader(10),
           }}
         >
           <TouchableOpacity
@@ -105,15 +128,16 @@ const LegalWaiver = ({ navigation }) => {
                 },
               ]}
             >
-              Lorem ipsum is the good of days. We are just getting started. We
-              are on the ground floor. Success feeds pride. Pride kills urgency.
-              So nothing falls like success. We always bring our best. Nothing
-              is more fun than serving God with people you love. We are
-              spiritual contributors not spiritual consumers. We give up things
-              we love for things we love move. We are all about the capital C
-              Church.
+              {data.waiver_details}
             </Text>
-            <Text
+            {isLoading ? (
+              <ActivityIndicator
+                size="large"
+                style={{ marginTop: windowHeightWithHeader(10) }}
+                color="#0000ff"
+              />
+            ) : null}
+            {/* <Text
               style={[
                 styles.textContainer,
                 {
@@ -144,7 +168,7 @@ const LegalWaiver = ({ navigation }) => {
               apart. We want to be known for what we are for. not for what we
               are against. if we live with intergrity, nothing else matters. You
               don't have to have the faith to finish.
-            </Text>
+            </Text> */}
           </ScrollView>
         </View>
         <View
@@ -157,28 +181,29 @@ const LegalWaiver = ({ navigation }) => {
         >
           <TouchableOpacity
             onPress={() => navigation.navigate("CareProvider1Screen")}
-            style={styles.nextBtn}
           >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#d7feff",
-                  fontFamily: "Poppins_700Bold",
-                  fontSize: 26,
-                },
-              ]}
-            >
-              Accept
-            </Text>
-            <Text style={styles.iconSign}>
-              <Icon
-                size={30}
-                name="chevron-right"
-                family="feather"
-                color={"#d7feff"}
-              />
-            </Text>
+            <View style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#d7feff",
+                    fontFamily: "Poppins_700Bold",
+                    fontSize: 26,
+                  },
+                ]}
+              >
+                Accept
+              </Text>
+              <Text style={styles.iconSign}>
+                <Icon
+                  size={30}
+                  name="chevron-right"
+                  family="feather"
+                  color={"#d7feff"}
+                />
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </ImageBackground>

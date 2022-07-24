@@ -23,6 +23,7 @@ import CareProvider1Screen from "../screens/SignUp/CareProvider1";
 import CareProvider2Screen from "../screens/SignUp/CareProvider2";
 import CareProvider3Screen from "../screens/SignUp/CareProvider3";
 import CareProvider4Screen from "../screens/SignUp/CareProvider4";
+import ReviewAccountScreen from "../screens/SignUp/ReviewAccount";
 import CreateAccountScreen from "../screens/SignUp/CreateAccount";
 import ChecklistEmptyScreen from "../screens/SignUp/ChecklistEmpty";
 import LegalWaiverScreen from "../screens/SignUp/LegalWaiver";
@@ -431,6 +432,13 @@ function SignUpCareProviderStack(props) {
       <Stack.Screen
         name="CareProvider4Screen"
         component={CareProvider4Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="ReviewAccountScreen"
+        component={ReviewAccountScreen}
         option={{
           headerTransparent: false,
         }}

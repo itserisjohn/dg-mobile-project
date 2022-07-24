@@ -3,6 +3,7 @@
 
 // const { publicRuntimeConfig } = getConfig();
 const baseUrl = `https://asp-noc-dev-win.azurewebsites.net`;
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let newToken = "";
 
@@ -13,11 +14,12 @@ export const fetchWrapper = {
   getPublic,
   postPublic,
   postFormData,
+  postFormDataPublic,
   delete: _delete,
 };
 
-function get(url: string, body: any) {
-  const requestOptions: any = {
+function get(url, body) {
+  const requestOptions = {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -28,8 +30,8 @@ function get(url: string, body: any) {
   return fetch(url, requestOptions).then(handleResponse);
 }
 
-function getPublic(url: string, body: any) {
-  const requestOptions: any = {
+function getPublic(url, body) {
+  const requestOptions = {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -39,8 +41,8 @@ function getPublic(url: string, body: any) {
   return fetch(url, requestOptions).then(handleResponsePublic);
 }
 
-function post(url: string, body: any) {
-  const requestOptions: any = {
+function post(url, body) {
+  const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,8 +55,8 @@ function post(url: string, body: any) {
   return fetch(url, requestOptions).then(handleResponse);
 }
 
-function postFormData(url: string, body: any) {
-  const requestOptions: any = {
+function postFormData(url, body) {
+  const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,8 +69,21 @@ function postFormData(url: string, body: any) {
   return fetch(url, requestOptions).then(handleResponse);
 }
 
-function postPublic(url: string, body: any) {
-  const requestOptions: any = {
+function postFormDataPublic(url, body) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: body,
+    credentials: "include",
+  };
+  return fetch(url, requestOptions).then(handleResponsePublic);
+}
+
+function postPublic(url, body) {
+  const requestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -80,8 +95,8 @@ function postPublic(url: string, body: any) {
   return fetch(url, requestOptions).then(handleResponsePublic);
 }
 
-function put(url: string, body: any) {
-  const requestOptions: any = {
+function put(url, body) {
+  const requestOptions = {
     method: "PUT",
     headers: { "Content-Type": "application/json", ...authHeader(url, body) },
     body: JSON.stringify(body),
@@ -90,8 +105,8 @@ function put(url: string, body: any) {
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
-function _delete(url: string, body: any) {
-  const requestOptions: any = {
+function _delete(url, body) {
+  const requestOptions = {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -104,34 +119,83 @@ function _delete(url: string, body: any) {
 
 // helper functions
 
-// export function authHeader(url: string, body: any) {
-//   // return auth header with basic auth credentials if user is logged in and request is to the api url
-//   const user = userService.userValue;
-//   const isLoggedIn = user;
-//   const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
+const chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+const Base64 = {
+  btoa: (input = "") => {
+    let str = input;
+    let output = "";
 
-//   if (!isLoggedIn && isApiUrl) {
-//     return {
-//       Authorization: `Basic ${window.btoa(body.username + ':' + body.password)}`,
-//     };
-//   } else {
-//     if (isJwtTokenExpired(user.Authorization)) {
-//       const isRefreshed = refreshAccessToken(user.Refresh);
-//       if (isRefreshed) {
-//         return {
-//           Authorization: newToken,
-//         };
-//       }
-//     } else {
-//       return {
-//         Authorization: user.Authorization,
-//       };
-//     }
-//   }
-// }
+    for (
+      let block = 0, charCode, i = 0, map = chars;
+      str.charAt(i | 0) || ((map = "="), i % 1);
+      output += map.charAt(63 & (block >> (8 - (i % 1) * 8)))
+    ) {
+      charCode = str.charCodeAt((i += 3 / 4));
 
-function handleResponse(response: any) {
-  return response.text().then((text: string) => {
+      if (charCode > 0xff) {
+        throw new Error(
+          "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."
+        );
+      }
+
+      block = (block << 8) | charCode;
+    }
+
+    return output;
+  },
+
+  atob: (input = "") => {
+    let str = input.replace(/=+$/, "");
+    let output = "";
+
+    if (str.length % 4 == 1) {
+      throw new Error(
+        "'atob' failed: The string to be decoded is not correctly encoded."
+      );
+    }
+    for (
+      let bc = 0, bs = 0, buffer, i = 0;
+      (buffer = str.charAt(i++));
+      ~buffer && ((bs = bc % 4 ? bs * 64 + buffer : buffer), bc++ % 4)
+        ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
+        : 0
+    ) {
+      buffer = chars.indexOf(buffer);
+    }
+
+    return output;
+  },
+};
+
+export function authHeader(url, body) {
+  // return auth header with basic auth credentials if user is logged in and request is to the api url
+  const user = AsyncStorage.getItem("@storage_Key");
+
+  if (user !== null) {
+    return {
+      Authorization: `Basic ${Base64.btoa(
+        body.username + ":" + body.password
+      )}`,
+    };
+  } else {
+    // if (isJwtTokenExpired(user.Authorization)) {
+    //   const isRefreshed = refreshAccessToken(user.Refresh);
+    //   if (isRefreshed) {
+    //     return {
+    //       Authorization: newToken,
+    //     };
+    //   }
+    // } else {
+    //   return {
+    //     Authorization: user.Authorization,
+    //   };
+    // }
+  }
+}
+
+function handleResponse(response) {
+  return response.text().then((text) => {
     const data = text && JSON.parse(text);
 
     if (!response.ok) {
@@ -148,9 +212,9 @@ function handleResponse(response: any) {
   });
 }
 
-function handleResponsePublic(response: any) {
-  return response.text().then((text: string) => {
-    const data = text && JSON.parse(text);
+function handleResponsePublic(response) {
+  return response.text().then((text) => {
+    const data = text;
 
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;
@@ -161,10 +225,10 @@ function handleResponsePublic(response: any) {
   });
 }
 
-export function refreshAccessToken(refreshToken: any) {
+export function refreshAccessToken(refreshToken) {
   try {
     // Get a new set of tokens with a refreshToken
-    const requestOptions: any = {
+    const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -175,7 +239,7 @@ export function refreshAccessToken(refreshToken: any) {
     const data = fetch(`${baseUrl}/auth/refresh`, requestOptions).then(
       handleResponse
     );
-    data.then((data: any) => {
+    data.then((data) => {
       if (data) {
         if (data.payload) {
           localStorage.setItem("user", JSON.stringify(data.payload));

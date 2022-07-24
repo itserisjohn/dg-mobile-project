@@ -8,6 +8,7 @@ import {
   View,
   ImageBackground,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -29,8 +30,28 @@ import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
 
-const CareProvider3 = ({ navigation }) => {
-  const [data, setData] = React.useState({});
+const CareProvider3 = ({ route, navigation }) => {
+  const [userInfo, setUserInfo] = React.useState({});
+  const [accountInfo, setAccountInfo] = React.useState({});
+  const [data, setData] = React.useState({
+    address_id: 0,
+    account_id: 0,
+    address_line1: "",
+    address_line2: "",
+    city: "",
+    state_address: "",
+    zip: "",
+  });
+
+  useEffect(() => {
+    if (route) {
+      setUserInfo(route.params.user_info);
+      setAccountInfo(route.params.account_info);
+      if (route.params.address) {
+        setData(route.params.address);
+      }
+    }
+  }, [route]);
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -40,6 +61,18 @@ const CareProvider3 = ({ navigation }) => {
     Poppins_600SemiBold,
     Poppins_700Bold,
   });
+
+  function handleChange(dataType, value) {
+    let newState = [];
+    newState.push(data);
+    let account = newState.map((item, i) => {
+      if (i == 0) {
+        return { ...item, [dataType]: value };
+      }
+      return item;
+    });
+    setData(account[0]);
+  }
 
   return (
     <View style={styles.container}>
@@ -56,7 +89,12 @@ const CareProvider3 = ({ navigation }) => {
         >
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.navigate("CareProvider2Screen")}
+            onPress={() =>
+              navigation.navigate("CareProvider2Screen", {
+                account_info: accountInfo,
+                user_info: userInfo,
+              })
+            }
           >
             <Icon
               size={22}
@@ -78,54 +116,92 @@ const CareProvider3 = ({ navigation }) => {
           <Text style={styles.titleContainer}>Location</Text>
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
-            <Text
-              size={hp("1.8%")}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ flexGrow: 1 }}
+              style={{ height: "100%" }}
             >
-              Address
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholderTextColor="#c2c1c1"
-              placeholder="Floor / Suite / Door #"
-            ></TextInput>
-            <Text
-              size={hp("1.8%")}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
-            >
-              Apt/Unit/Lot #
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholderTextColor="#c2c1c1"
-              placeholder="Blg / Apartment"
-            ></TextInput>
-            <Text
-              size={hp("1.8%")}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
-            >
-              City
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholderTextColor="#c2c1c1"
-              placeholder="City"
-            ></TextInput>
-            <Text
-              size={hp("1.8%")}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
-            >
-              State
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholderTextColor="#c2c1c1"
-              placeholder="State"
-            ></TextInput>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
+                Address{" "}
+                <Text
+                  size={windowHeightWithHeader(2)}
+                  style={{ color: "red", justifyContent: "center" }}
+                >
+                  *
+                </Text>
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#c2c1c1"
+                placeholder="Floor / Suite / Door #"
+                value={data.address_line1}
+                onChangeText={(e) => handleChange("address_line1", e)}
+              ></TextInput>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
+                Apt/Unit/Lot #{" "}
+                <Text
+                  size={windowHeightWithHeader(2)}
+                  style={{ color: "red", justifyContent: "center" }}
+                >
+                  *
+                </Text>
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#c2c1c1"
+                placeholder="Blg / Apartment"
+                value={data.address_line2}
+                onChangeText={(e) => handleChange("address_line2", e)}
+              ></TextInput>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
+                City{" "}
+                <Text
+                  size={windowHeightWithHeader(2)}
+                  style={{ color: "red", justifyContent: "center" }}
+                >
+                  *
+                </Text>
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#c2c1c1"
+                placeholder="City"
+                value={data.city}
+                onChangeText={(e) => handleChange("city", e)}
+              ></TextInput>
+              <Text
+                size={hp("1.8%")}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
+              >
+                State{" "}
+                <Text
+                  size={windowHeightWithHeader(2)}
+                  style={{ color: "red", justifyContent: "center" }}
+                >
+                  *
+                </Text>
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholderTextColor="#c2c1c1"
+                placeholder="State"
+                value={data.state_address}
+                onChangeText={(e) => handleChange("state_address", e)}
+              ></TextInput>
+            </ScrollView>
           </View>
         </View>
         <View
@@ -137,7 +213,13 @@ const CareProvider3 = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CareProvider4Screen")}
+            onPress={() =>
+              navigation.navigate("CareProvider4Screen", {
+                account_info: accountInfo,
+                user_info: userInfo,
+                address: data,
+              })
+            }
             style={styles.nextBtn}
           >
             <Text
@@ -192,19 +274,23 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     marginBottom: 20,
-    paddingTop: hp("2.5%"),
-    height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
+    paddingTop: windowHeightWithHeader(1),
+    paddingBottom: windowHeightWithHeader(15),
+    height:
+      Platform.OS === "ios"
+        ? windowHeightWithHeader(65)
+        : windowHeightWithHeader(65),
   },
   input: {
-    fontSize: 14,
-    marginTop: hp("1.1%"),
-    marginBottom: hp("2.2%"),
+    fontSize: windowHeightWithHeader(1.4),
+    marginTop: windowHeightWithHeader(1),
+    marginBottom: windowHeightWithHeader(1),
     backgroundColor: "white",
     borderRadius: 4,
-    padding: 14,
+    padding: 12,
     fontFamily: "Poppins_400Regular",
     borderColor: materialTheme.COLORS.BLACK,
-    borderWidth: 0.5,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 1.5,
   },
   textContainer: {
     marginBottom: windowHeightWithHeader(2),

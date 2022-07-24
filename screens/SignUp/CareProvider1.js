@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -30,7 +30,43 @@ import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
 
 const CareProvider1 = ({ navigation }) => {
-  const [data, setData] = React.useState({});
+  const [dataTemp, setDataTemp] = useState({
+    account_info: {
+      account_id: 0,
+      firstname: "",
+      lastname: "",
+      phone: "",
+      email_address: "",
+      birthdate: "",
+      profile_photourl: "",
+      ssn: "",
+      account_typeid: 1,
+    },
+    user_info: {
+      user_id: 0,
+      account_id: 0,
+      username: "",
+      password: "",
+    },
+    address: {
+      address_id: 0,
+      account_id: 0,
+      address_line1: "",
+      address_line2: "",
+      city: "",
+      state_address: "",
+      zip: "",
+    },
+  });
+
+  const [data, setData] = useState({
+    user_id: 0,
+    account_id: 0,
+    username: "",
+    password: "",
+  });
+  const [password2, setPassword2] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -40,6 +76,43 @@ const CareProvider1 = ({ navigation }) => {
     Poppins_600SemiBold,
     Poppins_700Bold,
   });
+
+  function handleChange(dataType, value) {
+    let newState = [];
+    newState.push(data);
+    let account = newState.map((item, i) => {
+      if (i == 0) {
+        return { ...item, [dataType]: value };
+      }
+      return item;
+    });
+    setData(account[0]);
+  }
+
+  function onNext() {
+    let valid = false;
+    if (data.username && data.password) {
+      if (data.password === password2) {
+        valid = true;
+      }
+    }
+
+    if (valid) {
+      navigation.navigate("CareProvider2Screen", { user_info: data });
+    }
+  }
+
+  useEffect(() => {
+    if (data.username && data.password) {
+      if (data.password === password2) {
+        setIsValid(true);
+      } else {
+        setIsValid(false);
+      }
+    } else {
+      setIsValid(false);
+    }
+  }, [data, password2]);
 
   return (
     <View style={styles.container}>
@@ -79,40 +152,69 @@ const CareProvider1 = ({ navigation }) => {
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
             <Text
-              size={hp("1.8%")}
+              size={windowHeightWithHeader(1.8)}
               color={materialTheme.COLORS.BLACK}
               style={{ fontFamily: "Poppins_400Regular" }}
             >
-              Username
+              Username{" "}
+              <Text
+                size={windowHeightWithHeader(2)}
+                style={{ color: "red", justifyContent: "center" }}
+              >
+                *
+              </Text>
             </Text>
             <TextInput
               style={styles.input}
               placeholder="Username"
+              autoCapitalize="none"
               placeholderTextColor="#c2c1c1"
+              value={data.username}
+              onChangeText={(e) => handleChange("username", e)}
             ></TextInput>
             <Text
-              size={hp("1.8%")}
+              size={windowHeightWithHeader(1.8)}
               color={materialTheme.COLORS.BLACK}
               style={{ fontFamily: "Poppins_400Regular" }}
             >
-              Password
+              Password{" "}
+              <Text
+                size={windowHeightWithHeader(2)}
+                style={{ color: "red", justifyContent: "center" }}
+              >
+                *
+              </Text>
             </Text>
             <TextInput
               style={styles.input}
               placeholder="Password"
               placeholderTextColor="#c2c1c1"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              value={data.password}
+              onChangeText={(e) => handleChange("password", e)}
             ></TextInput>
             <Text
-              size={hp("1.8%")}
+              size={windowHeightWithHeader(1.8)}
               color={materialTheme.COLORS.BLACK}
               style={{ fontFamily: "Poppins_400Regular" }}
             >
-              Confirm Password
+              Confirm Password{" "}
+              <Text
+                size={windowHeightWithHeader(2)}
+                style={{ color: "red", justifyContent: "center" }}
+              >
+                *
+              </Text>
             </Text>
             <TextInput
               style={styles.input}
               placeholder="Confirm Password"
               placeholderTextColor="#c2c1c1"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              value={password2}
+              onChangeText={(e) => setPassword2(e)}
             ></TextInput>
           </View>
         </View>
@@ -124,30 +226,29 @@ const CareProvider1 = ({ navigation }) => {
             width: wp("100%"),
           }}
         >
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CareProvider2Screen")}
-            style={styles.nextBtn}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#d7feff",
-                  fontFamily: "Poppins_700Bold",
-                  fontSize: 26,
-                },
-              ]}
-            >
-              Next
-            </Text>
-            <Text style={styles.iconSign}>
-              <Icon
-                size={30}
-                name="chevron-right"
-                family="feather"
-                color={"#d7feff"}
-              />
-            </Text>
+          <TouchableOpacity onPress={onNext} disabled={!isValid}>
+            <View style={[styles.nextBtn, { opacity: isValid ? 1 : 0.4 }]}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#d7feff",
+                    fontFamily: "Poppins_700Bold",
+                    fontSize: 26,
+                  },
+                ]}
+              >
+                Next
+              </Text>
+              <Text style={styles.iconSign}>
+                <Icon
+                  size={30}
+                  name="chevron-right"
+                  family="feather"
+                  color={"#d7feff"}
+                />
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -180,19 +281,22 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     marginBottom: 20,
-    paddingTop: hp("2.5%"),
-    height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
+    paddingTop: windowHeightWithHeader(2.5),
+    height:
+      Platform.OS === "ios"
+        ? windowHeightWithHeader(65)
+        : windowHeightWithHeader(65),
   },
   input: {
     fontSize: 14,
-    marginTop: hp("1.1%"),
-    marginBottom: hp("2.2%"),
+    marginTop: windowHeightWithHeader(1.1),
+    marginBottom: windowHeightWithHeader(2.2),
     backgroundColor: "white",
     borderRadius: 4,
     padding: 14,
     fontFamily: "Poppins_400Regular",
     borderColor: materialTheme.COLORS.BLACK,
-    borderWidth: 0.5,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 1.5,
   },
   textContainer: {
     marginBottom: windowHeightWithHeader(2),
@@ -217,6 +321,7 @@ const styles = StyleSheet.create({
     borderColor: "#41c3e0",
     borderWidth: 1,
     width: wp("85%"),
+    opacity: 0.1,
   },
   iconSign: {
     alignItems: "flex-end",

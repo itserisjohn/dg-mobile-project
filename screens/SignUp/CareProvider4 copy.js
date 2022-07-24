@@ -82,7 +82,7 @@ const CareProvider4 = ({ route, navigation }) => {
     };
     try {
       console.log(formData);
-      const res = await axios.put(
+      const res = await axios.post(
         `https://asp-noc-dev-win.azurewebsites.net/api/accounts/UploadProfilePhoto`,
         formData,
         config
@@ -151,28 +151,28 @@ const CareProvider4 = ({ route, navigation }) => {
       let match = /\.(\w+)$/.exec(filename);
       let type = match ? `image/${match[1]}` : `image`;
 
-      let headers = new Headers();
-      headers.append("Content-Type", "multipart/form-data");
-
+      // Upload the image using the fetch and FormData APIs
       let formData = new FormData();
-      formData.append("account_id", "11");
+      // Assume "photo" is the name of the form field the server expects
+      formData.append("account_id", 11);
       formData.append("", { uri: localUri, name: filename, type });
 
+      const config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
       try {
-        fetch(
+        console.log(formData);
+        const res = await axios.post(
           `https://asp-noc-dev-win.azurewebsites.net/api/accounts/UploadProfilePhoto`,
-          {
-            method: "PUT",
-            body: formData,
-            headers: headers,
-            redirect: "follow",
-          }
-        ).then((res) => {
-          if (res) {
-            console.log(formData);
-            console.log(JSON.stringify(res));
-          }
-        });
+          formData,
+          config
+        );
+        if (res) {
+          console.log(JSON.stringify(res));
+        }
+        console.log("Ok");
       } catch (err) {
         console.log({ err });
       }
