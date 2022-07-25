@@ -560,6 +560,9 @@ const SignInScreen = ({ navigation }) => {
                 <View style={styles.square}></View>
                 <View style={styles.square}>
                   <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("CheckListScreen")
+                    }
                     style={{
                       backgroundColor: "#fbfdfe",
                       borderColor: "#57bbcc",

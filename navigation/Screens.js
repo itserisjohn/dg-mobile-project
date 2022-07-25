@@ -363,6 +363,13 @@ export default function LoginStack(props) {
         }}
       />
       <Stack.Screen
+        name="CheckListScreen"
+        component={CheckListScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
         name="SignUpCareProvider"
         component={SignUpCareProviderStack}
         option={{
