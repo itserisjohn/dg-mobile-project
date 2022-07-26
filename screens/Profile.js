@@ -36,7 +36,7 @@ export default class Profile extends React.Component {
             <Block flex style={styles.profileDetails}>
               <Block style={styles.profileTexts}>
                 <Text
-                  color="white"
+                  color="#ffffff"
                   size={28}
                   style={{ paddingBottom: 8, fontFamily: "Poppins_400Regular" }}
                 >
@@ -44,7 +44,7 @@ export default class Profile extends React.Component {
                 </Text>
                 <Block row space="between">
                   <Block row>
-                    <Text color="white" size={16} muted style={styles.seller}>
+                    <Text color="#ffffff" size={16} muted style={styles.seller}>
                       Nurse
                     </Text>
                     <Text
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 13,
     borderTopRightRadius: 13,
     backgroundColor: theme.COLORS.WHITE,
-    shadowColor: "black",
+    shadowColor: "#000000",
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 8,
     shadowOpacity: 0.2,

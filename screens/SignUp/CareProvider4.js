@@ -40,7 +40,37 @@ const CareProvider4 = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState({});
   const [accountInfo, setAccountInfo] = React.useState({});
+  const [imageData, setImageData] = React.useState({});
   const [address, setAddress] = React.useState({});
+
+  const testData = {
+    account_info: {
+      account_id: 0,
+      firstname: "tester",
+      lastname: "tester",
+      phone: "09129933811",
+      email_address: "e@mail.com",
+      birthdate: "01/01/1996",
+      profile_photourl: "",
+      ssn: "1234567890",
+      account_typeid: 1,
+    },
+    address: {
+      address_id: 0,
+      account_id: 0,
+      address_line1: "test address line 1",
+      address_line2: "test address line 2",
+      city: "davao city",
+      state_address: "state",
+      zip: "8000",
+    },
+    user_info: {
+      user_id: 0,
+      account_id: 0,
+      username: "tester01",
+      password: "123456!!",
+    },
+  };
 
   useEffect(() => {
     if (route) {
@@ -52,6 +82,12 @@ const CareProvider4 = ({ route, navigation }) => {
         setUserInfo(route.params.user_info);
         setAccountInfo(route.params.account_info);
         setAddress(route.params.address);
+        const payload = {
+          user_info: route.params.user_info,
+          account_info: route.params.account_info,
+          address: route.params.address,
+        };
+        setData(payload);
       }
     }
   }, [route]);
@@ -151,31 +187,7 @@ const CareProvider4 = ({ route, navigation }) => {
       let match = /\.(\w+)$/.exec(filename);
       let type = match ? `image/${match[1]}` : `image`;
 
-      let headers = new Headers();
-      headers.append("Content-Type", "multipart/form-data");
-
-      let formData = new FormData();
-      formData.append("account_id", "11");
-      formData.append("", { uri: localUri, name: filename, type });
-
-      try {
-        fetch(
-          `https://asp-noc-dev-win.azurewebsites.net/api/accounts/UploadProfilePhoto`,
-          {
-            method: "PUT",
-            body: formData,
-            headers: headers,
-            redirect: "follow",
-          }
-        ).then((res) => {
-          if (res) {
-            console.log(formData);
-            console.log(JSON.stringify(res));
-          }
-        });
-      } catch (err) {
-        console.log({ err });
-      }
+      setImageData({ uri: localUri, name: filename, type });
     }
   };
 
@@ -339,6 +351,7 @@ const CareProvider4 = ({ route, navigation }) => {
                 account_info: accountInfo,
                 user_info: userInfo,
                 address: address,
+                imageData: imageData,
               })
             }
             style={styles.nextBtn}
@@ -374,12 +387,13 @@ export default CareProvider4;
 
 const styles = StyleSheet.create({
   container: {
-    height: height,
-    width: width,
+    flex: 1,
     backgroundColor: "#f2f4f5",
   },
   image: {
-    height: height,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
   },
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",
@@ -402,7 +416,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: hp("1.1%"),
     marginBottom: hp("2.2%"),
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
     borderRadius: 4,
     padding: 14,
     fontFamily: "Poppins_400Regular",

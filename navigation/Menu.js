@@ -60,7 +60,7 @@ function CustomDrawerContent({
             <Image source={ProfilePhoto} style={styles.avatar} />
             <Text
               size={wp("5%")}
-              color={"white"}
+              color={"#ffffff"}
               style={{ fontFamily: "Poppins_400Regular" }}
             >
               {profile.name}

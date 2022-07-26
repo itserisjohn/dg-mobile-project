@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,23 +8,17 @@ import {
   StatusBar,
   Alert,
   Image,
-  Keyboard,
   ImageBackground,
-  Dimensions,
   ActivityIndicator,
 } from "react-native";
 import AppLoading from "expo-app-loading";
 import * as Animatable from "react-native-animatable";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import Logo from "../assets/images/Login-Logo.png";
 import BGImage from "../assets/images/bg_login.png";
 import LogoGoogle from "../assets/images/Login-Icon_Google.png";
 import LogoFacebook from "../assets/images/Login-Icon_Facebook.png";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import {
   useFonts,
   Poppins_200ExtraLight,
@@ -35,15 +29,9 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-const { width, height } = Dimensions.get("window");
 import { windowHeight, windowHeightFull } from "../utils/utils";
 import { userService } from "../services/auth";
-import {
-  ALERT_TYPE,
-  Dialog,
-  Root,
-  Toast,
-} from "react-native-alert-notification";
+import { ALERT_TYPE, Dialog, Root } from "react-native-alert-notification";
 
 const SignInScreen = ({ navigation }) => {
   const [data, setData] = React.useState({
@@ -53,32 +41,9 @@ const SignInScreen = ({ navigation }) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
   const [usernameFocused, setUsernameFocused] = React.useState(false);
   const [passwordFocused, setPasswordFocused] = React.useState(false);
-  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [loading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      () => {
-        setKeyboardVisible(true); // or some other action
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardVisible(false); // or some other action
-      }
-    );
-
-    return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
-    };
-  }, []);
-
-  let paddingVertical = 7;
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -89,39 +54,39 @@ const SignInScreen = ({ navigation }) => {
     Poppins_700Bold,
   });
 
-  const textInputChange = (val) => {
-    if (val.trim().length >= 4) {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: true,
-        isValidUser: true,
-      });
-    } else {
-      setData({
-        ...data,
-        username: val,
-        check_textInputChange: false,
-        isValidUser: false,
-      });
-    }
-  };
+  // const textInputChange = (val) => {
+  //   if (val.trim().length >= 4) {
+  //     setData({
+  //       ...data,
+  //       username: val,
+  //       check_textInputChange: true,
+  //       isValidUser: true,
+  //     });
+  //   } else {
+  //     setData({
+  //       ...data,
+  //       username: val,
+  //       check_textInputChange: false,
+  //       isValidUser: false,
+  //     });
+  //   }
+  // };
 
-  const handlePasswordChange = (val) => {
-    if (val.trim().length >= 8) {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: true,
-      });
-    } else {
-      setData({
-        ...data,
-        password: val,
-        isValidPassword: false,
-      });
-    }
-  };
+  // const handlePasswordChange = (val) => {
+  //   if (val.trim().length >= 8) {
+  //     setData({
+  //       ...data,
+  //       password: val,
+  //       isValidPassword: true,
+  //     });
+  //   } else {
+  //     setData({
+  //       ...data,
+  //       password: val,
+  //       isValidPassword: false,
+  //     });
+  //   }
+  // };
 
   const updateSecureTextEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -141,25 +106,25 @@ const SignInScreen = ({ navigation }) => {
     // }
   };
 
-  const loginHandle = (userName, password) => {
-    const foundUser = [];
+  // const loginHandle = (userName, password) => {
+  //   const foundUser = [];
 
-    if (data.username.length == 0 || data.password.length == 0) {
-      Alert.alert(
-        "Wrong Input!",
-        "Username or password field cannot be empty.",
-        [{ text: "Okay" }]
-      );
-      return;
-    }
+  //   if (data.username.length == 0 || data.password.length == 0) {
+  //     Alert.alert(
+  //       "Wrong Input!",
+  //       "Username or password field cannot be empty.",
+  //       [{ text: "Okay" }]
+  //     );
+  //     return;
+  //   }
 
-    if (foundUser.length == 0) {
-      Alert.alert("Invalid User!", "Username or password is incorrect.", [
-        { text: "Okay" },
-      ]);
-      return;
-    }
-  };
+  //   if (foundUser.length == 0) {
+  //     Alert.alert("Invalid User!", "Username or password is incorrect.", [
+  //       { text: "Okay" },
+  //     ]);
+  //     return;
+  //   }
+  // };
 
   function onSubmit() {
     setLoading(true);
@@ -237,8 +202,7 @@ const SignInScreen = ({ navigation }) => {
 
   const styles = StyleSheet.create({
     container: {
-      height: height,
-      width: width,
+      flex: 1,
     },
     header: {
       alignItems: "center",
@@ -338,7 +302,9 @@ const SignInScreen = ({ navigation }) => {
       color: "#87c9e4",
     },
     image: {
-      height: height,
+      height: "100%",
+      width: "100%",
+      resizeMode: "contain",
     },
     checkboxContainer: {
       flexDirection: "row",
@@ -407,7 +373,7 @@ const SignInScreen = ({ navigation }) => {
                 }}
               />
               <TextInput
-                placeholder="Email"
+                placeholder="Username"
                 placeholderTextColor="#c1c1c1"
                 style={
                   !usernameFocused ? styles.textInput : styles.textInputFocused
@@ -415,7 +381,7 @@ const SignInScreen = ({ navigation }) => {
                 onBlur={() => onFocusUsername(false)}
                 onFocus={() => onFocusUsername(true)}
                 autoCapitalize="none"
-                onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
+                // onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
                 onChangeText={(e) => setUsername(e)}
               />
               {/* {data.check_textInputChange ? (
@@ -560,9 +526,7 @@ const SignInScreen = ({ navigation }) => {
                 <View style={styles.square}></View>
                 <View style={styles.square}>
                   <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("CheckListScreen")
-                    }
+                    onPress={() => navigation.navigate("CheckListScreen")}
                     style={{
                       backgroundColor: "#fbfdfe",
                       borderColor: "#57bbcc",

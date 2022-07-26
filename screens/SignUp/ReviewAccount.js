@@ -24,7 +24,7 @@ import {
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import { windowHeightWithHeader } from "../../utils/utils";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { createAccount } from "../../services/account";
+const axios = require("axios").default;
 
 const ChooseAccount = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -61,17 +61,20 @@ const ChooseAccount = ({ route, navigation }) => {
   const [userInfo, setUserInfo] = React.useState({});
   const [accountInfo, setAccountInfo] = React.useState({});
   const [address, setAddress] = React.useState({});
+  const [imageData, setImageDAta] = React.useState({});
 
   useEffect(() => {
     if (route) {
       if (
         route.params.user_info &&
         route.params.account_info &&
-        route.params.address
+        route.params.address &&
+        route.params.imageData
       ) {
         setUserInfo(route.params.user_info);
         setAccountInfo(route.params.account_info);
         setAddress(route.params.address);
+        setImageDAta(route.params.imageData);
         const payload = {
           user_info: route.params.user_info,
           account_info: route.params.account_info,
@@ -95,10 +98,45 @@ const ChooseAccount = ({ route, navigation }) => {
 
   async function onSubmit() {
     setIsLoading(true);
-    const account = await createAccount(data);
-    if (account) {
+
+    let headers = new Headers();
+    headers.append("Content-Type", "multipart/form-data");
+
+    let formData = new FormData();
+    formData.append("accountinfo", JSON.stringify(data));
+    formData.append("", imageData);
+
+    try {
+      fetch(`https://asp-noc-dev-win.azurewebsites.net/api/accounts`, {
+        method: "POST",
+        body: formData,
+        headers: headers,
+        redirect: "follow",
+      })
+        .then(function (response) {
+          console.log("response :", JSON.stringify(response));
+          setIsLoading(false);
+          navigation.navigate("ChooseAccountScreen");
+        })
+        .catch(function (error) {
+          setIsLoading(false);
+          console.log("error: " + JSON.stringify(error));
+          Dialog.show({
+            type: ALERT_TYPE.DANGER,
+            title: "Account Creation Failed",
+            textBody: "error: " + JSON.stringify(error),
+            button: "close",
+          });
+        });
+    } catch (e) {
       setIsLoading(false);
-      navigation.navigate("ChooseAccountScreen");
+      console.log(e);
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Account Creation  Failed",
+        textBody: "error: " + e,
+        button: "close",
+      });
     }
   }
 
@@ -156,7 +194,7 @@ const ChooseAccount = ({ route, navigation }) => {
               ]}
               size={windowHeightWithHeader(1.6)}
             >
-              Check yoour spelling and important details
+              Check your spelling and important details
             </Text>
             <Text style={styles.descText} size={windowHeightWithHeader(1.6)}>
               Name
@@ -233,12 +271,13 @@ export default ChooseAccount;
 
 const styles = StyleSheet.create({
   container: {
-    height: height,
-    width: width,
+    flex: 1,
     backgroundColor: "#f2f4f5",
   },
   image: {
-    height: height,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
   },
   backBtn: {
     alignItems: "flex-start",

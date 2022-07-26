@@ -223,12 +223,12 @@ function AppStack(props) {
         <CustomDrawerContent {...props} profile={profile} />
       )}
       drawerStyle={{
-        backgroundColor: "white",
+        backgroundColor: "#ffffff",
         width: width * 0.8,
       }}
       screenOptions={{
         headerShown: false,
-        activeTintColor: "white",
+        activeTintColor: "#ffffff",
         inactiveTintColor: "#000",
         activeBackgroundColor: materialTheme.COLORS.ACTIVE,
         inactiveBackgroundColor: "transparent",
@@ -257,7 +257,7 @@ function AppStack(props) {
               size={16}
               name="shop"
               family="GalioExtra"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
+              color={focused ? "#ffffff" : materialTheme.COLORS.MUTED}
             />
           ),
         }}
@@ -271,7 +271,7 @@ function AppStack(props) {
               size={16}
               name="gears"
               family="font-awesome"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
+              color={focused ? "#ffffff" : materialTheme.COLORS.MUTED}
               style={{ marginRight: -3 }}
             />
           ),

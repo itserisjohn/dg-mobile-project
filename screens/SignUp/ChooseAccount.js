@@ -162,12 +162,13 @@ export default ChooseAccount;
 
 const styles = StyleSheet.create({
   container: {
-    height: height,
-    width: width,
+    flex: 1,
     backgroundColor: "#f2f4f5",
   },
   image: {
-    height: height,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
   },
   backBtn: {
     alignItems: "flex-start",

@@ -253,12 +253,13 @@ export default CareProvider3;
 
 const styles = StyleSheet.create({
   container: {
-    height: height,
-    width: width,
+    flex: 1,
     backgroundColor: "#f2f4f5",
   },
   image: {
-    height: height,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
   },
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
     fontSize: windowHeightWithHeader(1.4),
     marginTop: windowHeightWithHeader(1),
     marginBottom: windowHeightWithHeader(1),
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
     borderRadius: 4,
     padding: 12,
     fontFamily: "Poppins_400Regular",

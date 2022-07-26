@@ -15,6 +15,7 @@ export const fetchWrapper = {
   postPublic,
   postFormData,
   postFormDataPublic,
+  postPublicLogin,
   delete: _delete,
 };
 
@@ -93,6 +94,19 @@ function postPublic(url, body) {
     credentials: "include",
   };
   return fetch(url, requestOptions).then(handleResponsePublic);
+}
+
+function postPublicLogin(url, body) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify(body),
+    credentials: "include",
+  };
+  return fetch(url, requestOptions).then(handleResponsePublicLogin);
 }
 
 function put(url, body) {
@@ -213,6 +227,19 @@ function handleResponse(response) {
 }
 
 function handleResponsePublic(response) {
+  return response.text().then((text) => {
+    const data = text && JSON.parse(text);
+
+    if (!response.ok) {
+      const error = (data && data.message) || response.statusText;
+      return Promise.reject(error);
+    }
+
+    return data;
+  });
+}
+
+function handleResponsePublicLogin(response) {
   return response.text().then((text) => {
     const data = text;
 

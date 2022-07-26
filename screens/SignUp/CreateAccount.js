@@ -195,11 +195,12 @@ export default CreateAccount;
 
 const styles = StyleSheet.create({
   container: {
-    height: height,
-    width: width,
+    flex: 1,
   },
   image: {
-    height: height,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
   },
   backBtn: {
     alignItems: "flex-start",

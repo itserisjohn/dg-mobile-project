@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: hp("1.1%"),
     marginBottom: hp("2.2%"),
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
     borderRadius: 4,
     padding: 14,
     fontFamily: "Poppins_400Regular",

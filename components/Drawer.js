@@ -18,7 +18,7 @@ class DrawerItem extends React.Component {
             size={16}
             name="shop"
             family="GalioExtra"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
+            color={focused ? "#ffffff" : materialTheme.COLORS.MUTED}
           />
         );
       case "Settings":
@@ -27,7 +27,7 @@ class DrawerItem extends React.Component {
             size={16}
             name="gears"
             family="font-awesome"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
+            color={focused ? "#ffffff" : materialTheme.COLORS.MUTED}
           />
         );
       case "Sign In":
@@ -36,7 +36,7 @@ class DrawerItem extends React.Component {
             size={16}
             name="ios-log-in"
             family="ionicon"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
+            color={focused ? "#ffffff" : materialTheme.COLORS.MUTED}
           />
         );
       case "Sign Up":
@@ -45,7 +45,7 @@ class DrawerItem extends React.Component {
             size={16}
             name="md-person-add"
             family="ionicon"
-            color={focused ? "white" : materialTheme.COLORS.MUTED}
+            color={focused ? "#ffffff" : materialTheme.COLORS.MUTED}
           />
         );
       default:
@@ -85,10 +85,10 @@ class DrawerItem extends React.Component {
               size={18}
               color={
                 focused
-                  ? "white"
+                  ? "#ffffff"
                   : proScreen
                   ? materialTheme.COLORS.MUTED
-                  : "black"
+                  : "#000000"
               }
             >
               {title}

@@ -129,7 +129,7 @@ class Header extends React.Component {
     return (
       <Input
         right
-        color="black"
+        color="#000000"
         style={styles.search}
         placeholder="What are you looking for?"
         onFocus={() => navigation.navigate("Pro")}
@@ -223,7 +223,7 @@ class Header extends React.Component {
           leftIconSize={windowHeight(3.4)}
           titleStyle={[
             styles.title,
-            { color: theme.COLORS[white ? "WHITE" : "ICON"] },
+            { color: theme.COLORS[white ? "#ffffff" : "ICON"] },
           ]}
           onLeftPress={this.handleLeftPress}
         />
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
-    shadowColor: "black",
+    shadowColor: "#000000",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.2,

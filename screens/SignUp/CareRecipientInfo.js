@@ -103,7 +103,7 @@ const SignUpCareProvider = ({ navigation }) => {
       fontSize: hp("1.8%"),
       marginTop: hp("1%"),
       marginBottom: hp("2%"),
-      backgroundColor: "white",
+      backgroundColor: "#ffffff",
       borderRadius: 4,
       padding: hp("1%"),
       paddingVertical: paddingVertical,

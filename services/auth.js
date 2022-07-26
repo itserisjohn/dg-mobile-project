@@ -73,17 +73,19 @@ const Base64 = {
 // }
 
 function login(payload) {
-  return fetchWrapper.postPublic(`${baseUrl}/login`, payload).then((user) => {
-    if (user) {
-      //   user.payload.authdata = Base64.btoa(
-      //     payload.Username + ":" + payload.Password
-      //   );
-      AsyncStorage.setItem("user", JSON.stringify(user));
+  return fetchWrapper
+    .postPublicLogin(`${baseUrl}/login`, payload)
+    .then((user) => {
+      if (user) {
+        //   user.payload.authdata = Base64.btoa(
+        //     payload.Username + ":" + payload.Password
+        //   );
+        AsyncStorage.setItem("user", JSON.stringify(user));
 
-      return user;
-    }
-    return false;
-  });
+        return user;
+      }
+      return false;
+    });
 }
 
 function logout() {
