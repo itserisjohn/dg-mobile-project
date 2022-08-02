@@ -82,3 +82,11 @@ export function saveAccountLogo(image, accountId) {
       return true;
     });
 }
+
+export function getAccountCheckList() {
+  return fetchWrapper
+    .getPublic(`${baseUrl}/accounts/account-checklist/1`, {})
+    .then((data) => {
+      return data;
+    });
+}
