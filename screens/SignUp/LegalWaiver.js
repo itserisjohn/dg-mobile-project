@@ -66,7 +66,7 @@ const LegalWaiver = ({ route, navigation }) => {
     const result = await progressData;
     if (result) {
       setData(result);
-      setIsLoading(false);
+      setIsLoading(false);    
     }
   };
 
