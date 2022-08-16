@@ -75,9 +75,9 @@ const CareProvider4 = ({ route, navigation }) => {
   useEffect(() => {
     if (route) {
       if (
-        route.params.user_info &&
-        route.params.account_info &&
-        route.params.address
+        route.params?.user_info &&
+        route.params?.account_info &&
+        route.params?.address
       ) {
         setUserInfo(route.params.user_info);
         setAccountInfo(route.params.account_info);
@@ -154,6 +154,15 @@ const CareProvider4 = ({ route, navigation }) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      // uploadImage(result.uri);
+      let localUri = result.uri;
+      let filename = localUri.split("/").pop();
+
+      // Infer the type of the image
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+
+      setImageData({ uri: localUri, name: filename, type });
     }
   };
 
@@ -248,7 +257,7 @@ const CareProvider4 = ({ route, navigation }) => {
               color={materialTheme.COLORS.BLACK}
               style={{ fontFamily: "Poppins_400Regular" }}
             >
-              Please make sure your pgoto clearly shows your face
+              Please make sure your photo clearly shows your face
             </Text>
             {image ? (
               <View
@@ -311,7 +320,7 @@ const CareProvider4 = ({ route, navigation }) => {
                 Take Photo
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={pickImage}
               style={[
                 styles.signIn,
@@ -334,7 +343,7 @@ const CareProvider4 = ({ route, navigation }) => {
               >
                 Choose from camera roll
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
         <View

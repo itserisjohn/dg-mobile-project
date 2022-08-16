@@ -5,155 +5,154 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  ImageBackground,
+  Image,
 } from "react-native";
-import { Button, Text } from "galio-framework";
-import { View, Image } from "react-native";
-const { height } = Dimensions.get("screen");
+import { Text } from "galio-framework";
+import { View } from "react-native";
+const { width, height } = Dimensions.get("window");
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Checkbox } from "galio-framework";
 import Icon from "../../components/Icon";
-import { HeaderHeight } from "../../constants/utils";
+import BGImage from "../../assets/images/bg_Create-Account.png";
+import SuccessImage from "../../assets/images/img_success-check.png";
+import { windowHeightWithHeader } from "../../utils/utils";
 
-const CheckList = ({ navigation }) => {
-  const [accepted, setAccepted] = React.useState(false);
-  const [accepted1, setAccepted1] = React.useState(true);
-
-  const valueChanged = () => {
-    setAccepted(true);
-  };
-
+const CheckList2 = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Button
-        style={styles.backBtn}
-        color="transparent"
-        onPress={() => navigation.navigate("PaymentInfoScreen")}
-      >
-        <Icon
-          size={hp("5%")}
-          name="chevron-left"
-          family="feather"
-          color={"#4B4C4C"}
-          style={styles.backBtn}
-        />
-      </Button>
-      <View style={{ alignItems: "center" }}>
-        <Text size={hp("2.5%")} style={styles.headerText}>
-          Account Registration
-        </Text>
-      </View>
       <StatusBar barStyle="dark-content" />
-      <View
-        style={{
-          height: hp("70%"),
-          marginTop: hp("20%"),
-          paddingTop: hp("5%"),
-          paddingLeft: wp("20%"),
-          paddingRight: wp("20%"),
-        }}
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
       >
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            label=""
-            color="#87c9e4"
-            initialValue={true}
-            disabled
-            checkboxStyle={{
-              width: hp("4%"),
-              height: hp("4%"),
-              borderColor: "#87c9e4",
-            }}
-            iconSize={hp("3%")}
-          />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
-            Create an Account
-          </Text>
-        </View>
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            label=""
-            color="#87c9e4"
-            initialValue={true}
-            disabled
-            checkboxStyle={{
-              width: hp("4%"),
-              height: hp("4%"),
-              borderColor: "#87c9e4",
-            }}
-            iconSize={hp("3%")}
-          />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
-            Payment Information
-          </Text>
-        </View>
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            label=""
-            color="#87c9e4"
-            disabled
-            checkboxStyle={{
-              width: hp("4%"),
-              height: hp("4%"),
-              borderColor: "#87c9e4",
-            }}
-            iconSize={hp("3%")}
-          />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
-            Other Information
-          </Text>
-        </View>
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            label=""
-            color="#87c9e4"
-            disabled
-            checkboxStyle={{
-              width: hp("4%"),
-              height: hp("4%"),
-              borderColor: "#87c9e4",
-            }}
-            iconSize={hp("3%")}
-          />
-          <Text
-            size={hp("2.5%")}
-            color="#4B4C4C"
-            style={{ marginLeft: 15, fontFamily: "Poppins_400Regular" }}
-          >
-            Service Preference
-          </Text>
-        </View>
-        <View style={{ marginTop: hp("5%") }}>
+        <View
+          style={{
+            height: windowHeightWithHeader(10),
+          }}
+        >
           <TouchableOpacity
+            style={styles.backBtn}
             onPress={() => navigation.navigate("PaymentInfoScreen")}
-            style={styles.backBtn2}
           >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#87c9e4",
-                  fontFamily: "Poppins_400Regular",
-                },
-              ]}
-            >
-              Previous
-            </Text>
+            <Icon
+              size={22}
+              name="arrow-left"
+              family="feather"
+              color={"#DCDCDC"}
+            />
           </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(75),
+            paddingBottom: windowHeightWithHeader(2),
+          }}
+        >
+          <View
+            style={{
+              marginTop: windowHeightWithHeader(2),
+              height: windowHeightWithHeader(9),
+              paddingLeft: wp(8),
+              paddingRight: wp(8),
+            }}
+          >
+            <Text style={styles.titleContainer}>Get Fully</Text>
+            <Text style={styles.titleContainer2}>Verified</Text>
+          </View>
+          <View
+            View
+            style={{
+              height: windowHeightWithHeader(48),
+              paddingLeft: wp(8),
+              width: wp(100),
+            }}
+          >
+            <Text style={styles.descText} size={windowHeightWithHeader(1.8)}>
+              Get fully verified to secure your account and gain access to all
+              services.
+            </Text>
+            <View style={styles.checkboxContainer2}>
+              <View style={styles.square1}>
+                <Image
+                  resizeMode={"contain"}
+                  style={{ height: 35, width: 35 }}
+                  source={SuccessImage}
+                ></Image>
+              </View>
+              <View style={styles.square2}>
+                <Text
+                  size={hp("2.5%")}
+                  color="#4B4C4C"
+                  style={{
+                    fontFamily: "Poppins_500Medium",
+                  }}
+                >
+                  Account Information
+                </Text>
+              </View>
+            </View>
+            <View style={styles.checkboxContainer2}>
+              <View style={styles.square1}>
+                <Image
+                  resizeMode={"contain"}
+                  style={{ height: 35, width: 35 }}
+                  source={SuccessImage}
+                ></Image>
+              </View>
+              <View style={styles.square2}>
+                <Text
+                  size={hp("2.5%")}
+                  color="#4B4C4C"
+                  style={{
+                    fontFamily: "Poppins_500Medium",
+                  }}
+                >
+                  Payment Information
+                </Text>
+              </View>
+            </View>
+            <View style={styles.checkboxContainer2}>
+              <View style={styles.square1}></View>
+              <View style={styles.square2}>
+                <Text
+                  size={hp("2.5%")}
+                  color="#4B4C4C"
+                  style={{
+                    fontFamily: "Poppins_500Medium",
+                  }}
+                >
+                  Other Information
+                </Text>
+              </View>
+            </View>
+            <View style={styles.checkboxContainer2}>
+              <View style={styles.square1}></View>
+              <View style={styles.square2}>
+                <Text
+                  size={hp("2.5%")}
+                  color="#4B4C4C"
+                  style={{
+                    fontFamily: "Poppins_500Medium",
+                  }}
+                >
+                  Service Preference
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(10),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
           <TouchableOpacity
             onPress={() => navigation.navigate("OtherInformationScreen")}
             style={styles.nextBtn}
@@ -162,85 +161,113 @@ const CheckList = ({ navigation }) => {
               style={[
                 styles.textSign,
                 {
-                  color: "#ffffff",
-                  fontFamily: "Poppins_400Regular",
+                  color: "#d7feff",
+                  fontFamily: "Poppins_700Bold",
+                  fontSize: 26,
                 },
               ]}
             >
-              Next
+              Continue
+            </Text>
+            <Text style={styles.iconSign}>
+              <Icon
+                size={30}
+                name="chevron-right"
+                family="feather"
+                color={"#d7feff"}
+              />
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ImageBackground>
     </View>
   );
 };
 
-export default CheckList;
+export default CheckList2;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: height,
+    width: width,
     backgroundColor: "#f2f4f5",
   },
-  titleContainer: {
-    textAlign: "center",
-    color: "#4B4C4C",
-    fontSize: hp("3%"),
-    marginBottom: hp("2.2%"),
-  },
-  textContainer: {
-    marginBottom: hp("2.2%"),
+  image: {
+    height: height,
   },
   backBtn: {
     alignItems: "flex-start",
-    position: "absolute",
-    marginLeft: 0,
-    top: 0,
-    borderColor: "transparent",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
+    width: 55,
+    height: 53,
+    marginLeft: wp(5),
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    marginTop: Platform.OS == "ios" ? 44 : 22,
   },
-  backBtn2: {
-    borderColor: "#87c9e4",
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
-  },
-  headerText: {
-    position: "absolute",
-    top: hp("2.5%"),
+  descText: {
+    marginTop: windowHeightWithHeader(11),
+    marginBottom: windowHeightWithHeader(3),
     color: "#4B4C4C",
-    fontFamily: "Poppins_700Bold",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
+    textAlign: "left",
+    fontFamily: "Poppins_400Regular",
+    paddingRight: windowHeightWithHeader(3.5),
   },
   nextBtn: {
-    width: "100%",
-    height: hp("5%"),
+    height: windowHeightWithHeader(10),
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#87c9e4",
-    borderColor: "#87c9e4",
+    borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
     borderWidth: 1,
-    marginTop: hp("1.8%"),
+    width: wp(90),
   },
-  disabledBtn: {
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#9de3f7",
-    borderColor: "#9de3f7",
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
+  // DROPDOWN
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10,
   },
-  checkboxContainer: {
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: wp(76),
+  },
+  textSign: {
+    position: "absolute",
+    paddingLeft: windowHeightWithHeader(4),
+  },
+  titleContainer: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(6),
+    marginTop: windowHeightWithHeader(1.2),
+    position: "relative",
+  },
+  titleContainer2: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: 54,
+  },
+  checkheartContainer: {
     flexDirection: "row",
-    marginBottom: hp("4%"),
+    marginBottom: windowHeightWithHeader(3),
+  },
+  checkboxContainer2: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: Platform.OS === "ios" ? 35 : 25,
+  },
+  square1: {
+    flex: 1,
+    alignItems: "flex-start",
+  },
+  square2: {
+    flex: 5,
+    alignItems: "flex-start",
   },
 });

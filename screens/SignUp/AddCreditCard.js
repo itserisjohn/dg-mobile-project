@@ -1,132 +1,339 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
-  Dimensions,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
+  ImageBackground,
   SafeAreaView,
-  Keyboard,
-  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  TextInput,
+  Text,
+  LogBox,
+  ActivityIndicator,
 } from "react-native";
-import { Button, Text } from "galio-framework";
-import { View, Image } from "react-native";
-const { height } = Dimensions.get("screen");
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import { Checkbox } from "galio-framework";
+import { View } from "react-native";
 import Icon from "../../components/Icon";
-import { HeaderHeight } from "../../constants/utils";
-import Credit from "../../assets/images/payment/credit.png";
-import PaymentPaypal from "../../assets/images/payment/paypal.png";
-import CashApp from "../../assets/images/payment/cash-app.png";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import {
-  CreditCardInput,
-  LiteCreditCardInput,
-} from "react-native-credit-card-fullpage-form";
+  useFonts,
+  Poppins_200ExtraLight,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
+import BGImage from "../../assets/images/bg_Create-Account.png";
+import { windowHeightWithHeader } from "../../utils/utils";
+import { CreditCardInput } from "react-native-credit-card-fullpage-form";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import materialTheme from "../../constants/Theme";
+import { saveCreditCard } from "../../services/account";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { getGlobal } from "../../utils/store";
 
 const AddCreditCard = ({ navigation }) => {
+  LogBox.ignoreAllLogs();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    CardNumber: "",
+    Cvv: "",
+    ExpiryDate: "",
+    Country: "",
+    BilingAddress: "",
+    Zip: "",
+  });
+
+  const [accountId, setAccountId] = React.useState("");
+
+  const getData = async () => {
+    const id = await getGlobal("account_id");
+    if (id) {
+      setAccountId(id);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  let creditInput = React.createRef();
+  let numberInput = React.createRef();
+  let expiryInput = React.createRef();
+  let cvvInput = React.createRef();
+
   const onChange = (form) => {};
+
+  let [fontsLoaded] = useFonts({
+    Poppins_200ExtraLight,
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
+  // useEffect(() => {
+  //   console.log(creditInput);
+  // }, []);
+
+  function handleChange(dataType, value) {
+    // For Credit Card Image in the Screen
+    if (dataType == "CardNumber") {
+      creditInput.current.setValues({ number: value });
+      creditInput.current._onFocus("number");
+      setTimeout(function () {
+        numberInput.current.focus();
+      }, 1);
+    }
+    if (dataType == "ExpiryDate") {
+      creditInput.current.setValues({ expiry: value });
+      creditInput.current._onFocus("expiry");
+      setTimeout(function () {
+        expiryInput.current.focus();
+      }, 1);
+    }
+    if (dataType == "Cvv") {
+      creditInput.current.setValues({ cvc: value });
+      creditInput.current._onFocus("cvc");
+      setTimeout(function () {
+        cvvInput.current.focus();
+      }, 1);
+    }
+
+    let newState = [];
+    newState.push(data);
+    let account = newState.map((item, i) => {
+      if (i == 0) {
+        return { ...item, [dataType]: value };
+      }
+      return item;
+    });
+
+    setTimeout(function () {
+      setData(account[0]);
+    }, 2);
+  }
+
+  async function onSubmit() {
+    setIsLoading(true);
+    const payload = {
+      account_payment: {
+        AccountId: Number(accountId),
+        PaymentType: "Card",
+      },
+      account_card_payment: data,
+    };
+    const creditCard = await saveCreditCard(payload);
+    if (creditCard) {
+      setTimeout(function () {
+        setIsLoading(false);
+        navigation.navigate("AddCreditCardListScreen");
+      }, 1000);
+    } else {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <Button
-        style={styles.backBtn}
-        color="transparent"
-        onPress={() => navigation.navigate("PaymentInfoScreen")}
-      >
-        <Icon
-          size={hp("5%")}
-          name="chevron-left"
-          family="feather"
-          color={"#4B4C4C"}
-          style={styles.backBtn}
-        />
-      </Button>
-      <View style={{ alignItems: "center" }}>
-        <Text size={hp("2.5%")} style={styles.headerText}>
-          Patient Account Holder
-        </Text>
-      </View>
       <StatusBar barStyle="dark-content" />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View>
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
+      >
+        <View
+          style={{
+            height: windowHeightWithHeader(10),
+          }}
+        >
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("AddCreditCardListScreen")}
+          >
+            <Icon
+              size={22}
+              name="arrow-left"
+              family="feather"
+              color={"#DCDCDC"}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(78),
+            paddingLeft: wp("8%"),
+            paddingRight: wp("8%"),
+            paddingTop: windowHeightWithHeader(1),
+            paddingBottom: windowHeightWithHeader(3),
+          }}
+        >
+          <Text style={styles.titleContainer}>Add</Text>
+          <Text style={styles.titleContainer2}>Credit Card</Text>
           <View
+            View
             style={{
-              height: hp("65%"),
-              marginTop: hp("14%"),
-              paddingLeft: wp("14%"),
-              paddingRight: wp("14%"),
+              paddingTop: windowHeightWithHeader(2),
+              paddingBottom: windowHeightWithHeader(18),
+              height: windowHeightWithHeader(0),
             }}
           >
-            <View
-              style={{
-                alignItems: "center",
-                marginBottom: hp("5%"),
-              }}
-            >
-              <Text
-                size={hp("2.5%")}
-                color="#4B4C4C"
-                style={{ fontFamily: "Poppins_400Regular" }}
-              >
-                Add Credit Card
-              </Text>
-            </View>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView>
               <KeyboardAvoidingView
                 style={styles.avoider}
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
               >
-                <CreditCardInput onChange={onChange} />
+                <CreditCardInput
+                  cardFontFamily="Poppins_400Regular"
+                  ref={creditInput}
+                  onChange={onChange}
+                  cardScale={0.7}
+                />
               </KeyboardAvoidingView>
             </SafeAreaView>
           </View>
-          <View
-            style={{
-              height: hp("16.5%"),
-              paddingLeft: wp("14%"),
-              paddingRight: wp("14%"),
-            }}
+          <KeyboardAwareScrollView
+            keyboardShouldPersistTaps={"always"}
+            style={{ flex: 1 }}
+            showsVerticalScrollIndicator={false}
+            enableOnAndroid={true}
+            extraScrollHeight={Platform.OS === "ios" ? -100 : 100}
           >
-            <TouchableOpacity
-              onPress={() => navigation.navigate("PaymentInfoScreen")}
-              style={styles.backBtn2}
+            <View
+              View
+              style={{
+                height: windowHeightWithHeader(55),
+              }}
             >
+              <View>
+                <Text style={styles.text} color={materialTheme.COLORS.BLACK}>
+                  Card Number{" "}
+                  <Text style={{ color: "red", justifyContent: "center" }}>
+                    *
+                  </Text>
+                </Text>
+                <TextInput
+                  maxLength={16}
+                  ref={numberInput}
+                  style={styles.input}
+                  placeholder="1234 5678 1234 5678"
+                  placeholderTextColor="#c2c1c1"
+                  onChangeText={(e) => handleChange("CardNumber", e)}
+                ></TextInput>
+                <View style={styles.checkboxContainer}>
+                  <View style={[styles.square, { paddingRight: 10 }]}>
+                    <Text
+                      style={styles.text}
+                      color={materialTheme.COLORS.BLACK}
+                    >
+                      Exp. Date{" "}
+                      <Text style={{ color: "red", justifyContent: "center" }}>
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      ref={expiryInput}
+                      style={styles.input}
+                      placeholder="MM/YY"
+                      placeholderTextColor="#c2c1c1"
+                      width="100%"
+                      onChangeText={(e) => handleChange("ExpiryDate", e)}
+                    ></TextInput>
+                  </View>
+                  <View style={[styles.square, { paddingLeft: 10 }]}>
+                    <Text
+                      style={styles.text}
+                      color={materialTheme.COLORS.BLACK}
+                    >
+                      CVV{" "}
+                      <Text style={{ color: "red", justifyContent: "center" }}>
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      maxLength={3}
+                      ref={cvvInput}
+                      style={styles.input}
+                      placeholder="123"
+                      placeholderTextColor="#c2c1c1"
+                      width="100%"
+                      onChangeText={(e) => handleChange("Cvv", e)}
+                    ></TextInput>
+                  </View>
+                </View>
+                <Text style={styles.text} color={materialTheme.COLORS.BLACK}>
+                  Country{" "}
+                  <Text style={{ color: "red", justifyContent: "center" }}>
+                    *
+                  </Text>
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Country"
+                  placeholderTextColor="#c2c1c1"
+                  onChangeText={(e) => handleChange("Country", e)}
+                ></TextInput>
+                <Text style={styles.text} color={materialTheme.COLORS.BLACK}>
+                  Billing Address{" "}
+                  <Text style={{ color: "red", justifyContent: "center" }}>
+                    *
+                  </Text>
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Billing Address"
+                  placeholderTextColor="#c2c1c1"
+                  onChangeText={(e) => handleChange("BilingAddress", e)}
+                ></TextInput>
+                <Text style={styles.text} color={materialTheme.COLORS.BLACK}>
+                  Zip Code{" "}
+                  <Text style={{ color: "red", justifyContent: "center" }}>
+                    *
+                  </Text>
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Zip Code"
+                  placeholderTextColor="#c2c1c1"
+                  onChangeText={(e) => handleChange("Zip", e)}
+                ></TextInput>
+              </View>
+            </View>
+          </KeyboardAwareScrollView>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(10),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
+          <TouchableOpacity onPress={onSubmit} disabled={isLoading}>
+            <View style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}>
               <Text
                 style={[
                   styles.textSign,
                   {
-                    color: "#87c9e4",
-                    fontFamily: "Poppins_400Regular",
-                  },
-                ]}
-              >
-                Previous
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("CheckList2Screen")}
-              style={styles.nextBtn}
-            >
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    color: "#ffffff",
-                    fontFamily: "Poppins_400Regular",
+                    color: "#d7feff",
+                    fontFamily: "Poppins_700Bold",
+                    fontSize: 26,
                   },
                 ]}
               >
                 Save
               </Text>
-            </TouchableOpacity>
-          </View>
+              {isLoading ? (
+                <ActivityIndicator size="large" color="#ffffff" />
+              ) : null}
+              <Text style={styles.iconSign}>
+                <MaterialCommunityIcons name="send" color="#d7feff" size={30} />
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
+      </ImageBackground>
     </View>
   );
 };
@@ -138,84 +345,122 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f2f4f5",
   },
-  titleContainer: {
-    textAlign: "center",
-    color: "#4B4C4C",
-    fontSize: hp("3%"),
-    marginBottom: hp("2.2%"),
-  },
-  textContainer: {
-    marginBottom: hp("2.2%"),
+  image: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
   },
   backBtn: {
     alignItems: "flex-start",
-    position: "absolute",
-    marginLeft: 0,
-    top: 0,
-    borderColor: "transparent",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
+    width: 55,
+    height: 53,
+    marginLeft: wp(5),
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    marginTop: Platform.OS == "ios" ? 44 : 22,
   },
-  backBtn2: {
-    borderColor: "#87c9e4",
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
-  },
-  headerText: {
-    position: "absolute",
-    top: hp("2.5%"),
+  descText: {
+    marginTop: windowHeightWithHeader(1.5),
     color: "#4B4C4C",
-    fontFamily: "Poppins_700Bold",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
+    textAlign: "left",
+    fontFamily: "Poppins_400Regular",
   },
-  nextBtn: {
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#87c9e4",
-    borderColor: "#87c9e4",
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
+  descText2: {
+    color: "#4B4C4C",
+    textAlign: "left",
+    fontFamily: "Poppins_600SemiBold",
   },
-  disabledBtn: {
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#9de3f7",
-    borderColor: "#9de3f7",
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
+  descText3: {
+    marginTop: windowHeightWithHeader(4),
+    color: "#41c3e0",
+    textAlign: "center",
+    fontFamily: "Poppins_600SemiBold",
+  },
+  titleContainer: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(6),
+    marginTop: windowHeightWithHeader(1.2),
+    position: "relative",
+  },
+  titleContainer2: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(6),
   },
   checkboxContainer: {
     alignItems: "center",
-    marginBottom: hp("4%"),
   },
   checkboxContainer2: {
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
-    marginBottom: hp("4%"),
+    marginBottom: windowHeightWithHeader(10),
   },
   paymentImage: {
-    maxWidth: hp("25%"),
-    height: hp("10%"),
+    maxWidth: windowHeightWithHeader(25),
+    height: windowHeightWithHeader(10),
   },
   paymentImage2: {
-    maxWidth: hp("10%"),
-    height: hp("10%"),
-    marginLeft: -hp("1%"),
+    maxWidth: windowHeightWithHeader(8),
+    height: windowHeightWithHeader(8),
+    marginLeft: windowHeightWithHeader(3),
   },
   square: {
     flex: 2,
-    height: hp("12%"),
+    height: windowHeightWithHeader(12),
     alignItems: "center",
+  },
+  backBtn2: {
+    height: windowHeightWithHeader(6),
+    justifyContent: "center",
+    borderRadius: 12,
+    borderColor: "#87c9e4",
+    borderWidth: 1,
+    width: wp("85%"),
+    marginBottom: windowHeightWithHeader(1),
+  },
+  nextBtn: {
+    height: windowHeightWithHeader(10),
+    justifyContent: "center",
+    borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
+    borderWidth: 1,
+    width: wp(85),
+  },
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: wp("72%"),
+  },
+  textSign: {
+    position: "absolute",
+    paddingLeft: windowHeightWithHeader(4),
+  },
+  input: {
+    fontSize: windowHeightWithHeader(1.2),
+    marginTop: windowHeightWithHeader(0.5),
+    marginBottom: windowHeightWithHeader(1),
+    backgroundColor: "#ffffff",
+    borderRadius: 4,
+    padding: 8,
+    fontFamily: "Poppins_400Regular",
+    borderColor: materialTheme.COLORS.BLACK,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 1.5,
+  },
+  text: {
+    fontSize: windowHeightWithHeader(1.2),
+    fontFamily: "Poppins_400Regular",
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  square: {
+    flex: 1,
+    alignItems: "flex-start",
   },
 });

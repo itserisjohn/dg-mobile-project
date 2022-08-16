@@ -1,32 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
   Dimensions,
-  TextInput,
-  Platform,
   TouchableOpacity,
+  Platform,
+  View,
+  ImageBackground,
+  TextInput,
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
-import { Button, Text } from "galio-framework";
-import { View, Image } from "react-native";
-import materialTheme from "../../constants/Theme";
-const { height } = Dimensions.get("screen");
-import UHelpCareImage from "../../assets/images/uhelpcare.png";
-import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
+import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
-import PaymentCheck from "../../assets/images/payment/check.png";
-import PaymentVenmo from "../../assets/images/payment/venmo.png";
-import PaymentZelle from "../../assets/images/payment/zelle.png";
-import PaymentPaypal from "../../assets/images/payment/paypal.png";
-import MaskInput from "react-native-mask-input";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import * as ImagePicker from "expo-image-picker";
-import BlankPhoto from "../../assets/images/blank.jpg";
-import { HeaderHeight } from "../../constants/utils";
-import * as Animatable from "react-native-animatable";
 import {
   useFonts,
   Poppins_200ExtraLight,
@@ -36,11 +27,32 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+const { width, height } = Dimensions.get("window");
+import BGImage from "../../assets/images/bg_Create-Account.png";
+import materialTheme from "../../constants/Theme";
+import MaskInput from "react-native-mask-input";
+import { windowHeightWithHeader } from "../../utils/utils";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { createCareRecipient } from "../../services/account";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const SignUpCareProvider = ({ navigation }) => {
+const CareProvider2 = ({ navigation }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState({
+    account_id: 0,
+    firstname: "",
+    lastname: "",
+    phone: "",
+    email_address: "",
+    birthdate: "",
+    profile_photourl: "",
+    ssn: "",
+    account_typeid: 2,
+  });
   const [phone, setPhone] = React.useState("");
-  // const [image, setImage] = React.useState(null);
-  let paddingVertical = 7;
+
+  const ssn = [/\d/, /\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -51,245 +63,343 @@ const SignUpCareProvider = ({ navigation }) => {
     Poppins_700Bold,
   });
 
-  const ssn = [/\d/, /\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/];
+  function handleChange(dataType, value) {
+    let newState = [];
+    newState.push(data);
+    let account = newState.map((item, i) => {
+      if (i == 0) {
+        return { ...item, [dataType]: value };
+      }
+      return item;
+    });
+    setData(account[0]);
+  }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#ffffff",
-    },
-    backBtn: {
-      alignItems: "flex-start",
-      position: "absolute",
-      marginLeft: 0,
-      top: 0,
-      borderColor: "transparent",
-      marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 4,
-    },
-
-    backBtn2: {
-      borderColor: "#87c9e4",
-      backgroundColor: "#87c9e4",
-      width: "48%",
-      height: hp("6%"),
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 6,
-      borderWidth: 1,
-      marginRight: hp("1%"),
-    },
-
-    nextBtn: {
-      backgroundColor: "#87c9e4",
-      borderColor: "#87c9e4",
-      width: "48%",
-      height: hp("6%"),
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 6,
-      borderWidth: 1,
-      marginLeft: hp("0.8%"),
-    },
-
-    progressContainer: {
-      paddingTop: hp("3%"),
-      paddingLeft: hp("6%"),
-      paddingRight: hp("6%"),
-      backgroundColor: "#f2f4f5",
-      height: Platform.OS === "ios" ? hp("65%") : hp("70%"),
-    },
-
-    input: {
-      fontSize: hp("1.8%"),
-      marginTop: hp("1%"),
-      marginBottom: hp("2%"),
-      backgroundColor: "#ffffff",
-      borderRadius: 4,
-      padding: hp("1%"),
-      paddingVertical: paddingVertical,
-      fontFamily: "Poppins_400Regular",
-    },
-    headerText: {
-      fontFamily: "Poppins_600SemiBold",
-      position: "absolute",
-      top: hp("2%"),
-      color: "#4B4C4C",
-      marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
-    },
-  });
+  async function onSubmit() {
+    setIsLoading(true);
+    const payload = {
+      account_info: data,
+      accountHolderId: 1,
+    };
+    console.log(payload);
+    const crInfo = await createCareRecipient(payload);
+    if (crInfo) {
+      setTimeout(function () {
+        console.log(crInfo);
+        if (crInfo.account_info) {
+          setIsLoading(false);
+          console.log("cr id: " + crInfo.account_info.account_id);
+          navigation.navigate("OtherInformationCRScreen", {
+            cr_id: crInfo.account_info.account_id,
+          });
+        }
+      }, 1000);
+    } else {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <Button
-        style={styles.backBtn}
-        color="transparent"
-        onPress={() => navigation.navigate("AddCareRecipientScreen")}
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
       >
-        <Icon
-          size={hp("5%")}
-          name="chevron-left"
-          family="feather"
-          color={"#4B4C4C"}
-          style={styles.backBtn}
-        />
-      </Button>
-      <View style={{ alignItems: "center" }}>
-        <Text size={hp("2.5%")} style={styles.headerText}>
-          Patient Account Holder
-        </Text>
-      </View>
-      <StatusBar barStyle="dark-content" />
-      <View
-        style={{
-          alignItems: "center",
-          height: hp("15%"),
-        }}
-      >
-        <Text
-          size={hp("2.5%")}
-          color="#000000"
-          style={{
-            fontFamily: "Poppins_400Regular",
-            marginTop: hp("9%"),
-          }}
-        >
-          Family Member Information
-        </Text>
-      </View>
-      <View
-        animation="slideInRight"
-        duration={400}
-        style={styles.progressContainer}
-      >
-        <Text
-          size={hp("1.8%")}
-          color={materialTheme.COLORS.BLACK}
-          style={{ fontFamily: "Poppins_400Regular" }}
-        >
-          First Name
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Your First Name"
-          placeholderTextColor="#c2c1c1"
-        ></TextInput>
-        <Text
-          size={hp("1.8%")}
-          color={materialTheme.COLORS.BLACK}
-          style={{ fontFamily: "Poppins_400Regular" }}
-        >
-          Last Name
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Your Last Name"
-          placeholderTextColor="#c2c1c1"
-        ></TextInput>
-        <Text
-          size={hp("1.8%")}
-          color={materialTheme.COLORS.BLACK}
-          style={{ fontFamily: "Poppins_400Regular" }}
-        >
-          SSN
-        </Text>
-        <MaskInput
-          value={phone}
-          style={styles.input}
-          onChangeText={(masked, unmasked) => {
-            setPhone(masked);
-          }}
-          placeholder="xxx-xx-xxxx"
-          placeholderTextColor="#c2c1c1"
-          mask={ssn}
-          keyboardType="number-pad"
-        />
-        <Text
-          size={hp("1.8%")}
-          color={materialTheme.COLORS.BLACK}
-          style={{ fontFamily: "Poppins_400Regular" }}
-        >
-          Date of Birth
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Date of Birth"
-          placeholderTextColor="#c2c1c1"
-        ></TextInput>
-        <Text
-          size={hp("1.8%")}
-          color={materialTheme.COLORS.BLACK}
-          style={{ fontFamily: "Poppins_400Regular" }}
-        >
-          Phone Number
-        </Text>
-        <TextInput
-          keyboardType="phone-pad"
-          style={styles.input}
-          placeholder="(xxx) xxx-xxxx"
-          placeholderTextColor="#c2c1c1"
-        ></TextInput>
-        <Text
-          size={hp("1.8%")}
-          color={materialTheme.COLORS.BLACK}
-          style={{ fontFamily: "Poppins_400Regular" }}
-        >
-          Email Address
-        </Text>
-        <TextInput
-          keyboardType="email-address"
-          style={styles.input}
-          placeholder="Email Address"
-          placeholderTextColor="#c2c1c1"
-        ></TextInput>
-      </View>
-      <View
-        style={{
-          height: hp("8%"),
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingTop: hp("2.5%"),
-          paddingLeft: hp("6%"),
-          paddingRight: hp("6%"),
-        }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.navigate("AddCareRecipientScreen")}
-          style={styles.backBtn2}
-        >
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: "#ffffff",
-                fontFamily: "Poppins_400Regular",
-                textTransform: "uppercase",
-              },
-            ]}
-          >
-            Previous
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("OtherInformationCRScreen")}
-          style={styles.nextBtn}
-        >
-          <Text
-            style={[
-              styles.textSign,
-              {
-                color: "#ffffff",
-                fontFamily: "Poppins_400Regular",
-                textTransform: "uppercase",
-              },
-            ]}
-          >
-            Next
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View>
+            <View
+              style={{
+                height: windowHeightWithHeader(10),
+              }}
+            >
+              <TouchableOpacity
+                style={styles.backBtn}
+                onPress={() => navigation.navigate("AddCareRecipientScreen")}
+              >
+                <Icon
+                  size={22}
+                  name="arrow-left"
+                  family="feather"
+                  color={"#DCDCDC"}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                height: windowHeightWithHeader(78),
+                paddingLeft: wp(8),
+                paddingRight: wp(8),
+                paddingTop: windowHeightWithHeader(1),
+                paddingBottom: windowHeightWithHeader(3),
+              }}
+            >
+              <Text style={styles.titleContainer}>Family Member</Text>
+              <Text style={styles.titleContainer2}>Information</Text>
+              <View
+                animation="slideInRight"
+                duration={400}
+                style={styles.progressContainer}
+              >
+                <KeyboardAwareScrollView
+                  keyboardShouldPersistTaps={"always"}
+                  style={{ flex: 1 }}
+                  showsVerticalScrollIndicator={false}
+                  enableOnAndroid={true}
+                  extraScrollHeight={Platform.OS === "ios" ? 0 : 100}
+                >
+                  <View>
+                    <Text
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
+                      First Name{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Your First Name"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.username}
+                      onChangeText={(e) => handleChange("firstname", e)}
+                    ></TextInput>
+                    <Text
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
+                      Last Name{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Your Last Name"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.lastname}
+                      onChangeText={(e) => handleChange("lastname", e)}
+                    ></TextInput>
+                    <Text
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
+                      SSN{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
+                    </Text>
+                    <MaskInput
+                      value={phone}
+                      style={styles.input}
+                      onChangeText={(masked, unmasked) => {
+                        setPhone(masked);
+                        handleChange("ssn", unmasked);
+                      }}
+                      placeholder="xxx-xx-xxxx"
+                      placeholderTextColor="#c2c1c1"
+                      mask={ssn}
+                      keyboardType="number-pad"
+                    />
+                    <Text
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
+                      Date of Birth{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Date of Birth"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.birthdate}
+                      onChangeText={(e) => handleChange("birthdate", e)}
+                    ></TextInput>
+                    <Text
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
+                      Phone Number{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      keyboardType="phone-pad"
+                      style={styles.input}
+                      placeholder="(xxx) xxx-xxxx"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.phone}
+                      onChangeText={(e) => handleChange("phone", e)}
+                    ></TextInput>
+                    <Text
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
+                    >
+                      Email Address{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
+                    </Text>
+                    <TextInput
+                      autoCapitalize="none"
+                      keyboardType="email-address"
+                      style={styles.input}
+                      placeholder="example@email.com"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.email_address}
+                      onChangeText={(e) => handleChange("email_address", e)}
+                    ></TextInput>
+                  </View>
+                </KeyboardAwareScrollView>
+              </View>
+            </View>
+            <View
+              style={{
+                height: windowHeightWithHeader(10),
+                alignItems: "center",
+                alignContent: "center",
+                width: wp(100),
+              }}
+            >
+              <TouchableOpacity onPress={onSubmit} disabled={isLoading}>
+                <View
+                  style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}
+                >
+                  <Text
+                    style={[
+                      styles.textSign,
+                      {
+                        color: "#d7feff",
+                        fontFamily: "Poppins_700Bold",
+                        fontSize: 26,
+                      },
+                    ]}
+                  >
+                    Save
+                  </Text>
+                  {isLoading ? (
+                    <ActivityIndicator size="large" color="#ffffff" />
+                  ) : null}
+                  <Text style={styles.iconSign}>
+                    <MaterialCommunityIcons
+                      name="send"
+                      color="#d7feff"
+                      size={30}
+                    />
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </ImageBackground>
     </View>
   );
 };
 
-export default SignUpCareProvider;
+export default CareProvider2;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: height,
+    width: width,
+    backgroundColor: "#f2f4f5",
+  },
+  image: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
+  },
+  titleContainer: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(5),
+    marginTop: windowHeightWithHeader(1.2),
+    position: "relative",
+  },
+  titleContainer2: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(5),
+  },
+  progressContainer: {
+    marginBottom: 20,
+    paddingTop: windowHeightWithHeader(1),
+    paddingBottom: windowHeightWithHeader(15),
+    height: windowHeightWithHeader(75),
+  },
+  input: {
+    fontSize: windowHeightWithHeader(1.4),
+    marginTop: windowHeightWithHeader(1),
+    marginBottom: windowHeightWithHeader(1),
+    backgroundColor: "#ffffff",
+    borderRadius: 4,
+    padding: 11,
+    fontFamily: "Poppins_400Regular",
+    borderColor: materialTheme.COLORS.BLACK,
+    borderWidth: Platform.OS === "ios" ? 0.5 : 1.5,
+  },
+  textContainer: {
+    marginBottom: windowHeightWithHeader(2),
+    fontFamily: "Poppins_400Regular",
+  },
+  backBtn: {
+    alignItems: "flex-start",
+    width: 55,
+    height: 53,
+    marginLeft: wp(5),
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    marginTop: Platform.OS == "ios" ? 44 : 22,
+  },
+  nextBtn: {
+    height: windowHeightWithHeader(10),
+    justifyContent: "center",
+    borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
+    borderWidth: 1,
+    width: wp(85),
+  },
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: wp(72),
+  },
+  textSign: {
+    position: "absolute",
+    paddingLeft: windowHeightWithHeader(4),
+  },
+});

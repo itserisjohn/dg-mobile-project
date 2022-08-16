@@ -512,58 +512,6 @@ const SignInScreen = ({ navigation }) => {
                   ) : null}
                 </Text>
               </TouchableOpacity>
-              <Text
-                style={{
-                  color: "#4c4c4c",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: windowHeight(1.5),
-                  marginTop: windowHeight(3),
-                }}
-              >
-                OR login with
-              </Text>
-              <View style={styles.checkboxContainer}>
-                <View style={styles.square}></View>
-                <View style={styles.square}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("CheckListScreen")}
-                    style={{
-                      backgroundColor: "#fbfdfe",
-                      borderColor: "#57bbcc",
-                      borderWidth: 6,
-                      padding: 11,
-                      borderRadius: 30,
-                    }}
-                  >
-                    <Image
-                      source={LogoGoogle}
-                      style={{}}
-                      resizeMode="contain"
-                    ></Image>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.square}>
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: "#fbfdfe",
-                      borderColor: "#57bbcc",
-                      borderWidth: 6,
-                      padding: 10,
-                      paddingLeft: 16,
-                      borderRadius: 30,
-                      width: 60,
-                      height: 60,
-                    }}
-                  >
-                    <Image
-                      source={LogoFacebook}
-                      style={{}}
-                      resizeMode="contain"
-                    ></Image>
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.square}></View>
-              </View>
             </View>
           </Animatable.View>
         </ImageBackground>

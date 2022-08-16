@@ -29,11 +29,25 @@ import {
 const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LegalWaiver = ({ route, navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState({});
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("account_id", jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  useEffect(() => {
+    storeData(1);
+  }, []);
 
   let paddingVertical = 7;
 
@@ -66,7 +80,7 @@ const LegalWaiver = ({ route, navigation }) => {
     const result = await progressData;
     if (result) {
       setData(result);
-      setIsLoading(false);    
+      setIsLoading(false);
     }
   };
 
@@ -180,7 +194,8 @@ const LegalWaiver = ({ route, navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CareProvider1Screen")}
+            onPress={() => navigation.navigate("CheckListScreen")}
+            disabled={isLoading}
           >
             <View style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}>
               <Text

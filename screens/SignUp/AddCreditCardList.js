@@ -4,7 +4,7 @@ import {
   StatusBar,
   TouchableOpacity,
   ImageBackground,
-  Image,
+  ScrollView,
 } from "react-native";
 import { Text } from "galio-framework";
 import { View } from "react-native";
@@ -21,14 +21,38 @@ import {
 } from "@expo-google-fonts/poppins";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import { windowHeightWithHeader } from "../../utils/utils";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Credit from "../../assets/images/payment/credit.png";
-import PaymentPaypal from "../../assets/images/payment/paypal.png";
-import CashApp from "../../assets/images/payment/cash-app.png";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getCreditCardList } from "../../services/account";
+import { getGlobal } from "../../utils/store";
 
 const PaymentInfo = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [accountId, setAccountId] = React.useState(0);
+
+  const getData = async () => {
+    const id = await getGlobal("account_id");
+    if (id) {
+      setAccountId(Number(id));
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (accountId) getCreditCardListData();
+  }, [accountId]);
+
+  const getCreditCardListData = async () => {
+    setIsLoading(true);
+    const progressData = getCreditCardList(accountId);
+    const result = await progressData;
+    if (result) {
+      setData(result);
+      setIsLoading(false);
+    }
+  };
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -51,119 +75,90 @@ const PaymentInfo = ({ route, navigation }) => {
           style={{
             height: windowHeightWithHeader(10),
           }}
-        ></View>
+        >
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("PaymentInfoScreen")}
+          >
+            <Icon
+              size={22}
+              name="arrow-left"
+              family="feather"
+              color={"#DCDCDC"}
+            />
+          </TouchableOpacity>
+        </View>
         <View
           style={{
-            height: windowHeightWithHeader(70),
+            height: windowHeightWithHeader(78),
             paddingLeft: wp("8%"),
             paddingRight: wp("8%"),
             paddingTop: windowHeightWithHeader(1),
             paddingBottom: windowHeightWithHeader(3),
           }}
         >
-          <Text style={styles.titleContainer}>Payment</Text>
-          <Text style={styles.titleContainer2}>Information</Text>
-          <View
+          <Text style={styles.titleContainer}>Add</Text>
+          <Text style={styles.titleContainer2}>Credit Card</Text>
+          <ScrollView
             View
             style={{
-              paddingTop: windowHeightWithHeader(8),
-              // height: windowHeightWithHeader(32),
+              paddingTop: windowHeightWithHeader(3),
             }}
           >
-            <View style={styles.checkboxContainer2}>
-              <View style={styles.square}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("AddCreditCardScreen")}
-                >
-                  <Image
-                    source={Credit}
-                    style={styles.paymentImage2}
-                    resizeMode="contain"
-                  ></Image>
-                </TouchableOpacity>
+            {data.map((item, index) => (
+              <View style={styles.checkboxContainer2} key={index}>
+                <View style={styles.square}>
+                  <Text
+                    size={22}
+                    color={"#4B4C4C"}
+                    style={{
+                      fontFamily: "Poppins_400Regular",
+                    }}
+                  >
+                    {index + 1}.
+                  </Text>
+                </View>
+                <View style={styles.square2}>
+                  <Text
+                    size={22}
+                    color={"#4B4C4C"}
+                    style={{
+                      fontFamily: "Poppins_400Regular",
+                    }}
+                  >
+                    Card ***
+                    {item.account_card_payment.cardNumber.substr(
+                      item.account_card_payment.cardNumber.length - 4
+                    )}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.square}>
-                <Text
-                  size={22}
-                  color={"#4B4C4C"}
-                  style={{
-                    marginLeft: -wp(22),
-                    marginTop: windowHeightWithHeader(2.3),
-                    fontFamily: "Poppins_400Regular",
-                  }}
-                  onPress={() => navigation.navigate("AddCreditCardListScreen")}
-                >
-                  Credit Card
-                </Text>
-              </View>
-            </View>
-            <View style={styles.checkboxContainer}>
-              <Image
-                source={PaymentPaypal}
-                style={styles.paymentImage}
-                resizeMode="contain"
-              ></Image>
-            </View>
-            <View style={styles.checkboxContainer}>
-              <Image
-                source={CashApp}
-                style={styles.paymentImage}
-                resizeMode="contain"
-              ></Image>
-            </View>
-          </View>
+            ))}
+          </ScrollView>
         </View>
         <View
           style={{
-            height: windowHeightWithHeader(18),
+            height: windowHeightWithHeader(10),
             paddingLeft: wp("8%"),
             paddingRight: wp("8%"),
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CheckList2Screen")}
+            onPress={() => navigation.navigate("AddCreditCardScreen")}
           >
-            <View style={styles.nextBtn2}>
-              <Text
-                style={[
-                  styles.textSign2,
-                  {
-                    color: "#d7feff",
-                    fontFamily: "Poppins_700Bold",
-                    fontSize: 26,
-                  },
-                ]}
-              >
-                Submit
-              </Text>
-              <Text style={styles.iconSign2}>
-                <Icon
-                  size={30}
-                  name="chevron-right"
-                  family="feather"
-                  color={"#d7feff"}
-                />
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("App")}
-            disabled={isLoading}
-          >
-            <View style={[styles.nextBtn]}>
+            <View style={styles.nextBtn}>
               <Text
                 style={[
                   styles.textSign,
                   {
-                    textAlign: "center",
-                    color: "#41c3e0",
+                    color: "#d7feff",
                     fontFamily: "Poppins_700Bold",
                     fontSize: 26,
-                    textDecorationLine: "underline",
+                    textAlign: "center",
                   },
                 ]}
               >
-                Decide Later
+                Add Card
               </Text>
             </View>
           </TouchableOpacity>
@@ -217,6 +212,18 @@ const styles = StyleSheet.create({
     height: windowHeightWithHeader(10),
     justifyContent: "center",
     borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
+    borderWidth: 1,
+    width: wp("85%"),
+    textAlign: "center",
+  },
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: wp("72%"),
+  },
+  textSign: {
     textAlign: "center",
   },
   titleContainer: {
@@ -232,13 +239,12 @@ const styles = StyleSheet.create({
     fontSize: windowHeightWithHeader(6),
   },
   checkboxContainer: {
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   checkboxContainer2: {
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
-    marginBottom: windowHeightWithHeader(10),
   },
   paymentImage: {
     maxWidth: windowHeightWithHeader(25),
@@ -250,26 +256,12 @@ const styles = StyleSheet.create({
     marginLeft: windowHeightWithHeader(3),
   },
   square: {
-    flex: 2,
-    height: windowHeightWithHeader(12),
+    flex: 1,
+    height: windowHeightWithHeader(7),
     alignItems: "center",
   },
-  nextBtn2: {
-    height: windowHeightWithHeader(10),
-    justifyContent: "center",
-    borderRadius: 12,
-    backgroundColor: "#41c3e0",
-    borderColor: "#41c3e0",
-    borderWidth: 1,
-    width: wp("85%"),
-  },
-  iconSign2: {
-    alignItems: "flex-end",
-    position: "absolute",
-    paddingLeft: wp("72%"),
-  },
-  textSign2: {
-    position: "absolute",
-    paddingLeft: windowHeightWithHeader(4),
+  square2: {
+    flex: 5,
+    height: windowHeightWithHeader(7),
   },
 });
