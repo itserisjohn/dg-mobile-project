@@ -221,15 +221,16 @@ const CareProvider1 = ({ navigation }) => {
               onChangeText={(e) => setPassword2(e)}
             ></TextInput>
             {!password2 ? null : (
-              <Text style={styles.errorMsg}>
+              <View>
+                <Text style={styles.errorMsg}>Password does not match</Text>
                 <Icon
                   size={13}
                   name="exclamationcircle"
                   family="AntDesign"
                   color={"#ffffff"}
+                  style={styles.exCircle}
                 />
-                Password does not match
-              </Text>
+              </View>
             )}
           </View>
         </View>
@@ -349,12 +350,19 @@ const styles = StyleSheet.create({
     paddingLeft: windowHeightWithHeader(4),
   },
   errorMsg: {
+    position: "absolute",
     color: "#ffffff",
     fontSize: 14,
-    paddingLeft: windowHeightWithHeader(3),
+    paddingRight: windowHeightWithHeader(12.7),
+    paddingLeft: windowHeightWithHeader(5),
     fontFamily: "Poppins_400Regular",
     backgroundColor: "#FE2472",
     borderRadius: 4,
     padding: 8,
+    justifyContent: "flex-end",
+  },
+  exCircle: {
+    paddingTop: 12,
+    paddingLeft: 20,
   },
 });
