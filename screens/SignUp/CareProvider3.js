@@ -118,6 +118,15 @@ const CareProvider3 = ({ route, navigation }) => {
           <Text style={styles.titleContainer}>Location</Text>
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
+            <View style={styles.LocationContainer}>
+              <Text style={styles.Location}>Use my current Location</Text>
+              <Icon
+                size={22}
+                name="location-on"
+                family="materialicons"
+                color={"#6B24AA"}
+              />
+            </View>
             <KeyboardAwareScrollView
               keyboardShouldPersistTaps={"always"}
               style={{ flex: 1 }}
@@ -329,5 +338,9 @@ const styles = StyleSheet.create({
   textSign: {
     position: "absolute",
     paddingLeft: windowHeightWithHeader(4),
+  },
+  Location: {
+    color: "#6B24AA",
+    fontFamily: "Poppins_700Bold",
   },
 });

@@ -194,7 +194,7 @@ const LegalWaiver = ({ route, navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CheckListScreen")}
+            onPress={() => navigation.navigate("CareProvider1Screen")}
             disabled={isLoading}
           >
             <View style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}>
