@@ -118,14 +118,22 @@ const CareProvider3 = ({ route, navigation }) => {
           <Text style={styles.titleContainer}>Location</Text>
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
-            <View style={styles.LocationContainer}>
-              <Text style={styles.Location}>Use my current Location</Text>
-              <Icon
-                size={22}
-                name="location-on"
-                family="materialicons"
-                color={"#6B24AA"}
-              />
+            <View>
+              <TouchableOpacity onPress={() => navigation.navigate("MapViewsScreen")}>
+                <Text
+                  
+                  style={styles.Location}
+                >
+                  Use my current location
+                </Text>
+                <Icon
+                  size={30}
+                  name="location-on"
+                  family="materialicons"
+                  color={"#6B24AA"}
+                  style={styles.LocationIcon}
+                />
+              </TouchableOpacity>
             </View>
             <KeyboardAwareScrollView
               keyboardShouldPersistTaps={"always"}
@@ -340,7 +348,19 @@ const styles = StyleSheet.create({
     paddingLeft: windowHeightWithHeader(4),
   },
   Location: {
+    position: "absolute",
     color: "#6B24AA",
+    fontSize: 16,
     fontFamily: "Poppins_700Bold",
+    paddingRight: windowHeightWithHeader(10),
+    paddingLeft: windowHeightWithHeader(4.5),
+    paddingTop: windowHeightWithHeader(1.8),
+  },
+  LocationIcon: {
+    // paddingBottom: 10,
+    // paddingRight: 15,
+    marginBottom: 15,
+    marginTop: 10,
+    padding: 0,
   },
 });

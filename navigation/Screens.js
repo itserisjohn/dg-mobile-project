@@ -23,6 +23,7 @@ import CareProvider1Screen from "../screens/SignUp/CareProvider1";
 import CareProvider2Screen from "../screens/SignUp/CareProvider2";
 import CareProvider3Screen from "../screens/SignUp/CareProvider3";
 import CareProvider4Screen from "../screens/SignUp/CareProvider4";
+import MapViewsScreen from "../screens/MapViews";
 import ReviewAccountScreen from "../screens/SignUp/ReviewAccount";
 import CreateAccountScreen from "../screens/SignUp/CreateAccount";
 import ChecklistEmptyScreen from "../screens/SignUp/ChecklistEmpty";
@@ -426,6 +427,13 @@ function SignUpCareProviderStack(props) {
       <Stack.Screen
         name="CareProvider3Screen"
         component={CareProvider3Screen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="MapViewsScreen"
+        component={MapViewsScreen}
         option={{
           headerTransparent: false,
         }}

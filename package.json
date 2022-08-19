@@ -33,6 +33,7 @@
     "expo-image-picker": "~11.0.3",
     "expo-linear-gradient": "~10.0.3",
     "expo-permissions": "~13.0.3",
+    "expo-secure-store": "~11.0.3",
     "expo-updates": "~0.10.15",
     "galio-framework": "^0.8.0",
     "lottie-react-native": "4.0.3",
@@ -47,9 +48,11 @@
     "react-native-date-picker": "^4.2.2",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-google-places-autocomplete": "^2.4.1",
     "react-native-image-picker": "^4.8.3",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.5.6",
+    "react-native-maps": "0.28.1",
     "react-native-mask-input": "^1.2.0",
     "react-native-modal-dropdown": "git+https://github.com/siemiatj/react-native-modal-dropdown.git",
     "react-native-multiple-select": "^0.5.9",
@@ -64,14 +67,16 @@
     "react-native-web": "0.17.1",
     "react-number-format": "^4.9.3",
     "regenerator-runtime": "^0.13.9",
-    "rn-credit-card": "^1.0.4",
-    "expo-secure-store": "~11.0.3"
+    "rn-credit-card": "^1.0.4"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.18.5",
     "babel-preset-expo": "8.3.0",
     "cross-env": "~7.0.0",
     "expo-cli": "~3.11.7",
-    "jest-expo": "^40.0.0"
+    "jest-expo": "^40.0.0",
+    "typescript": "~4.3.5",
+    "@types/react": "~17.0.21",
+    "@types/react-native": "~0.64.12"
   }
 }
