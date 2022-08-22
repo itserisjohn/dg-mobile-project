@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Image,
+  ImageBackgroundBase,
 } from "react-native";
 import { Text } from "galio-framework";
 import { View } from "react-native";
@@ -51,10 +52,22 @@ const PaymentInfo = ({ route, navigation }) => {
           style={{
             height: windowHeightWithHeader(10),
           }}
-        ></View>
+        >
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("CheckListScreen")}
+          >
+            <Icon
+              size={22}
+              name="arrow-left"
+              family="feather"
+              color={"#DCDCDC"}
+            />
+          </TouchableOpacity>
+        </View>
         <View
           style={{
-            height: windowHeightWithHeader(70),
+            height: windowHeightWithHeader(23),
             paddingLeft: wp("8%"),
             paddingRight: wp("8%"),
             paddingTop: windowHeightWithHeader(1),
@@ -63,61 +76,101 @@ const PaymentInfo = ({ route, navigation }) => {
         >
           <Text style={styles.titleContainer}>Payment</Text>
           <Text style={styles.titleContainer2}>Information</Text>
-          <View
+        </View>
+        <View>
+          {/* <View
             View
             style={{
-              paddingTop: windowHeightWithHeader(8),
-              // height: windowHeightWithHeader(32),
+              paddingTop: windowHeightWithHeader(1),
+              height: windowHeightWithHeader(32),
+              borderWidth: 1,
+              borderColor: "red",
             }}
           >
             <View style={styles.checkboxContainer2}>
-              <View style={styles.square}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("AddCreditCardScreen")}
-                >
-                  <Image
-                    source={Credit}
-                    style={styles.paymentImage2}
-                    resizeMode="contain"
-                  ></Image>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.square}>
-                <Text
-                  size={22}
-                  color={"#4B4C4C"}
-                  style={{
-                    marginLeft: -wp(22),
-                    marginTop: windowHeightWithHeader(2.3),
-                    fontFamily: "Poppins_400Regular",
-                  }}
-                  onPress={() => navigation.navigate("AddCreditCardListScreen")}
-                >
-                  Credit Card
-                </Text>
-              </View>
-            </View>
-            <View style={styles.checkboxContainer}>
-              <Image
+            <View style={styles.square}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("AddCreditCardScreen")}
+              >
+                <Image
+                  source={Credit}
+                  style={styles.paymentImage2}
+                  resizeMode="contain"
+                ></Image>
+              </TouchableOpacity>
+            </View> */}
+          <View style={styles.checkboxContainer}>
+            <Icon
+              size={18}
+              name="credit-card-alt"
+              family="font-awesome"
+              color={"#ffffff"}
+              style={styles.paymentIcons}
+            />
+            <Text style={styles.text1}>Credit Card</Text>
+            <Text style={styles.text2}>Tap to Add Primary Account</Text>
+          </View>
+          <View style={styles.checkboxContainer}>
+            {/* <Image
                 source={PaymentPaypal}
                 style={styles.paymentImage}
                 resizeMode="contain"
-              ></Image>
-            </View>
-            <View style={styles.checkboxContainer}>
-              <Image
+              ></Image> */}
+            <Icon
+              size={20}
+              name="paypal"
+              family="font-awesome"
+              color={"#ffffff"}
+              style={styles.paymentIcons}
+            />
+            <Text style={styles.text1}>Paypal</Text>
+            <Text style={styles.text2}>Tap to Add Primary Account</Text>
+          </View>
+          <View style={styles.checkboxContainer}>
+            {/* <Image
                 source={CashApp}
                 style={styles.paymentImage}
                 resizeMode="contain"
-              ></Image>
-            </View>
+              ></Image> */}
+
+            <Icon
+              size={20}
+              name="CashApp"
+              family="font-awesome5"
+              color={"#ffffff"}
+              style={styles.paymentIcons}
+            />
+
+            <Text style={styles.text1}>Cash App</Text>
+            <Text style={styles.text2}>Tap to Add Primary Account</Text>
           </View>
         </View>
+        <View style={styles.newcardContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("App")}
+            disabled={isLoading}
+          >
+            <Text
+              style={[
+                styles.textSign,
+                {
+                  textAlign: "center",
+                  color: "#ffffff",
+                  fontFamily: "Poppins_500Medium",
+                  fontSize: 20,
+                  paddingTop: 6,
+                },
+              ]}
+            >
+              Add New Card
+            </Text>
+          </TouchableOpacity>
+        </View>
+
         <View
           style={{
             height: windowHeightWithHeader(18),
-            paddingLeft: wp("8%"),
-            paddingRight: wp("8%"),
+            marginTop: windowHeightWithHeader(13),
           }}
         >
           <TouchableOpacity
@@ -143,27 +196,6 @@ const PaymentInfo = ({ route, navigation }) => {
                   family="feather"
                   color={"#d7feff"}
                 />
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("App")}
-            disabled={isLoading}
-          >
-            <View style={[styles.nextBtn]}>
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    textAlign: "center",
-                    color: "#41c3e0",
-                    fontFamily: "Poppins_700Bold",
-                    fontSize: 26,
-                    textDecorationLine: "underline",
-                  },
-                ]}
-              >
-                Decide Later
               </Text>
             </View>
           </TouchableOpacity>
@@ -232,13 +264,27 @@ const styles = StyleSheet.create({
     fontSize: windowHeightWithHeader(6),
   },
   checkboxContainer: {
-    alignItems: "center",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#6B24AA",
+    borderRadius: 12,
+    padding: 8,
+    height: 70,
+    width: wp("91%"),
+    marginTop: windowHeightWithHeader(1.5),
+    marginLeft: windowHeightWithHeader(2),
+
+    paddingLeft: windowHeightWithHeader(3),
   },
   checkboxContainer2: {
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-start",
     marginBottom: windowHeightWithHeader(10),
+    borderWidth: 1,
+    borderColor: "red",
   },
   paymentImage: {
     maxWidth: windowHeightWithHeader(25),
@@ -253,6 +299,7 @@ const styles = StyleSheet.create({
     flex: 2,
     height: windowHeightWithHeader(12),
     alignItems: "center",
+    borderWidth: 1,
   },
   nextBtn2: {
     height: windowHeightWithHeader(10),
@@ -261,7 +308,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#41c3e0",
     borderColor: "#41c3e0",
     borderWidth: 1,
-    width: wp("85%"),
+    width: wp("91%"),
+    marginTop: windowHeightWithHeader(1),
+    marginLeft: windowHeightWithHeader(2),
   },
   iconSign2: {
     alignItems: "flex-end",
@@ -272,4 +321,56 @@ const styles = StyleSheet.create({
     position: "absolute",
     paddingLeft: windowHeightWithHeader(4),
   },
+  text1: {
+    position: "absolute",
+    fontFamily: "Poppins_600SemiBold",
+    paddingLeft: windowHeightWithHeader(1),
+    paddingBottom: windowHeightWithHeader(2),
+    marginLeft: windowHeightWithHeader(10),
+  },
+  text2: {
+    position: "absolute",
+    color: "#979797",
+    fontSize: 12,
+    fontFamily: "Poppins_400Regular",
+    paddingLeft: windowHeightWithHeader(1),
+    paddingTop: windowHeightWithHeader(3),
+    marginLeft: windowHeightWithHeader(10),
+    marginBottom: windowHeightWithHeader(3),
+  },
+  paymentIcons: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#6B24AA",
+    borderWidth: 1,
+    padding: 6,
+    borderRadius: 16,
+    paddingLeft: windowHeightWithHeader(1),
+    
+  },
+  newcardContainer: {
+    height: windowHeightWithHeader(7),
+    justifyContent: "center",
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    borderWidth: 1,
+    width: wp("91%"),
+    marginTop: windowHeightWithHeader(1),
+    marginLeft: windowHeightWithHeader(2),
+    paddingLeft: wp("8%"),
+    paddingRight: wp("8%"),
+  },
+  textSign: {
+    fontSize: 22,
+  },
 });
+
+// size={22}
+// color={"#4B4C4C"}
+// style={{
+//   marginLeft: -wp(22),
+//   marginTop: windowHeightWithHeader(2.3),
+//   fontFamily: "Poppins_400Regular",
+// }}
+// onPress={() => navigation.navigate("AddCreditCardListScreen")}
