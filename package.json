@@ -65,7 +65,8 @@
     "react-number-format": "^4.9.3",
     "regenerator-runtime": "^0.13.9",
     "rn-credit-card": "^1.0.4",
-    "expo-secure-store": "~11.0.3"
+    "expo-secure-store": "~11.0.3",
+    "react-native-svg": "12.1.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.18.5",
