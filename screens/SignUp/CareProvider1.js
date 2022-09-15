@@ -30,9 +30,18 @@ const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
+import * as Animatable from "react-native-animatable";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CareProvider1 = ({ navigation }) => {
+  let [fontsLoaded] = useFonts({
+    Poppins_200ExtraLight,
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
   const [dataTemp, setDataTemp] = useState({
     account_info: {
       account_id: 0,
@@ -71,15 +80,6 @@ const CareProvider1 = ({ navigation }) => {
   const [password2, setPassword2] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  let [fontsLoaded] = useFonts({
-    Poppins_200ExtraLight,
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_600SemiBold,
-    Poppins_700Bold,
-  });
-
   function handleChange(dataType, value) {
     let newState = [];
     newState.push(data);
@@ -87,6 +87,7 @@ const CareProvider1 = ({ navigation }) => {
       if (i == 0) {
         return { ...item, [dataType]: value };
       }
+
       return item;
     });
     setData(account[0]);
@@ -204,17 +205,25 @@ const CareProvider1 = ({ navigation }) => {
                 value={data.password}
                 onChangeText={(e) => handleChange("password", e)}
               ></TextInput>
+
               <Text
                 size={windowHeightWithHeader(1.8)}
                 color={materialTheme.COLORS.BLACK}
                 style={{ fontFamily: "Poppins_400Regular" }}
               >
-                Confirm Password{" "}
+                Confirm Password{""}
                 <Text
-                  size={windowHeightWithHeader(2)}
-                  style={{ color: "red", justifyContent: "center" }}
+                  size={windowHeightWithHeader(1.8)}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
                 >
-                  *
+                  Confirm Password{" "}
+                  <Text
+                    size={windowHeightWithHeader(2)}
+                    style={{ color: "red", justifyContent: "center" }}
+                  >
+                    *
+                  </Text>
                 </Text>
               </Text>
               <TextInput
@@ -226,6 +235,22 @@ const CareProvider1 = ({ navigation }) => {
                 value={password2}
                 onChangeText={(e) => setPassword2(e)}
               ></TextInput>
+              {password2 && data.password != password2 ? (
+                <Animatable.View animation="bounceIn">
+                  <View style={styles.errorMsg}>
+                    <Text style={styles.errorMsgText}>
+                      Password does not match{" "}
+                      <Icon
+                        size={13}
+                        name="exclamationcircle"
+                        family="AntDesign"
+                        color={"#ffffff"}
+                        style={styles.exCircle}
+                      />
+                    </Text>
+                  </View>
+                </Animatable.View>
+              ) : null}
             </KeyboardAwareScrollView>
           </View>
         </View>
@@ -302,7 +327,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 14,
     marginTop: windowHeightWithHeader(1.1),
-    marginBottom: windowHeightWithHeader(2.2),
+    marginBottom: windowHeightWithHeader(1),
     backgroundColor: "#ffffff",
     borderRadius: 4,
     padding: 14,
@@ -343,5 +368,21 @@ const styles = StyleSheet.create({
   textSign: {
     position: "absolute",
     paddingLeft: windowHeightWithHeader(4),
+  },
+  errorMsg: {
+    backgroundColor: "#FE2472",
+    borderRadius: 4,
+    padding: 8,
+    paddingLeft: 15,
+  },
+  errorMsgText: {
+    color: "#ffffff",
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+    backgroundColor: "#FE2472",
+  },
+  exCircle: {
+    paddingTop: 12,
+    paddingLeft: 20,
   },
 });
