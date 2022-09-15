@@ -8,8 +8,6 @@ import {
   View,
   ImageBackground,
   TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -79,6 +77,15 @@ const CareProvider1 = ({ navigation }) => {
   });
   const [password2, setPassword2] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const [accountType, setAccounType] = useState(0);
+
+  useEffect(() => {
+    if (route) {
+      if (route.params?.account_type) {
+        setAccounType(route.params.account_type);
+      }
+    }
+  }, [route]);
 
   function handleChange(dataType, value) {
     let newState = [];
@@ -102,7 +109,10 @@ const CareProvider1 = ({ navigation }) => {
     }
 
     if (valid) {
-      navigation.navigate("CareProvider2Screen", { user_info: data });
+      navigation.navigate("CareProvider2Screen", {
+        user_info: data,
+        account_type: accountType,
+      });
     }
   }
 

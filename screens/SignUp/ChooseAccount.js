@@ -7,17 +7,14 @@ import {
   ImageBackground,
   Image,
 } from "react-native";
-import { Button, Text } from "galio-framework";
+import { Text } from "galio-framework";
 import { View } from "react-native";
 import Icon from "../../components/Icon";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import SelectDropdown from "react-native-select-dropdown";
-import { HeaderHeight } from "../../constants/utils";
 const { width, height } = Dimensions.get("window");
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {
   useFonts,
   Poppins_200ExtraLight,
@@ -32,9 +29,13 @@ import SuccessImage from "../../assets/images/img_success-check.png";
 import { windowHeightWithHeader } from "../../utils/utils";
 
 const ChooseAccount = ({ navigation }) => {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(null);
-  const [items, setItems] = React.useState(["As a User", "As a Care Provider"]);
+  React.useEffect(
+    () =>
+      navigation.addListener("beforeRemove", (e) => {
+        e.preventDefault();
+      }),
+    [navigation]
+  );
 
   let paddingVertical = 7;
 

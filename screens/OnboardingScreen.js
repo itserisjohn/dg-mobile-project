@@ -27,21 +27,21 @@ const slides = [
     image: require("../assets/images/img_onboarding01.png"),
     title: "Effective",
     subtitle:
-      "Amet minim moliit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit moliit. Exercitation veniam consequat sunt onstrud amet.",
+      "Find the right kind of affordable care you need when you need it most.",
   },
   {
     id: "2",
     image: require("../assets/images/img_onboarding02.png"),
     title: "Practical",
     subtitle:
-      "Amet minim moliit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit moliit. Exercitation veniam consequat sunt onstrud amet.",
+      "Make a difference and good income by providing dependable, high-level care and service to your neighbors in need.",
   },
   {
     id: "3",
     image: require("../assets/images/img_onboarding03.png"),
     title: "Convenient",
     subtitle:
-      "Amet minim moliit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit moliit. Exercitation veniam consequat sunt onstrud amet.",
+      "Transparency so both care providers and clients set up successful expectations through direct communication and follow-up.",
   },
 ];
 
@@ -175,6 +175,7 @@ const OnboardingScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   subtitle: {
+    textAlign: "center",
     color: "#4c4c4c",
     fontSize: windowHeight(1.8),
     marginTop: windowHeight(1.5),

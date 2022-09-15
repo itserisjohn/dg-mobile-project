@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -48,11 +48,12 @@ const CareProvider2 = ({ route, navigation }) => {
     account_typeid: 1,
   });
   const [phone, setPhone] = React.useState("");
+  const [accountType, setAccounType] = useState(0);
 
   useEffect(() => {
     if (route) {
-      if (route.params.user_info) setUserInfo(route.params.user_info);
-      if (route.params.account_info) setData(route.params.user_info);
+      if (route.params?.user_info) setUserInfo(route.params.user_info);
+      if (route.params?.account_type) setAccounType(route.params.account_type);
     }
   }, [route]);
 
@@ -71,6 +72,7 @@ const CareProvider2 = ({ route, navigation }) => {
     let newState = [];
     newState.push(data);
     let account = newState.map((item, i) => {
+      item.account_typeid = Number(accountType);
       if (i == 0) {
         return { ...item, [dataType]: value };
       }
