@@ -1,48 +1,56 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
   Dimensions,
   TouchableOpacity,
   Platform,
-  Switch,
-  TextInput,
-  ScrollView,
+  View,
+  ImageBackground,
+  Image,
+  ActivityIndicator,
 } from "react-native";
-import { Button, Text } from "galio-framework";
-import { View, Image } from "react-native";
-const { height } = Dimensions.get("screen");
+import { Text } from "galio-framework";
+import Icon from "../../components/Icon";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { Checkbox, theme, Block } from "galio-framework";
-import Icon from "../../components/Icon";
-import { HeaderHeight } from "../../constants/utils";
-import Credit from "../../assets/images/payment/credit.png";
-import PaymentPaypal from "../../assets/images/payment/paypal.png";
-import CashApp from "../../assets/images/payment/cash-app.png";
+import {
+  useFonts,
+  Poppins_200ExtraLight,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
+import { windowHeightWithHeader } from "../../utils/utils";
+import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
-import SectionedMultiSelect from "react-native-sectioned-multi-select";
-import languages from "../../utils/languages.json";
-import { MaterialIcons } from "@expo/vector-icons";
-import BlankPhoto from "../../assets/images/blank.jpg";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
 
-const OtherInformation = ({ navigation }) => {
-  const [isEnabled, setIsEnabled] = useState(true);
-  const [isEnabled2, setIsEnabled2] = useState(true);
-  const [isEnabled3, setIsEnabled3] = useState(true);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  const toggleSwitch2 = () => setIsEnabled2((previousState) => !previousState);
-  const toggleSwitch3 = () => setIsEnabled3((previousState) => !previousState);
+const OtherInformationCR2 = ({ route, navigation }) => {
+  const [data, setData] = React.useState({});
   const [image, setImage] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [imageData, setImageData] = React.useState({});
+  const [crID, setCrID] = React.useState(56);
 
-  const [selectedItems, setSlectedItems] = useState([]);
+  useEffect(() => {
+    if (route) {
+      if (route.params) {
+        if (route.params.cr_id) setCrID(route.params.cr_id);
+      }
+    }
+  }, [route]);
 
-  const onSelectedItemsChange = (selected) => {
-    setSlectedItems(selected);
-  };
+  useEffect(() => {
+    if (crID) {
+      console.log("cr id: " + crID);
+    }
+  }, [crID]);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -55,6 +63,14 @@ const OtherInformation = ({ navigation }) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      let localUri = result.uri;
+      let filename = localUri.split("/").pop();
+
+      // Infer the type of the image
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+
+      setImageData({ uri: localUri, name: filename, type });
     }
   };
 
@@ -80,202 +96,322 @@ const OtherInformation = ({ navigation }) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      // uploadImage(result.uri);
+      let localUri = result.uri;
+      let filename = localUri.split("/").pop();
+
+      // Infer the type of the image
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+
+      setImageData({ uri: localUri, name: filename, type });
     }
   };
 
+  async function onSubmit() {
+    setIsLoading(true);
+
+    let headers = new Headers();
+    headers.append("Content-Type", "multipart/form-data");
+
+    let formData = new FormData();
+    formData.append("account_id", crID);
+    formData.append("", imageData);
+
+    try {
+      fetch(
+        `https://asp-noc-dev-win.azurewebsites.net/api/accounts/UploadProfilePhoto`,
+        {
+          method: "PUT",
+          body: formData,
+          headers: headers,
+          redirect: "follow",
+        }
+      )
+        .then(function (response) {
+          console.log("response :", JSON.stringify(response));
+          setIsLoading(false);
+          navigation.navigate("CheckList3Screen");
+        })
+        .catch(function (error) {
+          setIsLoading(false);
+          console.log("error: " + JSON.stringify(error));
+          Dialog.show({
+            type: ALERT_TYPE.DANGER,
+            title: "Account Creation Failed",
+            textBody: "error: " + JSON.stringify(error),
+            button: "close",
+          });
+        });
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Account Creation  Failed",
+        textBody: "error: " + e,
+        button: "close",
+      });
+    }
+  }
+
+  let [fontsLoaded] = useFonts({
+    Poppins_200ExtraLight,
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  });
+
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          height: Platform.OS === "ios" ? hp("11%") : hp("8%"),
-        }}
-      >
-        <Button
-          style={styles.backBtn}
-          color="transparent"
-          onPress={() => navigation.navigate("OtherInformationCRScreen")}
-        >
-          <Icon
-            size={hp("5%")}
-            name="chevron-left"
-            family="feather"
-            color={"#4B4C4C"}
-            style={styles.backBtn}
-          />
-        </Button>
-        <View style={{ alignItems: "center" }}>
-          <Text size={hp("2.5%")} style={styles.headerText}>
-            User Account Holder
-          </Text>
-        </View>
-      </View>
       <StatusBar barStyle="dark-content" />
-      <ScrollView
-        style={{
-          height: hp("75.5%"),
-        }}
+      <ImageBackground
+        source={BGImage}
+        resizeMode="stretch"
+        style={styles.image}
       >
         <View
           style={{
-            marginTop: hp("15%"),
-            marginBottom: Platform.OS === "ios" ? hp("5%") : hp("3%"),
-            alignItems: "center",
+            height: windowHeightWithHeader(10),
           }}
         >
-          {image ? (
-            <Image
-              source={{ uri: image }}
-              style={{
-                width: 200,
-                height: 200,
-                borderWidth: 6,
-                borderRadius: 4,
-                borderColor: "#ffffff",
-              }}
-            />
-          ) : (
-            <Image
-              source={BlankPhoto}
-              style={{
-                width: 200,
-                height: 200,
-                borderWidth: 6,
-                borderRadius: 4,
-                borderColor: "#ffffff",
-              }}
-            />
-          )}
-          <View
-            style={{
-              marginTop: 60,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.navigate("OtherInformationCRScreen")}
           >
-            <Text
+            <Icon
               size={22}
+              name="arrow-left"
+              family="feather"
+              color={"#DCDCDC"}
+            />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            height: windowHeightWithHeader(78),
+            paddingLeft: wp("8%"),
+            paddingRight: wp("8%"),
+            paddingTop: windowHeightWithHeader(1),
+            paddingBottom: windowHeightWithHeader(3),
+          }}
+        >
+          <Text style={styles.titleContainer}>Profile</Text>
+          <Text style={styles.titleContainer2}>Photo</Text>
+          <View style={styles.progressContainer}>
+            <Text
+              size={hp("1.6%")}
               color={materialTheme.COLORS.BLACK}
+              style={{ fontFamily: "Poppins_400Regular" }}
+            >
+              Please make sure your photo clearly shows your face
+            </Text>
+            {image ? (
+              <View
+                style={{
+                  height: windowHeightWithHeader(15),
+                  marginTop: windowHeightWithHeader(5),
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={{ uri: image }}
+                  style={{
+                    width: windowHeightWithHeader(18),
+                    height: windowHeightWithHeader(18),
+                    borderWidth: 6,
+                    borderRadius: 4,
+                    borderColor: "#ffffff",
+                  }}
+                />
+              </View>
+            ) : (
+              <View
+                style={{
+                  height: windowHeightWithHeader(15),
+                  marginTop: windowHeightWithHeader(5),
+                  alignItems: "center",
+                }}
+              >
+                <MaterialCommunityIcons
+                  name="camera-plus"
+                  color="#46b5d0"
+                  size={windowHeightWithHeader(12)}
+                  style={{
+                    textAlign: "center",
+                  }}
+                />
+              </View>
+            )}
+            <TouchableOpacity
               onPress={takePhoto}
-              style={{
-                fontFamily: "Poppins_400Regular",
-                marginRight: 30,
-              }}
+              style={[
+                styles.signIn,
+                {
+                  backgroundColor: "#782ddb",
+                  borderColor: "#782ddb",
+                  borderWidth: 1,
+                  marginTop: windowHeightWithHeader(7),
+                },
+              ]}
             >
-              Take Photo
-            </Text>
-            <Text
-              size={22}
-              color={materialTheme.COLORS.BLACK}
+              <Text
+                style={[
+                  styles.textPhoto,
+                  {
+                    color: "#f9e0ff",
+                    fontFamily: "Poppins_600SemiBold",
+                  },
+                ]}
+              >
+                Take Photo
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={pickImage}
-              style={{ marginLeft: 30 }}
+              style={[
+                styles.signIn,
+                {
+                  backgroundColor: "#782ddb",
+                  borderColor: "#782ddb",
+                  borderWidth: 1,
+                  marginTop: windowHeightWithHeader(2),
+                },
+              ]}
             >
-              Upload Photo
-            </Text>
+              <Text
+                style={[
+                  styles.textPhoto,
+                  {
+                    color: "#f9e0ff",
+                    fontFamily: "Poppins_600SemiBold",
+                  },
+                ]}
+              >
+                Choose from camera roll
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-      <View
-        style={{
-          backgroundColor: "#ffffff",
-          height: hp("16.5%"),
-          paddingLeft: wp("8%"),
-          paddingRight: wp("8%"),
-        }}
-      >
-        <View style={{ marginTop: 5 }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("OtherInformationCRScreen")}
-            style={styles.backBtn2}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#87c9e4",
-                  fontFamily: "Poppins_400Regular",
-                },
-              ]}
-            >
-              Previous
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CheckList3Screen")}
-            style={styles.nextBtn}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#ffffff",
-                  fontFamily: "Poppins_400Regular",
-                },
-              ]}
-            >
-              Submit
-            </Text>
+        <View
+          style={{
+            height: windowHeightWithHeader(10),
+            alignItems: "center",
+            alignContent: "center",
+            width: wp("100%"),
+          }}
+        >
+          <TouchableOpacity onPress={onSubmit} disabled={isLoading}>
+            <View style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#d7feff",
+                    fontFamily: "Poppins_700Bold",
+                    fontSize: 26,
+                  },
+                ]}
+              >
+                Save
+              </Text>
+              {isLoading ? (
+                <ActivityIndicator size="large" color="#ffffff" />
+              ) : null}
+              <Text style={styles.iconSign}>
+                <MaterialCommunityIcons name="send" color="#d7feff" size={30} />
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ImageBackground>
     </View>
   );
 };
 
-export default OtherInformation;
+export default OtherInformationCR2;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f2f4f5",
   },
+  image: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
+  },
+  titleContainer: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(6),
+    marginTop: windowHeightWithHeader(1.2),
+    position: "relative",
+  },
+  titleContainer2: {
+    fontFamily: "Poppins_600SemiBold",
+    color: "#46b5d0",
+    fontSize: windowHeightWithHeader(6),
+  },
+  progressContainer: {
+    marginBottom: 20,
+    paddingTop: hp("2.5%"),
+    height: Platform.OS === "ios" ? hp("65%") : hp("65%"),
+  },
+  input: {
+    fontSize: 14,
+    marginTop: hp("1.1%"),
+    marginBottom: hp("2.2%"),
+    backgroundColor: "#ffffff",
+    borderRadius: 4,
+    padding: 14,
+    fontFamily: "Poppins_400Regular",
+    borderColor: materialTheme.COLORS.BLACK,
+    borderWidth: 0.5,
+  },
+  textContainer: {
+    marginBottom: windowHeightWithHeader(2),
+    fontFamily: "Poppins_400Regular",
+  },
   backBtn: {
     alignItems: "flex-start",
-    position: "absolute",
-    marginLeft: 0,
-    top: 0,
-    borderColor: "transparent",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 2.5 : 6,
-  },
-  backBtn2: {
-    borderColor: "#87c9e4",
-    width: "100%",
-    height: hp("5%"),
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
-  },
-  headerText: {
-    position: "absolute",
-    top: hp("2.5%"),
-    color: "#4B4C4C",
-    fontFamily: "Poppins_700Bold",
-    marginTop: Platform.OS === "ios" ? HeaderHeight / 1.5 : 0,
+    width: 55,
+    height: 53,
+    marginLeft: wp("5%"),
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#6B24AA",
+    borderColor: "#6B24AA",
+    marginTop: Platform.OS == "ios" ? 44 : 22,
   },
   nextBtn: {
+    height: windowHeightWithHeader(10),
+    justifyContent: "center",
+    borderRadius: 12,
+    backgroundColor: "#41c3e0",
+    borderColor: "#41c3e0",
+    borderWidth: 1,
+    width: wp("85%"),
+  },
+  signIn: {
     width: "100%",
-    height: hp("5%"),
+    height: windowHeightWithHeader(5),
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#87c9e4",
-    borderColor: "#87c9e4",
-    borderWidth: 1,
-    marginTop: hp("1.8%"),
+    borderRadius: 10,
   },
-  checkboxContainer2: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    marginBottom: Platform.OS === "ios" ? 35 : 25,
+  textPhoto: {
+    fontSize: windowHeightWithHeader(2),
   },
-  square1: {
-    flex: Platform.OS === "ios" ? 1 : 0.7,
-    alignItems: "center",
+  iconSign: {
+    alignItems: "flex-end",
+    position: "absolute",
+    paddingLeft: wp("72%"),
   },
-  square2: {
-    flex: Platform.OS === "ios" ? 2 : 2.3,
-    alignItems: "flex-start",
+  textSign: {
+    position: "absolute",
+    paddingLeft: windowHeightWithHeader(4),
   },
 });

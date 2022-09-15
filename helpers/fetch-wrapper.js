@@ -11,6 +11,7 @@ export const fetchWrapper = {
   get,
   post,
   put,
+  putPublic,
   getPublic,
   postPublic,
   postFormData,
@@ -116,6 +117,19 @@ function put(url, body) {
     body: JSON.stringify(body),
   };
   return fetch(url, requestOptions).then(handleResponse);
+}
+
+function putPublic(url, body) {
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify(body),
+    credentials: "include",
+  };
+  return fetch(url, requestOptions).then(handleResponsePublic);
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
@@ -228,11 +242,19 @@ function handleResponse(response) {
 
 function handleResponsePublic(response) {
   return response.text().then((text) => {
-    const data = text && JSON.parse(text);
+    // console.log(text);
+    let data;
+    try {
+      data = text && JSON.parse(text);
+    } catch (e) {
+      return text;
+    }
 
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
+      console.log("response: " + text);
+      console.log("API Error: " + error);
+      // return Promise.reject(error);
     }
 
     return data;
@@ -245,7 +267,8 @@ function handleResponsePublicLogin(response) {
 
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
+      console.log("API Error: " + error);
+      // return Promise.reject(error);
     }
 
     return data;

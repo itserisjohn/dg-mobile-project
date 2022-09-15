@@ -11,7 +11,6 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -33,6 +32,7 @@ import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
 import MaskInput from "react-native-mask-input";
 import { windowHeightWithHeader } from "../../utils/utils";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CareProvider2 = ({ route, navigation }) => {
   const [userInfo, setUserInfo] = React.useState({});
@@ -122,139 +122,144 @@ const CareProvider2 = ({ route, navigation }) => {
                 duration={400}
                 style={styles.progressContainer}
               >
-                <ScrollView
+                <KeyboardAwareScrollView
+                  keyboardShouldPersistTaps={"always"}
+                  style={{ flex: 1 }}
                   showsVerticalScrollIndicator={false}
-                  contentContainerStyle={{ flexGrow: 1 }}
-                  style={{ height: "100%" }}
+                  enableOnAndroid={true}
+                  extraScrollHeight={Platform.OS === "ios" ? 0 : 100}
                 >
-                  <Text
-                    size={windowHeightWithHeader(1.4)}
-                    color={materialTheme.COLORS.BLACK}
-                    style={{ fontFamily: "Poppins_400Regular" }}
-                  >
-                    First Name{" "}
+                  <View>
                     <Text
-                      size={windowHeightWithHeader(1.6)}
-                      style={{ color: "red", justifyContent: "center" }}
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
                     >
-                      *
+                      First Name{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
                     </Text>
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Your First Name"
-                    placeholderTextColor="#c2c1c1"
-                    value={data.username}
-                    onChangeText={(e) => handleChange("firstname", e)}
-                  ></TextInput>
-                  <Text
-                    size={windowHeightWithHeader(1.4)}
-                    color={materialTheme.COLORS.BLACK}
-                    style={{ fontFamily: "Poppins_400Regular" }}
-                  >
-                    Last Name{" "}
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Your First Name"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.username}
+                      onChangeText={(e) => handleChange("firstname", e)}
+                    ></TextInput>
                     <Text
-                      size={windowHeightWithHeader(1.6)}
-                      style={{ color: "red", justifyContent: "center" }}
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
                     >
-                      *
+                      Last Name{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
                     </Text>
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Your Last Name"
-                    placeholderTextColor="#c2c1c1"
-                    value={data.lastname}
-                    onChangeText={(e) => handleChange("lastname", e)}
-                  ></TextInput>
-                  <Text
-                    size={windowHeightWithHeader(1.4)}
-                    color={materialTheme.COLORS.BLACK}
-                    style={{ fontFamily: "Poppins_400Regular" }}
-                  >
-                    SSN{" "}
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Your Last Name"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.lastname}
+                      onChangeText={(e) => handleChange("lastname", e)}
+                    ></TextInput>
                     <Text
-                      size={windowHeightWithHeader(1.6)}
-                      style={{ color: "red", justifyContent: "center" }}
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
                     >
-                      *
+                      SSN{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
                     </Text>
-                  </Text>
-                  <MaskInput
-                    value={phone}
-                    style={styles.input}
-                    onChangeText={(masked, unmasked) => {
-                      setPhone(masked);
-                      handleChange("ssn", unmasked);
-                    }}
-                    placeholder="xxx-xx-xxxx"
-                    placeholderTextColor="#c2c1c1"
-                    mask={ssn}
-                    keyboardType="number-pad"
-                  />
-                  <Text
-                    size={windowHeightWithHeader(1.4)}
-                    color={materialTheme.COLORS.BLACK}
-                    style={{ fontFamily: "Poppins_400Regular" }}
-                  >
-                    Date of Birth{" "}
+                    <MaskInput
+                      value={phone}
+                      style={styles.input}
+                      onChangeText={(masked, unmasked) => {
+                        setPhone(masked);
+                        handleChange("ssn", unmasked);
+                      }}
+                      placeholder="xxx-xx-xxxx"
+                      placeholderTextColor="#c2c1c1"
+                      mask={ssn}
+                      keyboardType="number-pad"
+                    />
                     <Text
-                      size={windowHeightWithHeader(1.6)}
-                      style={{ color: "red", justifyContent: "center" }}
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
                     >
-                      *
+                      Date of Birth{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
                     </Text>
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Date of Birth"
-                    placeholderTextColor="#c2c1c1"
-                    value={data.birthdate}
-                    onChangeText={(e) => handleChange("birthdate", e)}
-                  ></TextInput>
-                  <Text
-                    size={windowHeightWithHeader(1.4)}
-                    color={materialTheme.COLORS.BLACK}
-                    style={{ fontFamily: "Poppins_400Regular" }}
-                  >
-                    Phone Number{" "}
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Date of Birth"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.birthdate}
+                      onChangeText={(e) => handleChange("birthdate", e)}
+                    ></TextInput>
                     <Text
-                      size={windowHeightWithHeader(1.6)}
-                      style={{ color: "red", justifyContent: "center" }}
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
                     >
-                      *
+                      Phone Number{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
                     </Text>
-                  </Text>
-                  <TextInput
-                    keyboardType="phone-pad"
-                    style={styles.input}
-                    placeholder="(xxx) xxx-xxxx"
-                    placeholderTextColor="#c2c1c1"
-                    value={data.phone}
-                    onChangeText={(e) => handleChange("phone", e)}
-                  ></TextInput>
-                  <Text
-                    size={windowHeightWithHeader(1.4)}
-                    color={materialTheme.COLORS.BLACK}
-                    style={{ fontFamily: "Poppins_400Regular" }}
-                  >
-                    Email Address{" "}
+                    <TextInput
+                      keyboardType="phone-pad"
+                      style={styles.input}
+                      placeholder="(xxx) xxx-xxxx"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.phone}
+                      onChangeText={(e) => handleChange("phone", e)}
+                    ></TextInput>
                     <Text
-                      size={windowHeightWithHeader(1.6)}
-                      style={{ color: "red", justifyContent: "center" }}
+                      size={windowHeightWithHeader(1.4)}
+                      color={materialTheme.COLORS.BLACK}
+                      style={{ fontFamily: "Poppins_400Regular" }}
                     >
-                      *
+                      Email Address{" "}
+                      <Text
+                        size={windowHeightWithHeader(1.6)}
+                        style={{ color: "red", justifyContent: "center" }}
+                      >
+                        *
+                      </Text>
                     </Text>
-                  </Text>
-                  <TextInput
-                    keyboardType="email-address"
-                    style={styles.input}
-                    placeholder="example@email.com"
-                    placeholderTextColor="#c2c1c1"
-                    value={data.email_address}
-                    onChangeText={(e) => handleChange("email_address", e)}
-                  ></TextInput>
-                </ScrollView>
+                    <TextInput
+                      keyboardType="email-address"
+                      style={styles.input}
+                      placeholder="example@email.com"
+                      placeholderTextColor="#c2c1c1"
+                      value={data.email_address}
+                      onChangeText={(e) => handleChange("email_address", e)}
+                      autoCapitalize="none"
+                    ></TextInput>
+                  </View>
+                </KeyboardAwareScrollView>
               </View>
             </View>
             <View

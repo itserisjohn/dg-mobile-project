@@ -59,19 +59,7 @@ const ChooseAccount = ({ navigation }) => {
           style={{
             height: windowHeightWithHeader(10),
           }}
-        >
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.navigate("Login")}
-          >
-            <Icon
-              size={22}
-              name="arrow-left"
-              family="feather"
-              color={"#DCDCDC"}
-            />
-          </TouchableOpacity>
-        </View>
+        ></View>
         <View
           style={{
             height: windowHeightWithHeader(78),

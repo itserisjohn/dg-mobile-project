@@ -72,19 +72,7 @@ const CheckList = ({ navigation }) => {
           style={{
             height: windowHeightWithHeader(10),
           }}
-        >
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.navigate("ChooseAccountScreen")}
-          >
-            <Icon
-              size={22}
-              name="arrow-left"
-              family="feather"
-              color={"#DCDCDC"}
-            />
-          </TouchableOpacity>
-        </View>
+        ></View>
         <View
           style={{
             height: windowHeightWithHeader(75),
@@ -114,35 +102,13 @@ const CheckList = ({ navigation }) => {
               Get fully verified to secure your account and gain access to all
               services.
             </Text>
-
-            {isLoading ? (
-              <ActivityIndicator
-                size="large"
-                style={{ marginTop: windowHeightWithHeader(5), marginRight: windowHeightWithHeader(5)  }}
-                color="#0000ff"
-              />
-            ) : null}
-
             <View style={styles.checkheartContainer}>
-              {data.createAccount ? (
-                <Image
-                  resizeMode={"contain"}
-                  style={{ flex: 1, height: undefined, width: undefined }}
-                  source={SuccessImage}
-                  imageSize={"3%"}
-                ></Image>
-              ) : (
-                <MaterialCommunityIcons
-                  name="heart-outline"
-                  color="#782ddb"
-                  size={windowHeightWithHeader(4.5)}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                  }}
-                />
-              )}
-
+              <Image
+                resizeMode={"contain"}
+                style={{ flex: 1, height: undefined, width: undefined }}
+                source={SuccessImage}
+                imageSize={"3%"}
+              ></Image>
               <Text
                 size={hp("2.5%")}
                 color="#4B4C4C"
@@ -155,97 +121,37 @@ const CheckList = ({ navigation }) => {
                 Account Information
               </Text>
             </View>
-
             <View style={styles.checkheartContainer}>
-              {data.paymentInfo ? (
-                <Image
-                  resizeMode={"contain"}
-                  style={{ flex: 1, height: undefined, width: undefined }}
-                  source={SuccessImage}
-                  imageSize={"3%"}
-                ></Image>
-              ) : (
-                <MaterialCommunityIcons
-                  name="heart-outline"
-                  color="#782ddb"
-                  size={windowHeightWithHeader(4.5)}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                  }}
-                />
-              )}
               <Text
                 size={hp("2.5%")}
                 color="#4B4C4C"
                 style={{
-                  paddingLeft: 11,
-                  marginRight: 92,
+                  marginLeft: wp(11.2),
                   fontFamily: "Poppins_500Medium",
                 }}
               >
                 Payment Information
               </Text>
             </View>
-
             <View style={styles.checkheartContainer}>
-              {data.createAccount ? (
-                <Image
-                  resizeMode={"contain"}
-                  style={{ flex: 1, height: undefined, width: undefined }}
-                  source={SuccessImage}
-                  imageSize={"3%"}
-                ></Image>
-              ) : (
-                <MaterialCommunityIcons
-                  name="heart-outline"
-                  color="#782ddb"
-                  size={windowHeightWithHeader(4.5)}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                  }}
-                />
-              )}
-
               <Text
                 size={hp("2.5%")}
                 color="#4B4C4C"
                 style={{
-                  paddingLeft: 13,
-                  marginRight: 126,
+                  marginLeft: wp(11.2),
                   fontFamily: "Poppins_500Medium",
                 }}
               >
-                Other Information 
+                Other Information
               </Text>
             </View>
 
             <View style={styles.checkheartContainer}>
-              {data.servicePreference ? (
-                <Image
-                resizeMode={"contain"}
-                style={{ flex: 1, height: undefined, width: undefined }}
-                source={SuccessImage}
-                imageSize={"3%"}
-              ></Image>
-              ) : (
-                <MaterialCommunityIcons
-                  name="heart-outline"
-                  color="#782ddb"
-                  size={windowHeightWithHeader(4.5)}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "flex-start",
-                  }}
-                />
-              )}
               <Text
                 size={hp("2.5%")}
                 color="#4B4C4C"
                 style={{
-                  paddingLeft: 10,
-                  marginRight: 120,
+                  marginLeft: wp(11.2),
                   fontFamily: "Poppins_500Medium",
                 }}
               >
@@ -263,8 +169,8 @@ const CheckList = ({ navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CheckListScreen")}
-            style={[styles.nextBtn]}
+            onPress={() => navigation.navigate("PaymentInfoScreen")}
+            style={styles.nextBtn}
           >
             <Text
               style={[
@@ -362,7 +268,6 @@ const styles = StyleSheet.create({
   },
   checkheartContainer: {
     flexDirection: "row",
-    marginBottom: hp("2%"),
-    
+    marginBottom: windowHeightWithHeader(3),
   },
 });

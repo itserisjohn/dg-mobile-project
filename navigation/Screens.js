@@ -30,6 +30,7 @@ import LegalWaiverScreen from "../screens/SignUp/LegalWaiver";
 import ChooseAccountScreen from "../screens/SignUp/ChooseAccount";
 import CheckListScreen from "../screens/SignUp/Checklist";
 import PaymentInfoScreen from "../screens/SignUp/PaymentInfo";
+import AddCreditCardListScreen from "../screens/SignUp/AddCreditCardList";
 import AddCreditCardScreen from "../screens/SignUp/AddCreditCard";
 import CheckList2Screen from "../screens/SignUp/Checklist2";
 import OtherInformationScreen from "../screens/SignUp/OtherInformation";
@@ -363,20 +364,6 @@ export default function LoginStack(props) {
         }}
       />
       <Stack.Screen
-        name="ChooseAccountScreen"
-        component={ChooseAccountScreen}
-        option={{
-          headerTransparent: false,
-        }}
-      />
-      <Stack.Screen
-        name="CheckListScreen"
-        component={CheckListScreen}
-        option={{
-          headerTransparent: false,
-        }}
-      />
-      <Stack.Screen
         name="SignUpCareProvider"
         component={SignUpCareProviderStack}
         option={{
@@ -474,6 +461,13 @@ function SignUpCareProviderStack(props) {
       <Stack.Screen
         name="PaymentInfoScreen"
         component={PaymentInfoScreen}
+        option={{
+          headerTransparent: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddCreditCardListScreen"
+        component={AddCreditCardListScreen}
         option={{
           headerTransparent: false,
         }}

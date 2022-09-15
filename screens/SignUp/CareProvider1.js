@@ -8,6 +8,8 @@ import {
   View,
   ImageBackground,
   TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -28,7 +30,8 @@ const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
-import Animatable from "react-native-animatable";
+import * as Animatable from "react-native-animatable";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CareProvider1 = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
@@ -152,86 +155,103 @@ const CareProvider1 = ({ navigation }) => {
           <Text style={styles.titleContainer}>Login</Text>
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
-            <Text
-              size={windowHeightWithHeader(1.8)}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps={"always"}
+              style={{ flex: 1 }}
+              showsVerticalScrollIndicator={false}
+              enableOnAndroid={true}
+              extraScrollHeight={Platform.OS === "ios" ? 0 : 100}
             >
-              Username{" "}
               <Text
-                size={windowHeightWithHeader(2)}
-                style={{ color: "red", justifyContent: "center" }}
+                size={windowHeightWithHeader(1.8)}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
               >
-                *
+                Username{" "}
+                <Text
+                  size={windowHeightWithHeader(2)}
+                  style={{ color: "red", justifyContent: "center" }}
+                >
+                  *
+                </Text>
               </Text>
-            </Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Username"
-              autoCapitalize="none"
-              placeholderTextColor="#c2c1c1"
-              value={data.username}
-              onChangeText={(e) => handleChange("username", e)}
-            ></TextInput>
-            <Text
-              size={windowHeightWithHeader(1.8)}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
-            >
-              Password{" "}
+              <TextInput
+                style={styles.input}
+                placeholder="Username"
+                autoCapitalize="none"
+                placeholderTextColor="#c2c1c1"
+                value={data.username}
+                onChangeText={(e) => handleChange("username", e)}
+              ></TextInput>
               <Text
-                size={windowHeightWithHeader(2)}
-                style={{ color: "red", justifyContent: "center" }}
+                size={windowHeightWithHeader(1.8)}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
               >
-                *
+                Password{" "}
+                <Text
+                  size={windowHeightWithHeader(2)}
+                  style={{ color: "red", justifyContent: "center" }}
+                >
+                  *
+                </Text>
               </Text>
-            </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#c2c1c1"
+                autoCapitalize="none"
+                secureTextEntry={true}
+                value={data.password}
+                onChangeText={(e) => handleChange("password", e)}
+              ></TextInput>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="#c2c1c1"
-              autoCapitalize="none"
-              secureTextEntry={true}
-              value={data.password}
-              onChangeText={(e) => handleChange("password", e)}
-            ></TextInput>
-
-            <Text
-              size={windowHeightWithHeader(1.8)}
-              color={materialTheme.COLORS.BLACK}
-              style={{ fontFamily: "Poppins_400Regular" }}
-            >
-              Confirm Password{""}
               <Text
-                size={windowHeightWithHeader(2)}
-                style={{ color: "red", justifyContent: "center" }}
+                size={windowHeightWithHeader(1.8)}
+                color={materialTheme.COLORS.BLACK}
+                style={{ fontFamily: "Poppins_400Regular" }}
               >
-                *
+                Confirm Password{""}
+                <Text
+                  size={windowHeightWithHeader(1.8)}
+                  color={materialTheme.COLORS.BLACK}
+                  style={{ fontFamily: "Poppins_400Regular" }}
+                >
+                  Confirm Password{" "}
+                  <Text
+                    size={windowHeightWithHeader(2)}
+                    style={{ color: "red", justifyContent: "center" }}
+                  >
+                    *
+                  </Text>
+                </Text>
               </Text>
-            </Text>
-
-            <TextInput
-              style={styles.input}
-              placeholder="Confirm Password"
-              placeholderTextColor="#c2c1c1"
-              autoCapitalize="none"
-              secureTextEntry={true}
-              value={password2}
-              onChangeText={(e) => setPassword2(e)}
-            ></TextInput>
-            {!password2 ? null : (
-              <View>
-                <Text style={styles.errorMsg}>Password does not match</Text>
-                <Icon
-                  size={13}
-                  name="exclamationcircle"
-                  family="AntDesign"
-                  color={"#ffffff"}
-                  style={styles.exCircle}
-                />
-              </View>
-            )}
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm Password"
+                placeholderTextColor="#c2c1c1"
+                autoCapitalize="none"
+                secureTextEntry={true}
+                value={password2}
+                onChangeText={(e) => setPassword2(e)}
+              ></TextInput>
+              {password2 && data.password != password2 ? (
+                <Animatable.View animation="bounceIn">
+                  <View style={styles.errorMsg}>
+                    <Text style={styles.errorMsgText}>
+                      Password does not match{" "}
+                      <Icon
+                        size={13}
+                        name="exclamationcircle"
+                        family="AntDesign"
+                        color={"#ffffff"}
+                        style={styles.exCircle}
+                      />
+                    </Text>
+                  </View>
+                </Animatable.View>
+              ) : null}
+            </KeyboardAwareScrollView>
           </View>
         </View>
         <View
@@ -350,16 +370,16 @@ const styles = StyleSheet.create({
     paddingLeft: windowHeightWithHeader(4),
   },
   errorMsg: {
-    position: "absolute",
-    color: "#ffffff",
-    fontSize: 14,
-    paddingRight: windowHeightWithHeader(12.7),
-    paddingLeft: windowHeightWithHeader(5),
-    fontFamily: "Poppins_400Regular",
     backgroundColor: "#FE2472",
     borderRadius: 4,
     padding: 8,
-    justifyContent: "flex-end",
+    paddingLeft: 15,
+  },
+  errorMsgText: {
+    color: "#ffffff",
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
+    backgroundColor: "#FE2472",
   },
   exCircle: {
     paddingTop: 12,

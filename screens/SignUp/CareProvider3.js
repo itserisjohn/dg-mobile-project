@@ -9,6 +9,7 @@ import {
   ImageBackground,
   TextInput,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -29,6 +30,7 @@ const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CareProvider3 = ({ route, navigation }) => {
   const [userInfo, setUserInfo] = React.useState({});
@@ -116,10 +118,12 @@ const CareProvider3 = ({ route, navigation }) => {
           <Text style={styles.titleContainer}>Location</Text>
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
-            <ScrollView
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps={"always"}
+              style={{ flex: 1 }}
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ flexGrow: 1 }}
-              style={{ height: "100%" }}
+              enableOnAndroid={true}
+              extraScrollHeight={Platform.OS === "ios" ? 0 : 100}
             >
               <Text
                 size={hp("1.8%")}
@@ -201,7 +205,7 @@ const CareProvider3 = ({ route, navigation }) => {
                 value={data.state_address}
                 onChangeText={(e) => handleChange("state_address", e)}
               ></TextInput>
-            </ScrollView>
+            </KeyboardAwareScrollView>
           </View>
         </View>
         <View
