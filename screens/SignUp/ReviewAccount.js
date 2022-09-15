@@ -107,6 +107,7 @@ const ChooseAccount = ({ route, navigation }) => {
       }
 
       if (!response.ok) {
+        setIsLoading(false);
         const error = (data && data.message) || response.statusText;
         console.log("response: " + text);
         console.log("API Error: " + error);

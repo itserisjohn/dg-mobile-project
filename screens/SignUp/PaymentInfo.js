@@ -75,17 +75,21 @@ const PaymentInfo = ({ route, navigation }) => {
           <Text style={styles.titleContainer2}>Information</Text>
         </View>
         <View>
-          <View style={styles.checkboxContainer}>
-            <Icon
-              size={20}
-              name="credit-card-alt"
-              family="font-awesome"
-              color={"#ffffff"}
-              style={styles.CreditCardIcon}
-            />
-            <Text style={styles.text1}>Credit Card</Text>
-            <Text style={styles.text2}>Tap to Add Primary Account</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AddCreditCardListScreen")}
+          >
+            <View style={styles.checkboxContainer}>
+              <Icon
+                size={20}
+                name="credit-card-alt"
+                family="font-awesome"
+                color={"#ffffff"}
+                style={styles.CreditCardIcon}
+              />
+              <Text style={styles.text1}>Credit Card</Text>
+              <Text style={styles.text2}>Tap to Add Primary Account</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.checkboxContainer}>
             <Icon
               size={24}
@@ -107,10 +111,7 @@ const PaymentInfo = ({ route, navigation }) => {
           </View>
         </View>
         <View style={styles.newcardContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("App")}
-            disabled={isLoading}
-          >
+          <TouchableOpacity>
             <Text
               style={[
                 styles.textSign,
@@ -119,7 +120,6 @@ const PaymentInfo = ({ route, navigation }) => {
                   color: "#ffffff",
                   fontFamily: "Poppins_500Medium",
                   fontSize: 20,
-                  paddingTop: 6,
                 },
               ]}
             >
@@ -127,11 +127,10 @@ const PaymentInfo = ({ route, navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
         <View
           style={{
             height: windowHeightWithHeader(18),
-            marginTop: windowHeightWithHeader(18),
+            marginTop: windowHeightWithHeader(12),
           }}
         >
           <TouchableOpacity
@@ -157,6 +156,27 @@ const PaymentInfo = ({ route, navigation }) => {
                   family="feather"
                   color={"#d7feff"}
                 />
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("App")}
+            disabled={isLoading}
+          >
+            <View style={[styles.nextBtn]}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    textAlign: "center",
+                    color: "#41c3e0",
+                    fontFamily: "Poppins_700Bold",
+                    fontSize: 26,
+                    textDecorationLine: "underline",
+                  },
+                ]}
+              >
+                Decide Later
               </Text>
             </View>
           </TouchableOpacity>
@@ -230,7 +250,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "red",
   },
-
   nextBtn2: {
     height: windowHeightWithHeader(10),
     justifyContent: "center",
@@ -307,7 +326,7 @@ const styles = StyleSheet.create({
     borderColor: "#6B24AA",
     borderWidth: 1,
     width: wp("91%"),
-    marginTop: windowHeightWithHeader(1),
+    marginTop: windowHeightWithHeader(1.5),
     marginLeft: windowHeightWithHeader(2),
     paddingLeft: wp("8%"),
     paddingRight: wp("8%"),

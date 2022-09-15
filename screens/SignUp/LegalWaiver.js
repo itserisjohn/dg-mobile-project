@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -35,6 +35,7 @@ const LegalWaiver = ({ route, navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [data, setData] = React.useState({});
+  const [accountType, setAccounType] = useState(0);
 
   const storeData = async (value) => {
     try {
@@ -88,8 +89,10 @@ const LegalWaiver = ({ route, navigation }) => {
     if (route) {
       if (route.params.legalWaiver === "account") {
         getLegalWaiverData();
+        setAccounType(1);
       } else {
         getLegalWaiverProviderData();
+        setAccounType(2);
       }
     }
   }, [route]);
@@ -151,38 +154,6 @@ const LegalWaiver = ({ route, navigation }) => {
                 color="#0000ff"
               />
             ) : null}
-            {/* <Text
-              style={[
-                styles.textContainer,
-                {
-                  color: "#4B4C4C",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 13,
-                },
-              ]}
-            >
-              We impress people with our strengths but we connect with people
-              through our weaknesses. We are faith filled, big-thingking,
-              bet-the-farm risk takers. We will never insult God with safe
-              thinking and safe living. People need to be insturcted. We believe
-              the local church is the hope of the world.
-            </Text>
-            <Text
-              style={[
-                styles.textContainer,
-                {
-                  color: "#4B4C4C",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 13,
-                },
-              ]}
-            >
-              Trust the process. What you fear the most reveals where you trust
-              God the least. We can do infinitely more together than we can
-              apart. We want to be known for what we are for. not for what we
-              are against. if we live with intergrity, nothing else matters. You
-              don't have to have the faith to finish.
-            </Text> */}
           </ScrollView>
         </View>
         <View
@@ -194,7 +165,11 @@ const LegalWaiver = ({ route, navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CheckListScreen")}
+            onPress={() =>
+              navigation.navigate("CareProvider1Screen", {
+                account_type: accountType,
+              })
+            }
             disabled={isLoading}
           >
             <View style={[styles.nextBtn, { opacity: !isLoading ? 1 : 0.4 }]}>

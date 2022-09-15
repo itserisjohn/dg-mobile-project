@@ -8,8 +8,6 @@ import {
   View,
   ImageBackground,
   TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -32,36 +30,7 @@ import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const CareProvider1 = ({ navigation }) => {
-  const [dataTemp, setDataTemp] = useState({
-    account_info: {
-      account_id: 0,
-      firstname: "",
-      lastname: "",
-      phone: "",
-      email_address: "",
-      birthdate: "",
-      profile_photourl: "",
-      ssn: "",
-      account_typeid: 1,
-    },
-    user_info: {
-      user_id: 0,
-      account_id: 0,
-      username: "",
-      password: "",
-    },
-    address: {
-      address_id: 0,
-      account_id: 0,
-      address_line1: "",
-      address_line2: "",
-      city: "",
-      state_address: "",
-      zip: "",
-    },
-  });
-
+const CareProvider1 = ({ route, navigation }) => {
   const [data, setData] = useState({
     user_id: 0,
     account_id: 0,
@@ -70,6 +39,15 @@ const CareProvider1 = ({ navigation }) => {
   });
   const [password2, setPassword2] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const [accountType, setAccounType] = useState(0);
+
+  useEffect(() => {
+    if (route) {
+      if (route.params?.account_type) {
+        setAccounType(route.params.account_type);
+      }
+    }
+  }, [route]);
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -101,7 +79,10 @@ const CareProvider1 = ({ navigation }) => {
     }
 
     if (valid) {
-      navigation.navigate("CareProvider2Screen", { user_info: data });
+      navigation.navigate("CareProvider2Screen", {
+        user_info: data,
+        account_type: accountType,
+      });
     }
   }
 
