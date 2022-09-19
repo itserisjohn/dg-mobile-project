@@ -10,14 +10,11 @@ import {
   View,
   Dimensions,
   Text,
-  Image,
-  ImageBackground,
   StatusBar,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import Constants from "expo-constants";
 import * as Location from "expo-location";
-import BGImage from "../assets/images/bg_login.png";
 import * as Animatable from "react-native-animatable";
 import {
   windowHeight,
@@ -39,17 +36,16 @@ const MapViews = ({ route, navigation }) => {
     latitudeDelta: 0,
     longitudeDelta: 0,
   });
-
   const [userInfo, setUserInfo] = React.useState({});
   const [accountInfo, setAccountInfo] = React.useState({});
   const [address, setAddress] = React.useState({});
   const [currentAddress, setCurrentAddress] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(true);
 
- 
-  
-  const confirmLocation = () => {{
-    currentAddress
-  }
+  const confirmLocation = () => {
+    {
+      currentAddress;
+    }
     navigation.navigate({
       name: "CareProvider3Screen",
       params: {
@@ -62,6 +58,7 @@ const MapViews = ({ route, navigation }) => {
   };
 
   const getLocation = async () => {
+    setIsLoading(true);
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       console.log("Permission to access location was denied");
@@ -76,10 +73,9 @@ const MapViews = ({ route, navigation }) => {
     });
 
     if (place) {
+      setIsLoading(false);
       setCurrentAddress(place);
     }
-    
-
 
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.02;
@@ -95,8 +91,6 @@ const MapViews = ({ route, navigation }) => {
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     });
-
-
   };
 
   useEffect(() => {
@@ -120,36 +114,42 @@ const MapViews = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-
       <View
         style={{
           height: windowHeightWithHeader(20),
         }}
       >
-        <MapView
-          style={styles.map}
-          provider={PROVIDER_GOOGLE}
-          region={region}
-          initialRegion={{
-            latitude: region.latitude,
-            longitude: region.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          showsUserLocation={true}
-          onUserLocationChange={(e) => {
-            setPin({
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude,
-            });
-          }}
-        >
-          <Marker coordinate={pin} draggable={true} pinColor="red">
-            <Callout></Callout>
-          </Marker>
-          <Circle center={pin} radius={1300} />
-        </MapView>
-
+        {isLoading ? (
+          <ActivityIndicator
+            size="large"
+            style={{ marginTop: windowHeightWithHeader(45) }}
+            color="#0000ff"
+          />
+        ) : (
+          <MapView
+            style={styles.map}
+            provider={PROVIDER_GOOGLE}
+            region={region}
+            initialRegion={{
+              latitude: region.latitude,
+              longitude: region.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            showsUserLocation={true}
+            onUserLocationChange={(e) => {
+              setPin({
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+              });
+            }}
+          >
+            <Marker coordinate={pin} draggable={true} pinColor="red">
+              <Callout></Callout>
+            </Marker>
+            <Circle center={pin} radius={1300} />
+          </MapView>
+        )}
         <TouchableOpacity
           style={styles.backBtn}
           onPress={() =>
@@ -168,58 +168,55 @@ const MapViews = ({ route, navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <Animatable.View
-        animation="fadeInUpBig"
-        // style={{ paddingLeft: wp("2%"), paddingRight: wp("10%") }}
-      >
-        <View style={styles.action}>
-          <View style={styles.purpleShape}></View>
-          <Icon
-            size={33}
-            name="location-on"
-            family="materialicons"
-            color={"#6B24AA"}
-            style={styles.LocationIcon}
-          />
+      {isLoading ? null : (
+        <Animatable.View animation="fadeInUpBig">
+          <View style={styles.action}>
+            <View style={styles.purpleShape}></View>
+            <Icon
+              size={33}
+              name="location-on"
+              family="materialicons"
+              color={"#6B24AA"}
+              style={styles.LocationIcon}
+            />
+            <View style={styles.fadeUp}>
+              <Text style={styles.locText}>Is this your location?</Text>
 
-          <View style={styles.fadeUp}>
-            <Text style={styles.locText}>Is this your location?</Text>
-          
-            <Text style={styles.locText2}>
-              Your current location will be diplayed on the map
-            </Text>
-          </View>
-          <View style={styles.button}>
-            <TouchableOpacity
-              onPress={confirmLocation}
-              style={[
-                styles.signIn,
-                {
-                  backgroundColor: "#782ddb",
-                  borderColor: "#782ddb",
-                  borderWidth: 1,
-                  marginTop: windowHeight(0.2),
-                },
-              ]}
-            >
-              <Text
+              <Text style={styles.locText2}>
+                Your current location will be diplayed on the map
+              </Text>
+            </View>
+            <View style={styles.button}>
+              <TouchableOpacity
+                onPress={confirmLocation}
                 style={[
-                  styles.textSign,
+                  styles.signIn,
                   {
-                    position: "absolute",
-                    color: "#ffffff",
-                    fontFamily: "Poppins_600SemiBold",
-                    paddingLeft: windowHeightWithHeader(1.5),
+                    backgroundColor: "#782ddb",
+                    borderColor: "#782ddb",
+                    borderWidth: 1,
+                    marginTop: windowHeight(-2),
                   },
                 ]}
               >
-                Confirm Location{"  "}
-                
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      position: "absolute",
+                      color: "#ffffff",
+                      fontFamily: "Poppins_600SemiBold",
+                      paddingLeft: windowHeightWithHeader(1.5),
+                    },
+                  ]}
+                >
+                  Confirm Location
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </Animatable.View>
+        </Animatable.View>
+      )}
     </View>
   );
 };
@@ -229,17 +226,16 @@ export default MapViews;
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    flex: 1,
     backgroundColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#9CC0F9",
   },
   map: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
     marginRight: 40,
   },
-
   backBtn: {
     position: "absolute",
     alignItems: "flex-start",
@@ -255,13 +251,11 @@ const styles = StyleSheet.create({
   action: {
     flexDirection: "row",
     marginTop: windowHeight(50),
-    // borderWidth: 1,
-    // borderColor: "red",
     padding: 0,
     borderRadius: 20,
     backgroundColor: "#ffffff",
     height: windowHeightFull(35),
-    width: windowHeightFull(47.5),
+    width: "100%",
     marginRight: wp("10%"),
   },
   purpleShape: {
@@ -279,7 +273,6 @@ const styles = StyleSheet.create({
     width: windowHeightFull(14),
     height: 1,
   },
-
   fadeUp: {
     justifyContent: "center",
     alignItems: "center",
@@ -295,7 +288,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: windowHeight(1),
   },
-
   locText: {
     position: "relative",
     marginTop: windowHeightWithHeader(5),
@@ -317,7 +309,6 @@ const styles = StyleSheet.create({
     padding: 0,
     marginRight: 21,
   },
-  
   LocationIcon: {
     paddingTop: 30,
     paddingLeft: 25,

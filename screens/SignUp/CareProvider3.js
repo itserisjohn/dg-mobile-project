@@ -50,16 +50,18 @@ const CareProvider3 = ({ route, navigation }) => {
 
   useEffect(() => {
     if (currentAddress) {
-      const addressData = {
-        address_id: 0,
-        account_id: 0,
-        address_line1: `${currentAddress[0].name} ${currentAddress[0].street} ${currentAddress[0].district} ${currentAddress[0].city}`,
-        address_line2: "",
-        city: currentAddress[0].city,
-        state_address: currentAddress[0].subregion,
-        zip: "",
-      };
-      setData(addressData)
+      if (currentAddress.length > 0) {
+        const addressData = {
+          address_id: 0,
+          account_id: 0,
+          address_line1: `${currentAddress[0].street} ${currentAddress[0].district} ${currentAddress[0].city} ${currentAddress[0].country} `,
+          address_line2: "",
+          city: currentAddress[0].city,
+          state_address: currentAddress[0].region,
+          zip: "",
+        };
+        setData(addressData);
+      }
     }
   }, [currentAddress]);
 
@@ -76,7 +78,6 @@ const CareProvider3 = ({ route, navigation }) => {
       }
     }
   }, [route]);
-
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,

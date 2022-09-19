@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb0cd805-6123-423e-8e54-66d4730ba7a1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/MapViews.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/MapViews.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/SignUp/CareProvider3.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/SignUp/CareProvider3.js" afterDir="false" />
+    <list default="true" id="bf721c87-b116-45d6-ad7a-53dc8bd527ee" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/screens/SignUp/PaymentInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/SignUp/PaymentInfo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2DVWNMBh25jHPdB7QkvaSRnpZhN" />
+  <component name="ProjectId" id="2DZXp0rwpzC1VUDlxtRmjSGxcYn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -31,11 +29,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cb0cd805-6123-423e-8e54-66d4730ba7a1" name="Changes" comment="" />
-      <created>1660808699374</created>
+      <changelist id="bf721c87-b116-45d6-ad7a-53dc8bd527ee" name="Changes" comment="" />
+      <created>1660907763337</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1660808699374</updated>
+      <updated>1660907763337</updated>
     </task>
     <servers />
   </component>
