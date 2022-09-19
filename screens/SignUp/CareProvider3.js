@@ -31,10 +31,13 @@ import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import materialTheme from "../../constants/Theme";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import MapView from "react-native-maps";
+import { values } from "regenerator-runtime";
 
 const CareProvider3 = ({ route, navigation }) => {
   const [userInfo, setUserInfo] = React.useState({});
   const [accountInfo, setAccountInfo] = React.useState({});
+  const [currentAddress, setCurrentAddress] = React.useState({});
   const [data, setData] = React.useState({
     address_id: 0,
     account_id: 0,
@@ -46,11 +49,32 @@ const CareProvider3 = ({ route, navigation }) => {
   });
 
   useEffect(() => {
+    if (currentAddress) {
+      if (currentAddress.length > 0) {
+        const addressData = {
+          address_id: 0,
+          account_id: 0,
+          address_line1: `${currentAddress[0].street} ${currentAddress[0].district} ${currentAddress[0].city} ${currentAddress[0].country} `,
+          address_line2: "",
+          city: currentAddress[0].city,
+          state_address: currentAddress[0].region,
+          zip: "",
+        };
+        setData(addressData);
+      }
+    }
+  }, [currentAddress]);
+
+  useEffect(() => {
     if (route) {
       setUserInfo(route.params.user_info);
       setAccountInfo(route.params.account_info);
       if (route.params.address) {
         setData(route.params.address);
+      }
+      if (route.params.currentAddress) {
+        setCurrentAddress(route.params.currentAddress);
+        console.log(route.params.currentAddress);
       }
     }
   }, [route]);
@@ -118,6 +142,26 @@ const CareProvider3 = ({ route, navigation }) => {
           <Text style={styles.titleContainer}>Location</Text>
           <Text style={styles.titleContainer2}>Information</Text>
           <View style={styles.progressContainer}>
+            <View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("MapViewsScreen", {
+                    account_info: accountInfo,
+                    user_info: userInfo,
+                    address: data,
+                  })
+                }
+              >
+                <Text style={styles.Location}>Use my current location</Text>
+                <Icon
+                  size={30}
+                  name="location-on"
+                  family="materialicons"
+                  color={"#6B24AA"}
+                  style={styles.LocationIcon}
+                />
+              </TouchableOpacity>
+            </View>
             <KeyboardAwareScrollView
               keyboardShouldPersistTaps={"always"}
               style={{ flex: 1 }}
@@ -179,6 +223,7 @@ const CareProvider3 = ({ route, navigation }) => {
                 </Text>
               </Text>
               <TextInput
+                name="city"
                 style={styles.input}
                 placeholderTextColor="#c2c1c1"
                 placeholder="City"
@@ -329,5 +374,21 @@ const styles = StyleSheet.create({
   textSign: {
     position: "absolute",
     paddingLeft: windowHeightWithHeader(4),
+  },
+  Location: {
+    position: "absolute",
+    color: "#6B24AA",
+    fontSize: 16,
+    fontFamily: "Poppins_700Bold",
+    paddingRight: windowHeightWithHeader(10),
+    paddingLeft: windowHeightWithHeader(4.5),
+    paddingTop: windowHeightWithHeader(1.8),
+  },
+  LocationIcon: {
+    // paddingBottom: 10,
+    // paddingRight: 15,
+    marginBottom: 15,
+    marginTop: 10,
+    padding: 0,
   },
 });

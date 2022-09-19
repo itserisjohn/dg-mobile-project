@@ -31,7 +31,7 @@ import materialTheme from "../../constants/Theme";
 import * as Animatable from "react-native-animatable";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const CareProvider1 = ({ navigation }) => {
+const CareProvider1 = ({ route, navigation }) => {
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
     Poppins_300Light,
