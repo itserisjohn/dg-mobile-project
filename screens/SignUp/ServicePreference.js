@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -10,6 +10,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  toggleSwitch,
 } from "react-native";
 import { Text } from "galio-framework";
 import Icon from "../../components/Icon";
@@ -60,8 +61,14 @@ import Image13 from "../../assets/images/services/image13.png";
 import Image13C from "../../assets/images/services/image13c.png";
 import Image14 from "../../assets/images/services/image14.png";
 import Image14C from "../../assets/images/services/image14c.png";
+import { getServicePreference } from "../../services/servicepreference";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const CareProvider2 = ({ navigation }) => {
+const CareProvider2 = ({ route, navigation }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState([]);
+  const [accountType, setAccounType] = useState(0);
+
   const [isEnabled1, setIsEnabled1] = useState(false);
   const [isEnabled2, setIsEnabled2] = useState(false);
   const [isEnabled3, setIsEnabled3] = useState(false);
@@ -95,12 +102,36 @@ const CareProvider2 = ({ navigation }) => {
     setIsEnabled13((previousState) => !previousState);
   const toggleSwitch14 = () =>
     setIsEnabled14((previousState) => !previousState);
+  // const storeData = async (value) => {
+  //   try {
+  //     const jsonValue = JSON.stringify(value);
+  //     await AsyncStorage.setItem("account_id", jsonValue);
+  //   } catch (e) {
+  //     // saving error
+  //   }
+  // };
 
-  const [selectedItems, setSlectedItems] = useState([]);
+  // useEffect(() => {
+  //   storeData(1);
+  // }, []);
 
-  const onSelectedItemsChange = (selected) => {
-    setSlectedItems(selected);
+  const getServicePreferenceData = async () => {
+    setIsLoading(true);
+    const progressData = getServicePreference();
+    const result = await progressData;
+    if (result) {
+      // console.log(result);
+      setData(result);
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    if (route) {
+      getServicePreferenceData();
+      // setAccounType(1);
+    }
+  }, [route]);
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -138,229 +169,457 @@ const CareProvider2 = ({ navigation }) => {
                 />
               </TouchableOpacity>
             </View>
+
             <View
               style={{
-                height: windowHeightWithHeader(78),
+                height: windowHeightWithHeader(80),
                 paddingLeft: wp(8),
                 paddingRight: wp(8),
-                paddingTop: windowHeightWithHeader(1),
+                paddingTop: windowHeightWithHeader(0),
                 paddingBottom: windowHeightWithHeader(3),
               }}
             >
-              <Text style={styles.titleContainer}>Care Plan:</Text>
-              <Text style={styles.titleContainer2}>Service Needs</Text>
-              <KeyboardAwareScrollView
-                keyboardShouldPersistTaps={"always"}
-                style={{ flex: 1 }}
-                showsVerticalScrollIndicator={false}
-                enableOnAndroid={true}
-                extraScrollHeight={Platform.OS === "ios" ? 0 : 100}
+              <Text style={styles.titleContainer}>Service</Text>
+              <Text style={styles.titleContainer2}>Preference</Text>
+
+              <View
+                style={{
+                  height: windowHeightWithHeader(28),
+                  marginTop: windowHeightWithHeader(1),
+                }}
               >
-                <View style={{ paddingTop: windowHeightWithHeader(3) }}>
-                  <View style={styles.checkboxContainer1}>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch}>
-                        <Image
-                          source={isEnabled1 ? Image1C : Image1}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch2}>
-                        <Image
-                          source={isEnabled2 ? Image2C : Image2}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch3}>
-                        <Image
-                          source={isEnabled3 ? Image3C : Image3}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
+                <View style={[styles.servicesContainer]}>
+                  <View style={styles.serviceLeft}>
+                    <TouchableOpacity
+                      onPress={toggleSwitch}
+                      style={{
+                        backgroundColor: isEnabled1 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="human"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        {
+                          marginTop: windowHeightWithHeader(1),
+                          marginBottom: windowHeightWithHeader(1.7),
+                        },
+                      ]}
+                    >
+                      {data[0].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
                   </View>
-                  <View style={styles.checkboxContainer2}>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Bathing</Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>
-                        Getting dressed or grooming
-                      </Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>
-                        Getting out of chair/bed
-                      </Text>
-                    </View>
+                  <View style={styles.service}>
+                    <TouchableOpacity onPress={toggleSwitch2}
+                      style={{
+                        backgroundColor: isEnabled2 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="human-wheelchair"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        { marginTop: windowHeightWithHeader(1) },
+                      ]}
+                    >
+                      {data[1].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
                   </View>
-                  <View style={styles.checkboxContainer1}>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch4}>
-                        <Image
-                          source={isEnabled4 ? Image4C : Image4}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch5}>
-                        <Image
-                          source={isEnabled5 ? Image5C : Image5}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch6}>
-                        <Image
-                          source={isEnabled6 ? Image6C : Image6}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
+                  <View style={styles.service}>
+                    <TouchableOpacity onPress={toggleSwitch3}
+                      style={{
+                        backgroundColor: isEnabled3 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="bed"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        { marginTop: windowHeightWithHeader(1) },
+                      ]}
+                    >
+                      {data[2].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
                   </View>
-                  <View style={styles.checkboxContainer2}>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>
-                        Compression Stocking
-                      </Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Bowel and Bladder</Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Meal Service</Text>
-                    </View>
-                  </View>
-                  <View style={styles.checkboxContainer1}>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch7}>
-                        <Image
-                          source={isEnabled7 ? Image7C : Image7}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch8}>
-                        <Image
-                          source={isEnabled8 ? Image8C : Image8}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch9}>
-                        <Image
-                          source={isEnabled9 ? Image9C : Image9}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={styles.checkboxContainer2}>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>
-                        Medication Management
-                      </Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Medical Treatment</Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>
-                        Diabetes Management
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.checkboxContainer1}>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch10}>
-                        <Image
-                          source={isEnabled10 ? Image10C : Image10}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch11}>
-                        <Image
-                          source={isEnabled11 ? Image11C : Image11}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch12}>
-                        <Image
-                          source={isEnabled12 ? Image9C : Image12}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                  <View style={styles.checkboxContainer2}>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Housekeeping</Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Pet Service</Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Grocery</Text>
-                    </View>
-                  </View>
-                  <View style={styles.checkboxContainer1}>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch13}>
-                        <Image
-                          source={isEnabled13 ? Image13C : Image13}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}>
-                      <TouchableOpacity onPress={toggleSwitch14}>
-                        <Image
-                          source={isEnabled14 ? Image14C : Image14}
-                          resizeMode="contain"
-                          style={styles.image}
-                        ></Image>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.square1}></View>
-                  </View>
-                  <View style={styles.checkboxContainer2}>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>Need a Ride</Text>
-                    </View>
-                    <View style={styles.square1}>
-                      <Text style={styles.description}>
-                        Communication Impairment
-                      </Text>
-                    </View>
-                    <View style={styles.square1}></View>
+                  <View style={styles.serviceRight}>
+                    <TouchableOpacity onPress={toggleSwitch4}
+                      style={{
+                        backgroundColor: isEnabled4 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="hand-heart"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        { marginTop: windowHeightWithHeader(1) },
+                      ]}
+                    >
+                      {data[3].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
                   </View>
                 </View>
-              </KeyboardAwareScrollView>
+                <View style={styles.servicesContainer}>
+                  <View style={styles.serviceLeft}>
+                    <TouchableOpacity onPress={toggleSwitch5}
+                      style={{
+                        backgroundColor: isEnabled5 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="human"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        {
+                          marginTop: windowHeightWithHeader(1),
+                          marginBottom: windowHeightWithHeader(2),
+                        },
+                      ]}
+                    >
+                      {data[4].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
+                  </View>
+                  <View style={styles.service}>
+                    <TouchableOpacity onPress={toggleSwitch6}
+                      style={{
+                        backgroundColor: isEnabled6 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                        marginTop: windowHeightWithHeader(1.6),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="human-wheelchair"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        { marginTop: windowHeightWithHeader(1) },
+                      ]}
+                    >
+                      {data[5].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
+                  </View>
+                  <View style={styles.service}>
+                    <TouchableOpacity onPress={toggleSwitch7}
+                      style={{
+                        backgroundColor: isEnabled7 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                        marginTop: windowHeightWithHeader(1.6),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="bed"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        { marginTop: windowHeightWithHeader(1) },
+                      ]}
+                    >
+                      {data[6].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
+                  </View>
+                  <View style={styles.serviceRight}>
+                    <TouchableOpacity onPress={toggleSwitch8}
+                      style={{
+                        backgroundColor: isEnabled8 ? "#6B24AA" : "#e4caff",
+                        borderRadius: 12,
+                        width: "100%",
+                        height: windowHeightWithHeader(8.5),
+                        paddingTop: windowHeightWithHeader(1.3),
+                        // marginTop: windowHeightWithHeader(1),
+                      }}
+                    >
+                      <MaterialCommunityIcons
+                        name="hand-heart"
+                        color="#ffffff"
+                        size={windowHeightWithHeader(5.5)}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <Text
+                      style={[
+                        styles.description,
+                        { marginTop: windowHeightWithHeader(1) },
+                      ]}
+                    >
+                      {data[7].service_preferencename}
+                    </Text>
+                    <Text style={styles.description}></Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.servicesContainer}>
+                <View style={styles.serviceLeft}>
+                  <TouchableOpacity onPress={toggleSwitch9}
+                    style={{
+                      backgroundColor: isEnabled9 ? "#6B24AA" : "#e4caff",
+                      borderRadius: 12,
+                      width: "100%",
+                      height: windowHeightWithHeader(8.5),
+                      paddingTop: windowHeightWithHeader(1.3),
+                      marginTop: windowHeightWithHeader(1.5),
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="human"
+                      color="#ffffff"
+                      size={windowHeightWithHeader(5.5)}
+                      style={{
+                        textAlign: "center",
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.description,
+                      { marginTop: windowHeightWithHeader(1) },
+                    ]}
+                  >
+                    {data[8].service_preferencename}
+                  </Text>
+                  <Text style={styles.description}></Text>
+                </View>
+                <View style={styles.service}>
+                  <TouchableOpacity onPress={toggleSwitch10}
+                    style={{
+                      backgroundColor: isEnabled10 ? "#6B24AA" : "#e4caff",
+                      borderRadius: 12,
+                      width: "100%",
+                      height: windowHeightWithHeader(8.5),
+                      paddingTop: windowHeightWithHeader(1.3),
+                      marginTop: windowHeightWithHeader(1.5),
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="human-wheelchair"
+                      color="#ffffff"
+                      size={windowHeightWithHeader(5.5)}
+                      style={{
+                        textAlign: "center",
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.description,
+                      { marginTop: windowHeightWithHeader(1) },
+                    ]}
+                  >
+                    {data[9].service_preferencename}
+                  </Text>
+                  <Text style={styles.description}></Text>
+                </View>
+                <View style={styles.service}>
+                  <TouchableOpacity onPress={toggleSwitch11}
+                    style={{
+                      backgroundColor: isEnabled11 ? "#6B24AA" : "#e4caff",
+                      borderRadius: 12,
+                      width: "100%",
+                      height: windowHeightWithHeader(8.5),
+                      paddingTop: windowHeightWithHeader(1.3),
+                      marginTop: windowHeightWithHeader(3),
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="bed"
+                      color="#ffffff"
+                      size={windowHeightWithHeader(5.5)}
+                      style={{
+                        textAlign: "center",
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.description,
+                      { marginTop: windowHeightWithHeader(1) },
+                    ]}
+                  >
+                    {data[10].service_preferencename}
+                  </Text>
+                  <Text style={styles.description}></Text>
+                </View>
+                <View style={styles.serviceRight}>
+                  <TouchableOpacity onPress={toggleSwitch12}
+                    style={{
+                      backgroundColor: isEnabled12 ? "#6B24AA" : "#e4caff",
+                      borderRadius: 12,
+                      width: "100%",
+                      height: windowHeightWithHeader(8.5),
+                      paddingTop: windowHeightWithHeader(1.3),
+                      marginTop: windowHeightWithHeader(3.2),
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="hand-heart"
+                      color="#ffffff"
+                      size={windowHeightWithHeader(5.5)}
+                      style={{
+                        textAlign: "center",
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.description,
+                      { marginTop: windowHeightWithHeader(1) },
+                    ]}
+                  >
+                    {data[11].service_preferencename}
+                  </Text>
+                  <Text style={styles.description}></Text>
+                </View>
+              </View>
+              <View style={styles.servicesContainer2}>
+                <View style={styles.serviceLeft2}>
+                  <TouchableOpacity onPress={toggleSwitch13}
+                    style={{
+                      backgroundColor: isEnabled13 ? "#6B24AA" : "#e4caff",
+                      borderRadius: 12,
+                      width: "100%",
+                      height: windowHeightWithHeader(8),
+                      paddingTop: windowHeightWithHeader(1),
+                      marginTop: windowHeightWithHeader(3),
+                      marginRight: windowHeightWithHeader(3),
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="human"
+                      color="#ffffff"
+                      size={windowHeightWithHeader(5.5)}
+                      style={{
+                        textAlign: "center",
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.description,
+                      { marginTop: windowHeightWithHeader(1) },
+                    ]}
+                  >
+                    {data[12].service_preferencename}
+                  </Text>
+                  <Text style={styles.description}></Text>
+                </View>
+                <View style={styles.serviceLeft3}>
+                  <TouchableOpacity onPress={toggleSwitch14}
+                    style={{
+                      backgroundColor: isEnabled14 ? "#6B24AA" : "#e4caff",
+                      borderRadius: 12,
+                      width: "70%",
+                      height: windowHeightWithHeader(8),
+                      paddingTop: windowHeightWithHeader(1.3),
+                      marginTop: windowHeightWithHeader(3),
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="human-wheelchair"
+                      color="#ffffff"
+                      size={windowHeightWithHeader(5.5)}
+                      style={{
+                        textAlign: "center",
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={[
+                      styles.description,
+                      { marginTop: windowHeightWithHeader(1) },
+                    ]}
+                  >
+                    {data[13].service_preferencename}
+                  </Text>
+                  <Text style={styles.description}></Text>
+                </View>
+              </View>
             </View>
             <View
               style={{
@@ -384,7 +643,7 @@ const CareProvider2 = ({ navigation }) => {
                     },
                   ]}
                 >
-                  Next
+                  Submit
                 </Text>
                 <Text style={styles.iconSign}>
                   <Icon
@@ -420,14 +679,14 @@ const styles = StyleSheet.create({
   titleContainer: {
     fontFamily: "Poppins_600SemiBold",
     color: "#46b5d0",
-    fontSize: windowHeightWithHeader(4),
+    fontSize: windowHeightWithHeader(6),
     marginTop: windowHeightWithHeader(1.2),
     position: "relative",
   },
   titleContainer2: {
     fontFamily: "Poppins_600SemiBold",
     color: "#46b5d0",
-    fontSize: windowHeightWithHeader(4),
+    fontSize: windowHeightWithHeader(6),
   },
   progressContainer: {
     marginBottom: 20,
@@ -508,5 +767,51 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 10,
     textAlignVertical: "top",
+    marginBottom: 20,
+  },
+  servicesContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: hp("2%"),
+  },
+  servicesContainer2: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: hp("2%"),
+    marginTop: hp("2%"),
+  },
+
+  serviceLeft: {
+    flex: 1,
+    alignItems: "center",
+    marginRight: wp(2),
+  },
+  serviceRight: {
+    flex: 1,
+    alignItems: "center",
+    marginLeft: wp(2),
+  },
+  service: {
+    flex: 1,
+    alignItems: "center",
+    marginLeft: wp(2),
+    marginRight: wp(2),
+  },
+  description: {
+    fontSize: windowHeightWithHeader(1.2),
+    color: "#4c4c4c",
+    fontFamily: "Poppins_400Regular",
+    textAlign: "center",
+  },
+  serviceLeft2: {
+    alignItems: "flex-start",
+    marginRight: wp(4),
+  },
+  serviceLeft3: {
+    alignItems: "flex-start",
+    marginRight: wp(3),
   },
 });
+
