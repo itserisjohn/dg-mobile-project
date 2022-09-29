@@ -7,7 +7,6 @@ import {
   Platform,
   ImageBackground,
   Image,
-  ActivityIndicator,
 } from "react-native";
 import { Text } from "galio-framework";
 import { View } from "react-native";
@@ -20,7 +19,6 @@ import Icon from "../../components/Icon";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import SuccessImage from "../../assets/images/img_success-check.png";
 import { windowHeightWithHeader } from "../../utils/utils";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {
   useFonts,
   Poppins_200ExtraLight,
@@ -30,11 +28,74 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { getAccountCheckList } from "../../services/account";
+import {
+  getAccountCheckList,
+  getProviderCheckList,
+} from "../../services/account";
+import checklist from "../../utils/account-checklist.json";
+import { getGlobal } from "../../utils/store";
 
 const CheckList = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(true);
-  const [data, setData] = React.useState({});
+  const [checklistData, setChecklistData] = React.useState([]);
+  const [accountId, setAccountId] = React.useState(0);
+  const [accountType, setAccountType] = React.useState(0);
+  const [nextPage, setNextPage] = React.useState("");
+
+  const getData = async () => {
+    const id = await getGlobal("account_id");
+    const type = await getGlobal("account_type");
+    if (id) {
+      setAccountId(Number(id));
+    }
+    if (type) {
+      setAccountType(Number(type));
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getAccountChecklistData = async () => {
+    setIsLoading(true);
+    const progressData = getAccountCheckList(1);
+    const result = await progressData;
+    if (result) {
+      console.log(result);
+      setChecklistData(result);
+      setIsLoading(false);
+    }
+  };
+
+  const getProviderChecklistData = async () => {
+    setIsLoading(true);
+    const progressData = getProviderCheckList();
+    const result = await progressData;
+    if (result) {
+      console.log(result);
+      setChecklistData(result);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (accountId && accountType) {
+      if (accountType == "1") {
+        getAccountChecklistData();
+      } else {
+        getProviderChecklistData;
+      }
+    }
+  }, [accountId, accountType]);
+
+  useEffect(() => {
+    if (checklistData) {
+      checklist.map((item) => {
+        if (checklistData[item.id] === true) setNextPage(item.nextScreen);
+      });
+    }
+  }, [checklistData]);
 
   let [fontsLoaded] = useFonts({
     Poppins_200ExtraLight,
@@ -45,20 +106,20 @@ const CheckList = ({ navigation }) => {
     Poppins_700Bold,
   });
 
-  const getAccountInfo = async () => {
-    setIsLoading(true);
-    const progressData = getAccountCheckList();
-    const result = await progressData;
-    if (result) {
-      console.log(result);
-      setData(result);
-      setIsLoading(false);
-    }
-  };
+  // const getAccountInfo = async () => {
+  //   setIsLoading(true);
+  //   const progressData = getAccountCheckList();
+  //   const result = await progressData;
+  //   if (result) {
+  //     console.log(result);
+  //     setChecklistData(result);
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAccountInfo();
-  }, []);
+  // useEffect(() => {
+  //   getAccountInfo();
+  // }, []);
 
   return (
     <View style={styles.container}>
@@ -102,7 +163,33 @@ const CheckList = ({ navigation }) => {
               Get fully verified to secure your account and gain access to all
               services.
             </Text>
-            <View style={styles.checkheartContainer}>
+            {checklist.map((item) => (
+              <View style={styles.checkboxContainer} key={item.id}>
+                <View style={styles.square1}>
+                  {checklistData[item.id] === true ? (
+                    <Image
+                      resizeMode={"contain"}
+                      style={{ height: hp("4%"), width: hp("4%") }}
+                      source={SuccessImage}
+                      imageSize={"3%"}
+                    ></Image>
+                  ) : null}
+                </View>
+                <View style={styles.square2}>
+                  <Text
+                    size={hp("2.5%")}
+                    color="#4B4C4C"
+                    style={{
+                      paddingLeft: 10,
+                      fontFamily: "Poppins_500Medium",
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+                </View>
+              </View>
+            ))}
+            {/* <View style={styles.checkheartContainer}>
               <Image
                 resizeMode={"contain"}
                 style={{ flex: 1, height: undefined, width: undefined }}
@@ -145,7 +232,6 @@ const CheckList = ({ navigation }) => {
                 Other Information
               </Text>
             </View>
-
             <View style={styles.checkheartContainer}>
               <Text
                 size={hp("2.5%")}
@@ -157,7 +243,7 @@ const CheckList = ({ navigation }) => {
               >
                 Service Preference
               </Text>
-            </View>
+            </View> */}
           </View>
         </View>
         <View
@@ -168,31 +254,33 @@ const CheckList = ({ navigation }) => {
             width: wp("100%"),
           }}
         >
-          <TouchableOpacity
-            onPress={() => navigation.navigate("PaymentInfoScreen")}
-            style={styles.nextBtn}
-          >
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: "#d7feff",
-                  fontFamily: "Poppins_700Bold",
-                  fontSize: 26,
-                },
-              ]}
+          {nextPage !== "" ? (
+            <TouchableOpacity
+              onPress={() => navigation.navigate(nextPage)}
+              style={styles.nextBtn}
             >
-              Continue
-            </Text>
-            <Text style={styles.iconSign}>
-              <Icon
-                size={30}
-                name="chevron-right"
-                family="feather"
-                color={"#d7feff"}
-              />
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: "#d7feff",
+                    fontFamily: "Poppins_700Bold",
+                    fontSize: 26,
+                  },
+                ]}
+              >
+                Continue
+              </Text>
+              <Text style={styles.iconSign}>
+                <Icon
+                  size={30}
+                  name="chevron-right"
+                  family="feather"
+                  color={"#d7feff"}
+                />
+              </Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </ImageBackground>
     </View>
@@ -267,7 +355,19 @@ const styles = StyleSheet.create({
     fontSize: 54,
   },
   checkheartContainer: {
-    flexDirection: "row",
     marginBottom: windowHeightWithHeader(3),
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    width: wp("100%"),
+    marginTop: 15,
+  },
+  square1: {
+    flex: 1,
+    paddingLeft: wp("3%"),
+  },
+  square2: {
+    flex: 8,
   },
 });

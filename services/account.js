@@ -62,9 +62,17 @@ export function saveOtherInfo(payload) {
     });
 }
 
-export function getAccountCheckList() {
+export function getAccountCheckList(id) {
   return fetchWrapper
-    .getPublic(`${baseUrl}/accounts/account-checklist/1`, {})
+    .getPublic(`${baseUrl}/accounts/account-checklist/${id}`, {})
+    .then((data) => {
+      return data;
+    });
+}
+
+export function getProviderCheckList(id) {
+  return fetchWrapper
+    .getPublic(`${baseUrl}/accounts/account-checklist/${id}`, {})
     .then((data) => {
       return data;
     });

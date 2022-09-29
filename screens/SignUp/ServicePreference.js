@@ -128,7 +128,7 @@ const CareProvider2 = ({ navigation }) => {
             >
               <TouchableOpacity
                 style={styles.backBtn}
-                onPress={() => navigation.navigate("CheckList3Screen")}
+                onPress={() => navigation.navigate("CheckListScreen")}
               >
                 <Icon
                   size={22}
@@ -371,7 +371,7 @@ const CareProvider2 = ({ navigation }) => {
               }}
             >
               <TouchableOpacity
-                onPress={() => navigation.navigate("Checklist4Screen")}
+                onPress={() => navigation.navigate("CheckListScreen")}
                 style={styles.nextBtn}
               >
                 <Text

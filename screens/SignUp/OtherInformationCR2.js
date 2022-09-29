@@ -131,7 +131,7 @@ const OtherInformationCR2 = ({ route, navigation }) => {
         .then(function (response) {
           console.log("response :", JSON.stringify(response));
           setIsLoading(false);
-          navigation.navigate("CheckList3Screen");
+          navigation.navigate("CheckListScreen");
         })
         .catch(function (error) {
           setIsLoading(false);

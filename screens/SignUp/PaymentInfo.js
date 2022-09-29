@@ -134,7 +134,7 @@ const PaymentInfo = ({ route, navigation }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("CheckList2Screen")}
+            onPress={() => navigation.navigate("CheckListScreen")}
           >
             <View style={styles.nextBtn2}>
               <Text

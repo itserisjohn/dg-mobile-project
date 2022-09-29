@@ -1,0 +1,6 @@
+[
+  { "id": "createAccount", "name": "Account Information", "nextScreen": "PaymentInfoScreen" },
+  { "id": "paymentInfo", "name": "Payment Information", "nextScreen": "OtherInformationScreen" },
+  { "id": "otherInfo", "name": "Other Information", "nextScreen": "ServicePreferenceScreen" },
+  { "id": "servicePreference", "name": "Service Preference", "nextScreen": "App" }
+]

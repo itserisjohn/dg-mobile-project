@@ -30,6 +30,7 @@ const { width, height } = Dimensions.get("window");
 import { windowHeightWithHeader } from "../../utils/utils";
 import BGImage from "../../assets/images/bg_Create-Account.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { saveGlobal } from "../../utils/store";
 
 const LegalWaiver = ({ route, navigation }) => {
   const [accepted, setAccepted] = React.useState(false);
@@ -88,9 +89,11 @@ const LegalWaiver = ({ route, navigation }) => {
   useEffect(() => {
     if (route) {
       if (route.params.legalWaiver === "account") {
+        saveGlobal("account_type", "1");
         getLegalWaiverData();
         setAccounType(1);
       } else {
+        saveGlobal("account_type", "2");
         getLegalWaiverProviderData();
         setAccounType(2);
       }
@@ -166,7 +169,7 @@ const LegalWaiver = ({ route, navigation }) => {
         >
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("CareProvider1Screen", {
+              navigation.navigate("CheckListScreen", {
                 account_type: accountType,
               })
             }

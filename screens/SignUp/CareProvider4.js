@@ -320,7 +320,7 @@ const CareProvider4 = ({ route, navigation }) => {
                 Take Photo
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={pickImage}
               style={[
                 styles.signIn,
@@ -343,7 +343,7 @@ const CareProvider4 = ({ route, navigation }) => {
               >
                 Choose from camera roll
               </Text>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
         <View

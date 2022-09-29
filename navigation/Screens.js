@@ -1,21 +1,17 @@
-import { Animated, Dimensions, Easing, Image, Platform } from "react-native";
-import { Block, Text, theme } from "galio-framework";
+import { Dimensions } from "react-native";
 import { Header, Icon } from "../components";
 import { Images, materialTheme } from "../constants/";
 import { windowHeight } from "../utils/utils";
-import ComponentsScreen from "../screens/Components";
 import CustomDrawerContent from "./Menu";
 import HomeScreen from "../screens/Home";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import LoginScreen from "../screens/Login";
-import ProScreen from "../screens/Pro";
 import ProfileScreen from "../screens/Profile";
 import React from "react";
 import SettingsScreen from "../screens/Settings";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import {
   createStackNavigator,
-  TransitionPresets,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -42,7 +38,6 @@ import OtherInformationCR2Screen from "../screens/SignUp/OtherInformationCR2";
 import CheckList3Screen from "../screens/SignUp/Checklist3";
 import ServicePreferenceScreen from "../screens/SignUp/ServicePreference";
 import Checklist4Screen from "../screens/SignUp/Checklist4";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import ForgotUsernamePasswordScreen from "../screens/ForgotUsernamePassword/ForgotUsernamePassword";
 import ForgotUsernameScreen from "../screens/ForgotUsernamePassword/ForgotUsername";

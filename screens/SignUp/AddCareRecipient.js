@@ -35,7 +35,7 @@ const AddCareRecipient = ({ navigation }) => {
         >
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => navigation.navigate("CheckList2Screen")}
+            onPress={() => navigation.navigate("CheckListScreen")}
           >
             <Icon
               size={22}
